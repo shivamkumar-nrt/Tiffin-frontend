@@ -1,69 +1,54 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useAuth } from '@/context/AuthContext';
+import { useSidebar } from '@/context/SidebarContext';
 import {
   Utensils,
   LogOut,
-  User as UserIcon,
   CreditCard,
   Menu,
-  X,
-  LayoutDashboard,
-  ClipboardList,
-  CalendarCheck,
-  ChefHat,
-  PackageCheck,
-  FileText,
-  Users,
-  History,
-  PlusCircle,
-  ShieldCheck
+  PanelLeftClose,
+  PanelLeftOpen
 } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 export const Navbar: React.FC = () => {
   const { user, logout, isAdmin } = useAuth();
-  const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const adminNav = [
-    { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'Tiffin Requests', href: '/admin/requests', icon: ClipboardList },
-    { name: 'Daily Consumption Log', href: '/admin/records', icon: CalendarCheck },
-    { name: 'Menu Items', href: '/admin/menu', icon: ChefHat },
-    { name: 'Combos & Thalis', href: '/admin/combos', icon: PackageCheck },
-    { name: 'Balances & Payments', href: '/admin/payments', icon: CreditCard },
-    { name: 'Invoices Center', href: '/admin/invoices', icon: FileText },
-    { name: 'Users Directory', href: '/admin/employees', icon: Users },
-    { name: 'Audit Logs', href: '/admin/audit', icon: History },
-  ];
-
-  const employeeNav = [
-    { name: 'Overview', href: '/user', icon: LayoutDashboard },
-    { name: 'Order Thali / Combo', href: '/user/request', icon: PlusCircle },
-    { name: 'My Tiffin History', href: '/user/records', icon: CalendarCheck },
-    { name: 'Payments & Invoices', href: '/user/invoices', icon: FileText },
-  ];
-
-  const navItems = isAdmin ? adminNav : employeeNav;
+  const { isCollapsed, toggleCollapse, toggleMobile } = useSidebar();
 
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs w-full">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          {/* Brand & Mobile Hamburger */}
+          {/* Brand & Mobile Hamburger & Collapse Button */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             {user && (
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition focus:outline-none"
-                aria-label="Toggle navigation menu"
-              >
-                {mobileMenuOpen ? <X className="w-6 h-6 text-emerald-600" /> : <Menu className="w-6 h-6" />}
-              </button>
+              <>
+                {/* Mobile Menu Toggle Button */}
+                <button
+                  type="button"
+                  onClick={toggleMobile}
+                  className="md:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition focus:outline-none"
+                  aria-label="Toggle navigation drawer"
+                >
+                  <Menu className="w-5 h-5 text-slate-700" />
+                </button>
+
+                {/* Desktop Sidebar Collapse / Expand Button */}
+                <button
+                  type="button"
+                  onClick={toggleCollapse}
+                  className="hidden md:flex p-2 rounded-xl text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 transition-colors focus:outline-none"
+                  title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
+                >
+                  {isCollapsed ? (
+                    <PanelLeftOpen className="w-5 h-5 text-slate-600 hover:text-emerald-600" />
+                  ) : (
+                    <PanelLeftClose className="w-5 h-5 text-slate-600 hover:text-emerald-600" />
+                  )}
+                </button>
+              </>
             )}
 
             <Link href={isAdmin ? '/admin' : '/user'} className="flex items-center space-x-2.5 group">
@@ -86,21 +71,21 @@ export const Navbar: React.FC = () => {
             <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Outstanding Balance Pill for User */}
               {!isAdmin && (
-                <div className="flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-emerald-50 border border-emerald-200 rounded-full text-[11px] sm:text-xs font-semibold text-emerald-700">
-                  <CreditCard className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-emerald-600" />
-                  <span className="hidden xs:inline">Due:</span>
+                <div className="flex items-center space-x-1 sm:space-x-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-200/80 rounded-full text-xs font-semibold text-emerald-800 shadow-xs">
+                  <CreditCard className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="hidden xs:inline text-emerald-700">Due:</span>
                   <span className="text-emerald-950 font-bold">Rs. {Number(user.outstandingBalance || 0).toFixed(2)}</span>
                 </div>
               )}
 
               {/* User Profile Tag */}
-              <div className="flex items-center space-x-2 pl-2 sm:pl-3 border-l border-slate-200">
-                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-semibold text-sm">
+              <div className="flex items-center space-x-2.5 pl-2 sm:pl-3 border-l border-slate-200">
+                <div className="w-8 h-8 rounded-full bg-emerald-100/70 border border-emerald-200 flex items-center justify-center text-emerald-800 font-bold text-xs shadow-xs">
                   {user.fullName ? user.fullName.charAt(0).toUpperCase() : 'U'}
                 </div>
                 <div className="hidden lg:block text-left">
-                  <div className="text-xs font-bold text-slate-800 leading-tight truncate max-w-[120px]">{user.fullName}</div>
-                  <div className="text-[10px] text-slate-500 truncate max-w-[120px]">{user.email}</div>
+                  <div className="text-xs font-bold text-slate-800 leading-tight truncate max-w-[140px]">{user.fullName}</div>
+                  <div className="text-[10px] text-slate-400 truncate max-w-[140px]">{user.email}</div>
                 </div>
               </div>
 
@@ -108,7 +93,7 @@ export const Navbar: React.FC = () => {
               <button
                 onClick={logout}
                 title="Log Out"
-                className="p-1.5 sm:p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors border border-transparent hover:border-red-100"
               >
                 <LogOut className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
@@ -116,61 +101,8 @@ export const Navbar: React.FC = () => {
           )}
         </div>
       </div>
-
-      {/* Mobile Slide-down Navigation Drawer */}
-      {user && mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 shadow-lg animate-in slide-in-from-top duration-200">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-            <div>
-              <div className="text-xs font-bold text-slate-800">{user.fullName}</div>
-              <div className="text-[11px] text-slate-500">{user.email}</div>
-            </div>
-            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-              isAdmin ? 'bg-purple-100 text-purple-800' : 'bg-emerald-100 text-emerald-800'
-            }`}>
-              {isAdmin ? 'ADMINISTRATOR' : 'CUSTOMER'}
-            </span>
-          </div>
-
-          <div className="space-y-1">
-            <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              {isAdmin ? 'Administration Menu' : 'My Account Navigation'}
-            </div>
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-xs transition-all ${
-                    isActive
-                      ? 'bg-emerald-50 text-emerald-700 font-bold shadow-sm border border-emerald-100'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                  }`}
-                >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-600' : 'text-slate-400'}`} />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="pt-2 border-t border-slate-100">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                logout();
-              }}
-              className="w-full flex items-center justify-center space-x-2 py-2.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-xl text-xs font-bold transition"
-            >
-              <LogOut className="w-4 h-4" />
-              <span>Log Out</span>
-            </button>
-          </div>
-        </div>
-      )}
     </header>
   );
 };
+
+export default Navbar;

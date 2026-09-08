@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
+import { SidebarProvider } from '@/context/SidebarContext';
 import GlobalApiLoader from '@/components/GlobalApiLoader';
 
 export const metadata: Metadata = {
@@ -19,8 +20,10 @@ export default function RootLayout({
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
         <ToastProvider>
           <AuthProvider>
-            <GlobalApiLoader />
-            {children}
+            <SidebarProvider>
+              <GlobalApiLoader />
+              {children}
+            </SidebarProvider>
           </AuthProvider>
         </ToastProvider>
       </body>
