@@ -25,6 +25,7 @@ import Loader from '@/components/Loader';
 import Pagination from '@/components/Pagination';
 import { useToast } from '@/context/ToastContext';
 import UserPaymentModal from '@/components/UserPaymentModal';
+import UpiPaymentCard from '@/components/UpiPaymentCard';
 
 export default function UserInvoicesPage() {
   const { showError, showSuccess } = useToast();
@@ -160,7 +161,7 @@ export default function UserInvoicesPage() {
                 Monthly Billing Settlement Window (25th - 30th)
               </div>
               <p className="text-xs font-semibold mt-0.5">
-                Please make your payment via UPI & submit UTR Number to receive your official GST Tax Invoice.
+                Scan the QR code below or enter UTR Number to settle your balance and generate your GST Tax Invoice.
               </p>
             </div>
           </div>
@@ -169,7 +170,7 @@ export default function UserInvoicesPage() {
             className="px-4 py-2 bg-white hover:bg-orange-50 text-orange-700 rounded-xl text-xs font-bold transition shadow-sm shrink-0 flex items-center justify-center space-x-1.5"
           >
             <QrCode className="w-4 h-4 text-orange-600" />
-            <span>Pay & Submit UTR</span>
+            <span>Open Settlement Modal</span>
           </button>
         </div>
       )}
@@ -205,6 +206,13 @@ export default function UserInvoicesPage() {
           </button>
         </div>
       </div>
+
+      {/* Prominent Inline UPI QR Payment Box */}
+      <UpiPaymentCard
+        outstandingBalance={balance}
+        onPaymentSuccess={loadData}
+        title="Live UPI QR Code Payment (Payee: Shivam Kumar)"
+      />
 
       {/* Tabs */}
       <div className="flex items-center space-x-2 border-b border-slate-200 pb-2">

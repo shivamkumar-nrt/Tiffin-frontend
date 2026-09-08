@@ -26,6 +26,7 @@ import { format } from 'date-fns';
 import Loader from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
 import UserPaymentModal from '@/components/UserPaymentModal';
+import UpiPaymentCard from '@/components/UpiPaymentCard';
 
 export default function UserDashboardPage() {
   const { showSuccess, showError, showWarning } = useToast();
@@ -139,7 +140,7 @@ export default function UserDashboardPage() {
                   You have an outstanding balance of Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
                 </h3>
                 <p className="text-xs text-orange-100 mt-0.5">
-                  Please settle your monthly meal bill via UPI/GPay/PhonePe and submit your UTR Number for approval.
+                  Scan the UPI QR code below with any UPI App (GPay, PhonePe, Paytm) and submit your UTR number for admin verification.
                 </p>
               </div>
             </div>
@@ -149,7 +150,7 @@ export default function UserDashboardPage() {
               className="px-5 py-2.5 bg-white hover:bg-orange-50 text-orange-700 rounded-xl text-xs font-black shadow-md hover:shadow-lg transition shrink-0 flex items-center justify-center space-x-2"
             >
               <QrCode className="w-4 h-4 text-orange-600" />
-              <span>Pay & Submit UTR Now</span>
+              <span>Open Full Payment Screen</span>
             </button>
           </div>
         </div>
@@ -177,7 +178,7 @@ export default function UserDashboardPage() {
                 className="mt-1.5 px-3 py-1 bg-white text-emerald-800 hover:bg-emerald-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1"
               >
                 <CreditCard className="w-3 h-3" />
-                <span>Settle Dues</span>
+                <span>Pay via UPI QR</span>
               </button>
             )}
           </div>
@@ -191,6 +192,13 @@ export default function UserDashboardPage() {
           </button>
         </div>
       </div>
+
+      {/* Prominent Live UPI QR Code & Settlement Card (Directly visible to user) */}
+      <UpiPaymentCard
+        outstandingBalance={Number(stats?.outstandingBalance || 0)}
+        onPaymentSuccess={loadData}
+        title="Live UPI QR Code Payment (Payee: Shivam Kumar)"
+      />
 
       {/* Main Grid: Today's Menu & Quick Request */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
