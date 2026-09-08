@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
+import GlobalApiLoader from '@/components/GlobalApiLoader';
 
 export const metadata: Metadata = {
   title: 'Tiffin Service Management System',
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
         <ToastProvider>
           <AuthProvider>
+            <GlobalApiLoader />
             {children}
           </AuthProvider>
         </ToastProvider>

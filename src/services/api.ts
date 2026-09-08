@@ -27,7 +27,32 @@ export const apiClient = axios.create({
   timeout: 30000,
 });
 
+// Global API Activity Tracker for all GET, POST, PUT, DELETE requests
+type LoadingListener = (isLoading: boolean, method?: string, url?: string) => void;
+const loadingListeners: Set<LoadingListener> = new Set();
+let activeRequestsCount = 0;
+
+export const subscribeApiLoading = (listener: LoadingListener) => {
+  loadingListeners.add(listener);
+  return () => {
+    loadingListeners.delete(listener);
+  };
+};
+
+const notifyApiLoading = (isLoading: boolean, method?: string, url?: string) => {
+  loadingListeners.forEach((fn) => {
+    try {
+      fn(isLoading, method, url);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+};
+
 apiClient.interceptors.request.use((config) => {
+  activeRequestsCount++;
+  notifyApiLoading(true, config.method?.toUpperCase(), config.url);
+
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('tiffin_token');
     if (token) {
@@ -38,8 +63,19 @@ apiClient.interceptors.request.use((config) => {
 });
 
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    activeRequestsCount = Math.max(0, activeRequestsCount - 1);
+    if (activeRequestsCount === 0) {
+      notifyApiLoading(false);
+    }
+    return response;
+  },
   (error) => {
+    activeRequestsCount = Math.max(0, activeRequestsCount - 1);
+    if (activeRequestsCount === 0) {
+      notifyApiLoading(false);
+    }
+
     if (error.response && error.response.status === 401) {
       if (typeof window !== 'undefined') {
         const path = window.location.pathname;
