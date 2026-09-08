@@ -14,13 +14,14 @@ import {
   FileText,
   ShieldCheck,
   CreditCard,
-  Check
+  Check,
+  X
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { QRCodeSVG } from 'qrcode.react';
 import { useToast } from '@/context/ToastContext';
 
-interface UpiAccount {
+export interface UpiAccount {
   id: string;
   name: string;
   bank: string;
@@ -30,7 +31,7 @@ interface UpiAccount {
   textColor: string;
 }
 
-const UPI_ACCOUNTS: UpiAccount[] = [
+export const UPI_ACCOUNTS: UpiAccount[] = [
   {
     id: 'kotak',
     name: 'Kotak UPI',
@@ -69,7 +70,7 @@ const UPI_ACCOUNTS: UpiAccount[] = [
   },
 ];
 
-const SENDER_APPS = [
+export const SENDER_APPS = [
   'PhonePe',
   'Google Pay',
   'Paytm',
@@ -84,13 +85,17 @@ const SENDER_APPS = [
 interface UpiPaymentCardProps {
   outstandingBalance: number;
   onPaymentSuccess?: () => void;
+  onClose?: () => void;
   title?: string;
+  isModal?: boolean;
 }
 
 export default function UpiPaymentCard({
   outstandingBalance,
   onPaymentSuccess,
+  onClose,
   title = 'Scan & Pay via UPI (Payee: Shivam Kumar)',
+  isModal = false,
 }: UpiPaymentCardProps) {
   const { showSuccess, showError, showWarning } = useToast();
 
@@ -106,6 +111,33 @@ export default function UpiPaymentCard({
   const [copiedUpi, setCopiedUpi] = useState<boolean>(false);
 
   const payeeName = 'Shivam Kumar';
+
+  // 2-Way Sync: When Receiver UPI is selected, auto-sync sender app
+  const handleSelectUpi = (acc: UpiAccount) => {
+    setSelectedUpi(acc);
+    if (acc.id === 'phonepe') setSenderApp('PhonePe');
+    else if (acc.id === 'kotak') setSenderApp('Kotak Mobile');
+    else if (acc.id === 'amazon') setSenderApp('Amazon Pay');
+    else if (acc.id === 'cred') setSenderApp('CRED');
+  };
+
+  // 2-Way Sync: When Sender app is selected, auto-sync receiver UPI
+  const handleSelectSenderApp = (app: string) => {
+    setSenderApp(app);
+    if (app === 'PhonePe') {
+      const found = UPI_ACCOUNTS.find((x) => x.id === 'phonepe');
+      if (found) setSelectedUpi(found);
+    } else if (app === 'Amazon Pay') {
+      const found = UPI_ACCOUNTS.find((x) => x.id === 'amazon');
+      if (found) setSelectedUpi(found);
+    } else if (app === 'CRED') {
+      const found = UPI_ACCOUNTS.find((x) => x.id === 'cred');
+      if (found) setSelectedUpi(found);
+    } else if (app === 'Kotak Mobile') {
+      const found = UPI_ACCOUNTS.find((x) => x.id === 'kotak');
+      if (found) setSelectedUpi(found);
+    }
+  };
 
   // Construct UPI payment URI
   const upiAmountStr =
@@ -155,6 +187,7 @@ export default function UpiPaymentCard({
         setTransactionRef('');
         setNotes('');
         if (onPaymentSuccess) onPaymentSuccess();
+        if (onClose) onClose();
       }
     } catch (err: any) {
       showError(err.response?.data?.message || 'Failed to submit payment settlement');
@@ -164,7 +197,7 @@ export default function UpiPaymentCard({
   };
 
   return (
-    <div className="bg-white rounded-2xl border-2 border-emerald-500/30 shadow-lg p-5 sm:p-6 space-y-5">
+    <div className={`bg-white rounded-2xl ${isModal ? 'p-0' : 'border-2 border-emerald-500/30 shadow-lg p-5 sm:p-6'} space-y-5`}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
         <div className="flex items-center space-x-3">
@@ -174,19 +207,31 @@ export default function UpiPaymentCard({
           <div>
             <h2 className="text-base sm:text-lg font-black text-slate-900">{title}</h2>
             <p className="text-xs text-slate-500">
-              Select UPI, scan the QR code to pay, then enter the UTR / Transaction ID below.
+              Payee: <strong className="text-slate-800">{payeeName}</strong> &bull; Select UPI, scan QR, and enter UTR Number.
             </p>
           </div>
         </div>
 
-        {outstandingBalance > 0 && (
-          <div className="bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-xl text-left sm:text-right shrink-0">
-            <div className="text-[10px] uppercase font-bold text-emerald-800">Outstanding Due</div>
-            <div className="text-base font-black text-emerald-950">
-              Rs. {Number(outstandingBalance).toFixed(2)}
+        <div className="flex items-center space-x-2">
+          {outstandingBalance > 0 && (
+            <div className="bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-xl text-left sm:text-right shrink-0">
+              <div className="text-[10px] uppercase font-bold text-emerald-800">Outstanding Due</div>
+              <div className="text-base font-black text-emerald-950">
+                Rs. {Number(outstandingBalance).toFixed(2)}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {isModal && onClose && (
+            <button
+              onClick={onClose}
+              className="text-slate-400 hover:text-slate-600 p-1.5 rounded-xl hover:bg-slate-100 transition"
+              title="Close Modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* 4 UPI Option Buttons */}
@@ -201,7 +246,7 @@ export default function UpiPaymentCard({
               <button
                 key={acc.id}
                 type="button"
-                onClick={() => setSelectedUpi(acc)}
+                onClick={() => handleSelectUpi(acc)}
                 className={`p-3 rounded-xl border text-left transition relative flex flex-col justify-between ${
                   isSelected
                     ? 'border-emerald-600 bg-emerald-50/90 text-emerald-950 ring-2 ring-emerald-500 shadow-sm'
@@ -352,7 +397,7 @@ export default function UpiPaymentCard({
                     <button
                       key={app}
                       type="button"
-                      onClick={() => setSenderApp(app)}
+                      onClick={() => handleSelectSenderApp(app)}
                       className={`px-2.5 py-1 rounded-xl border text-[11px] font-bold transition flex items-center space-x-1 ${
                         isSelected
                           ? 'border-emerald-600 bg-emerald-600 text-white shadow-sm'
@@ -411,13 +456,24 @@ export default function UpiPaymentCard({
             </div>
 
             {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={submitting}
-              className="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
-            >
-              <span>{submitting ? 'Submitting Payment...' : 'Submit Payment & UTR Proof'}</span>
-            </button>
+            <div className="flex items-center justify-end space-x-2 pt-2">
+              {isModal && onClose && (
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
+                >
+                  Cancel
+                </button>
+              )}
+              <button
+                type="submit"
+                disabled={submitting}
+                className="flex-1 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
+              >
+                <span>{submitting ? 'Submitting Payment...' : 'Submit Payment & UTR Proof'}</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
