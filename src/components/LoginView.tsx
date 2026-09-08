@@ -90,35 +90,35 @@ export const LoginView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 bg-white">
-      {/* Left 50% Hero Showcase */}
-      <div className="lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden text-white">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 bg-slate-50 lg:bg-white">
+      {/* Left Hero Showcase (Full showcase on LG, compact top banner on mobile) */}
+      <div className="lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-5 sm:p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden text-white">
         {/* Ambient Glows */}
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
         {/* Top Brand Logo */}
         <div className="relative z-10 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-orange-500/30 group-hover:scale-105 transition">
-              <Utensils className="w-6 h-6" />
+          <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-orange-500/30 group-hover:scale-105 transition">
+              <Utensils className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
-              <h1 className="text-xl font-black tracking-tight text-white">TiffinSystem</h1>
-              <p className="text-[11px] text-orange-200/80 font-medium">Daily Fresh Food & Account Portal</p>
+              <h1 className="text-lg sm:text-xl font-black tracking-tight text-white">TiffinSystem</h1>
+              <p className="text-[10px] sm:text-[11px] text-orange-200/80 font-medium">Daily Fresh Food & Account Portal</p>
             </div>
           </Link>
 
           <Link
             href="/"
-            className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition backdrop-blur-md hidden sm:block"
+            className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition backdrop-blur-md flex items-center space-x-1"
           >
-            ← Back to Home
+            <span>← Home</span>
           </Link>
         </div>
 
-        {/* Center Showcase Content */}
-        <div className="relative z-10 my-10 space-y-6 max-w-xl">
+        {/* Center Showcase Content (Hidden on small mobile, visible on lg) */}
+        <div className="relative z-10 my-6 lg:my-10 space-y-4 lg:space-y-6 max-w-xl hidden lg:block">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Pure, Fresh & Home-Style Meals</span>
@@ -164,21 +164,21 @@ export const LoginView: React.FC = () => {
         </div>
 
         {/* Bottom Social Proof */}
-        <div className="relative z-10 pt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+        <div className="relative z-10 pt-4 lg:pt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
           <div className="flex items-center space-x-2">
             <HeartHandshake className="w-4 h-4 text-orange-400" />
-            <span>Hygienic Home Kitchen • On-time Delivery</span>
+            <span className="text-[11px] sm:text-xs">Hygienic Kitchen • Fast Delivery</span>
           </div>
-          <span className="font-bold text-white">4.9 ★ Rating</span>
+          <span className="font-bold text-white text-[11px] sm:text-xs">4.9 ★ Rating</span>
         </div>
       </div>
 
-      {/* Right 50% Auth Card Panel */}
-      <div className="lg:col-span-5 bg-slate-50/70 p-6 lg:p-12 flex flex-col justify-center border-l border-slate-200/60">
-        <div className="max-w-md w-full mx-auto space-y-6">
+      {/* Right Auth Card Panel */}
+      <div className="lg:col-span-5 bg-slate-50/70 p-4 sm:p-8 lg:p-12 flex flex-col justify-center border-l border-slate-200/60">
+        <div className="max-w-md w-full mx-auto space-y-5 sm:space-y-6">
           {/* Header Title */}
           <div>
-            <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
               {mode === 'LOGIN' ? 'Sign In to Your Account' : 'Create an Account'}
             </h3>
             <p className="text-xs text-slate-500 mt-1">

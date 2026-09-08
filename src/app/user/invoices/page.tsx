@@ -62,7 +62,7 @@ export default function UserInvoicesPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full min-w-[650px] text-left text-xs">
             <thead className="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
               <tr>
                 <th className="py-3 px-4">Invoice #</th>

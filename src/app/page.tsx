@@ -28,7 +28,9 @@ import {
   ThumbsUp,
   Award,
   Zap,
-  Check
+  Check,
+  Menu,
+  X
 } from 'lucide-react';
 
 export default function PublicHomePage() {
@@ -37,6 +39,7 @@ export default function PublicHomePage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'ALL' | 'FULL' | 'HALF'>('ALL');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchCombos = async () => {
@@ -120,20 +123,20 @@ export default function PublicHomePage() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="sticky top-0 z-50 bg-slate-950/70 backdrop-blur-xl border-b border-slate-800/80 transition-all shadow-lg shadow-black/40"
+        className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80 transition-all shadow-lg shadow-black/40"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
           {/* Logo with Animated Badge */}
-          <Link href="/" className="flex items-center space-x-3 group">
+          <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group">
             <motion.div
               whileHover={{ rotate: 15, scale: 1.1 }}
-              className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-orange-600 via-amber-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-orange-500/30"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-orange-600 via-amber-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-orange-500/30"
             >
               <Utensils className="w-5 h-5" />
             </motion.div>
             <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-black text-xl text-white tracking-tight group-hover:text-orange-400 transition">
+              <div className="flex items-center space-x-1.5 sm:space-x-2">
+                <span className="font-black text-lg sm:text-xl text-white tracking-tight group-hover:text-orange-400 transition">
                   Tiffin<span className="text-orange-500">System</span>
                 </span>
                 <span className="hidden sm:inline-flex items-center space-x-1 px-2 py-0.5 text-[10px] font-extrabold bg-orange-500/20 border border-orange-500/30 text-orange-400 rounded-full animate-pulse">
@@ -150,43 +153,108 @@ export default function PublicHomePage() {
             <a href="#combos" className="hover:text-orange-400 transition-colors">Menu & Thalis</a>
             <a href="#experience" className="hover:text-orange-400 transition-colors">The Experience</a>
             <a href="#how-it-works" className="hover:text-orange-400 transition-colors">How It Works</a>
-            <a href="#why-us" className="hover:text-orange-400 transition-colors">Why Choose Us</a>
             <a href="#reviews" className="hover:text-orange-400 transition-colors">Reviews</a>
             <a href="#faq" className="hover:text-orange-400 transition-colors">FAQ</a>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex items-center space-x-3">
+          {/* Action Buttons & Mobile Hamburger */}
+          <div className="flex items-center space-x-2 sm:space-x-3">
             {user ? (
               <Link
                 href={isAdmin ? '/admin' : '/user'}
-                className="px-4 py-2.5 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white rounded-xl text-xs font-bold shadow-lg shadow-orange-600/30 flex items-center space-x-2 transition transform hover:-translate-y-0.5"
+                className="px-3.5 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white rounded-xl text-xs font-bold shadow-lg shadow-orange-600/30 flex items-center space-x-1.5 sm:space-x-2 transition transform hover:-translate-y-0.5"
               >
-                <span>{isAdmin ? 'Admin Console' : 'My Dashboard'}</span>
+                <span>{isAdmin ? 'Admin' : 'Portal'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             ) : (
               <>
                 <Link
                   href="/login"
-                  className="px-4 py-2.5 text-xs font-bold text-slate-300 hover:text-white transition rounded-xl hover:bg-slate-800/60"
+                  className="hidden xs:inline-block px-3 sm:px-4 py-2 sm:py-2.5 text-xs font-bold text-slate-300 hover:text-white transition rounded-xl hover:bg-slate-800/60"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/login"
-                  className="relative group overflow-hidden px-5 py-2.5 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-orange-600/30 transition transform hover:-translate-y-0.5 flex items-center space-x-1.5"
+                  className="relative group overflow-hidden px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-orange-600/30 transition transform hover:-translate-y-0.5 flex items-center space-x-1.5"
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
-                  />
-                  <span>Order Tiffin</span>
+                  <span>Order Now</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </>
             )}
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition focus:outline-none"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5 text-orange-400" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-slate-950/95 border-t border-slate-800 px-5 py-4 space-y-3 backdrop-blur-2xl">
+            <div className="space-y-2 text-xs font-semibold text-slate-300">
+              <a
+                href="#combos"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+              >
+                🍲 Menu & Thalis
+              </a>
+              <a
+                href="#experience"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+              >
+                ✨ The Experience
+              </a>
+              <a
+                href="#how-it-works"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+              >
+                ⏱️ How It Works
+              </a>
+              <a
+                href="#reviews"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+              >
+                ⭐ Customer Reviews
+              </a>
+              <a
+                href="#faq"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+              >
+                ❓ Frequently Asked Questions
+              </a>
+            </div>
+
+            <div className="pt-3 border-t border-slate-800 flex items-center space-x-2">
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex-1 py-2.5 bg-slate-900 text-center text-slate-200 hover:text-white rounded-xl text-xs font-bold border border-slate-800 transition"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex-1 py-2.5 bg-gradient-to-r from-orange-600 to-amber-600 text-center text-white rounded-xl text-xs font-bold shadow-md transition"
+              >
+                Create Account
+              </Link>
+            </div>
+          </div>
+        )}
       </motion.nav>
 
       {/* 2. High-Impact Animated Hero Section */}
