@@ -8,16 +8,12 @@ import { Sidebar } from '@/components/Sidebar';
 import Loader from '@/components/Loader';
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
-  const { user, loading, isEmployee, refreshBalance } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading) {
-      if (!user) {
-        router.push('/login');
-      } else {
-        refreshBalance();
-      }
+    if (!loading && !user) {
+      router.push('/login');
     }
   }, [user, loading, router]);
 

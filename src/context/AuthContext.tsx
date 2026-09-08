@@ -71,9 +71,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const res = await userService.getUserBalance(user.id);
         if (res.success && res.data !== undefined) {
-          const updated = { ...user, outstandingBalance: res.data };
-          setUser(updated);
-          localStorage.setItem('tiffin_user', JSON.stringify(updated));
+          if (user.outstandingBalance !== res.data) {
+            const updated = { ...user, outstandingBalance: res.data };
+            setUser(updated);
+            localStorage.setItem('tiffin_user', JSON.stringify(updated));
+          }
         }
       } catch (err) {
         console.error('Failed to refresh balance', err);
