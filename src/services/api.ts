@@ -306,14 +306,31 @@ export const tiffinRecordService = {
 
 // Payment APIs
 export const paymentService = {
-  recordPayment: async (data: { userId: number; amount: number; paymentMethod: string; transactionRef?: string; notes?: string; markAsSuccess?: boolean }) => {
+  recordPayment: async (data: { userId: number; amount: number; paymentMethod: string; paymentApp?: string; paymentDate?: string; transactionRef?: string; notes?: string; markAsSuccess?: boolean }) => {
     clearApiCache();
     const res = await apiClient.post<ApiResponse<Payment>>('/payments', data);
+    return res.data;
+  },
+  submitPayment: async (data: { amount: number; paymentMethod: string; paymentApp?: string; transactionRef: string; paymentDate?: string; notes?: string }) => {
+    clearApiCache();
+    const res = await apiClient.post<ApiResponse<Payment>>('/payments/submit', data);
     return res.data;
   },
   markPaymentSuccess: async (id: number) => {
     clearApiCache();
     const res = await apiClient.patch<ApiResponse<Payment>>(`/payments/${id}/success`);
+    return res.data;
+  },
+  rejectPayment: async (id: number, reason?: string) => {
+    clearApiCache();
+    const res = await apiClient.patch<ApiResponse<Payment>>(`/payments/${id}/reject`, { reason });
+    return res.data;
+  },
+  getReminderStatus: async () => {
+    return cachedGet<ApiResponse<{ active: boolean; dayOfMonth: number; lastDayOfMonth: number; daysLeftInMonth: number; message: string }>>('/payments/reminder-status', undefined, 60000);
+  },
+  sendBulkReminders: async () => {
+    const res = await apiClient.post<ApiResponse<any>>('/payments/send-reminders');
     return res.data;
   },
   getPayments: async (params?: { userId?: number; status?: string; page?: number; size?: number }) => {

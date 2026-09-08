@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { dashboardService, tiffinRequestService, comboService } from '@/services/api';
-import { UserDashboardStats, ComboPackage } from '@/types';
+import { dashboardService, tiffinRequestService, comboService, paymentService } from '@/services/api';
+import { UserDashboardStats, ComboPackage, ReminderStatus } from '@/types';
 import {
   Utensils,
   CreditCard,
@@ -16,12 +16,16 @@ import {
   Candy,
   PackageCheck,
   FileText,
-  RefreshCw
+  RefreshCw,
+  Bell,
+  Sparkles,
+  QrCode
 } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import Loader from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
+import UserPaymentModal from '@/components/UserPaymentModal';
 
 export default function UserDashboardPage() {
   const { showSuccess, showError, showWarning } = useToast();
@@ -29,6 +33,8 @@ export default function UserDashboardPage() {
   const [combos, setCombos] = useState<ComboPackage[]>([]);
   const [selectedCombo, setSelectedCombo] = useState<ComboPackage | null>(null);
   const [loading, setLoading] = useState(true);
+  const [reminderStatus, setReminderStatus] = useState<ReminderStatus | null>(null);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   // Quick Request Box State
   const [requestDate, setRequestDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
@@ -38,9 +44,10 @@ export default function UserDashboardPage() {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [dashRes, comboRes] = await Promise.all([
+      const [dashRes, comboRes, reminderRes] = await Promise.all([
         dashboardService.getUserStats(),
         comboService.getActiveCombos(),
+        paymentService.getReminderStatus().catch(() => null),
       ]);
 
       if (dashRes.success && dashRes.data) {
@@ -51,6 +58,9 @@ export default function UserDashboardPage() {
         if (comboRes.data.length > 0 && !selectedCombo) {
           setSelectedCombo(comboRes.data[0]);
         }
+      }
+      if (reminderRes && reminderRes.success && reminderRes.data) {
+        setReminderStatus(reminderRes.data);
       }
     } catch (err: any) {
       showError(err.message || 'Failed to load user dashboard stats');
@@ -92,6 +102,10 @@ export default function UserDashboardPage() {
     }
   };
 
+  const dayOfMonth = new Date().getDate();
+  const isReminderPeriod = reminderStatus?.active || (dayOfMonth >= 25 && dayOfMonth <= 31);
+  const hasDues = Number(stats?.outstandingBalance || 0) > 0;
+
   if (loading && !stats) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -103,6 +117,44 @@ export default function UserDashboardPage() {
   return (
     <div className="space-y-6 relative">
       {submitting && <Loader fullScreen text="Placing your tiffin order..." />}
+
+      {/* Monthly Payment Settlement Reminder Banner (25th - 30th/31st of month) */}
+      {isReminderPeriod && hasDues && (
+        <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl p-4 sm:p-5 text-white shadow-lg shadow-orange-500/20 border border-amber-300 animate-in fade-in slide-in-from-top-3 duration-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start space-x-3">
+              <div className="p-2.5 bg-white/20 backdrop-blur-md rounded-xl shrink-0">
+                <Bell className="w-6 h-6 text-white animate-bounce" />
+              </div>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-white text-orange-700 tracking-wider">
+                    Monthly Settlement Alert (25th - 30th)
+                  </span>
+                  <span className="text-xs text-orange-100">
+                    {reminderStatus?.daysLeftInMonth ? `${reminderStatus.daysLeftInMonth} days left in month` : 'Month-end settlement'}
+                  </span>
+                </div>
+                <h3 className="text-base sm:text-lg font-black mt-1">
+                  You have an outstanding balance of Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
+                </h3>
+                <p className="text-xs text-orange-100 mt-0.5">
+                  Please settle your monthly meal bill via UPI/GPay/PhonePe and submit your UTR Number for approval.
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsPaymentModalOpen(true)}
+              className="px-5 py-2.5 bg-white hover:bg-orange-50 text-orange-700 rounded-xl text-xs font-black shadow-md hover:shadow-lg transition shrink-0 flex items-center justify-center space-x-2"
+            >
+              <QrCode className="w-4 h-4 text-orange-600" />
+              <span>Pay & Submit UTR Now</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 rounded-2xl p-6 text-white shadow-lg shadow-emerald-500/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -119,6 +171,15 @@ export default function UserDashboardPage() {
             <div className="text-2xl font-black text-white">
               Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
             </div>
+            {hasDues && (
+              <button
+                onClick={() => setIsPaymentModalOpen(true)}
+                className="mt-1.5 px-3 py-1 bg-white text-emerald-800 hover:bg-emerald-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1"
+              >
+                <CreditCard className="w-3 h-3" />
+                <span>Settle Dues</span>
+              </button>
+            )}
           </div>
           <button
             onClick={loadData}
@@ -328,6 +389,14 @@ export default function UserDashboardPage() {
           </table>
         </div>
       </div>
+
+      {/* User Payment Settlement Modal */}
+      <UserPaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        outstandingBalance={Number(stats?.outstandingBalance || 0)}
+        onSuccess={loadData}
+      />
     </div>
   );
 }

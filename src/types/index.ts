@@ -109,14 +109,34 @@ export interface Payment {
   userEmail: string;
   amount: number;
   paymentMethod: PaymentMethod;
+  paymentApp?: string;
+  paymentDate?: string;
   transactionRef?: string;
   notes?: string;
+  rejectionReason?: string;
   status: PaymentStatus;
   verifiedBy?: string;
   verifiedAt?: string;
   createdAt: string;
   invoiceId?: number;
   invoiceNumber?: string;
+}
+
+export interface SubmitPaymentRequest {
+  amount: number;
+  paymentMethod: PaymentMethod;
+  paymentApp?: string;
+  transactionRef: string;
+  paymentDate?: string;
+  notes?: string;
+}
+
+export interface ReminderStatus {
+  active: boolean;
+  dayOfMonth: number;
+  lastDayOfMonth: number;
+  daysLeftInMonth: number;
+  message: string;
 }
 
 export interface InvoiceItem {

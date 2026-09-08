@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { paymentService, userService, invoiceService } from '@/services/api';
-import { Payment, User, PaymentMethod, Invoice } from '@/types';
+import { Payment, User, PaymentMethod, Invoice, ReminderStatus } from '@/types';
 import {
   CreditCard,
   Plus,
@@ -13,7 +13,15 @@ import {
   Check,
   Search,
   RotateCcw,
-  X
+  X,
+  Bell,
+  Send,
+  XCircle,
+  Hash,
+  Calendar,
+  Smartphone,
+  CheckCircle2,
+  RefreshCw
 } from 'lucide-react';
 import { InvoiceModal } from '@/components/InvoiceModal';
 import { Pagination } from '@/components/Pagination';
@@ -21,15 +29,24 @@ import { Loader } from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
 
 export default function AdminPaymentsPage() {
-  const toast = useToast();
+  const { showSuccess, showError, showWarning } = useToast();
   const [payments, setPayments] = useState<Payment[]>([]);
   const [employees, setEmployees] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [sendingReminders, setSendingReminders] = useState(false);
+
+  // Rejection Modal State
+  const [rejectingPayment, setRejectingPayment] = useState<Payment | null>(null);
+  const [rejectionReason, setRejectionReason] = useState('');
+  const [rejectSubmitting, setRejectSubmitting] = useState(false);
 
   // Selected Invoice for preview
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+
+  // Reminder status
+  const [reminderStatus, setReminderStatus] = useState<ReminderStatus | null>(null);
 
   // Filters State
   const [searchQuery, setSearchQuery] = useState('');
@@ -46,6 +63,8 @@ export default function AdminPaymentsPage() {
   // Payment Form State
   const [selectedUserId, setSelectedUserId] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
+  const [paymentDate, setPaymentDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [paymentApp, setPaymentApp] = useState<string>('Google Pay');
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('UPI');
   const [transactionRef, setTransactionRef] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
@@ -54,7 +73,7 @@ export default function AdminPaymentsPage() {
   const loadData = async (page = currentPage, size = pageSize) => {
     try {
       setLoading(true);
-      const [payRes, empRes] = await Promise.all([
+      const [payRes, empRes, reminderRes] = await Promise.all([
         paymentService.getPayments({
           userId: selectedUser ? Number(selectedUser) : undefined,
           status: selectedStatus || undefined,
@@ -62,6 +81,7 @@ export default function AdminPaymentsPage() {
           size: size,
         }),
         userService.getAllEmployees(),
+        paymentService.getReminderStatus().catch(() => null),
       ]);
 
       if (payRes.success && payRes.data) {
@@ -72,8 +92,11 @@ export default function AdminPaymentsPage() {
       if (empRes.success && empRes.data) {
         setEmployees(empRes.data);
       }
-    } catch (err) {
-      toast.error('Failed to load payments data');
+      if (reminderRes && reminderRes.success && reminderRes.data) {
+        setReminderStatus(reminderRes.data);
+      }
+    } catch (err: any) {
+      showError('Failed to load payments data');
     } finally {
       setLoading(false);
     }
@@ -104,7 +127,7 @@ export default function AdminPaymentsPage() {
   const handleRecordPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedUserId || Number(amount) <= 0) {
-      toast.warning('Please select a customer and enter a valid payment amount');
+      showWarning('Please select a customer and enter a valid payment amount');
       return;
     }
 
@@ -114,13 +137,15 @@ export default function AdminPaymentsPage() {
         userId: Number(selectedUserId),
         amount: Number(amount),
         paymentMethod,
+        paymentApp,
+        paymentDate,
         transactionRef,
         notes,
         markAsSuccess,
       });
 
       if (res.success) {
-        toast.success('Payment recorded successfully! Eligible meal records settled and tax invoice generated.');
+        showSuccess('Payment recorded successfully! Meal records settled and tax invoice generated.');
         setShowModal(false);
         setAmount('');
         setTransactionRef('');
@@ -128,7 +153,7 @@ export default function AdminPaymentsPage() {
         await loadData(currentPage, pageSize);
       }
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Payment recording failed');
+      showError(err.response?.data?.message || 'Payment recording failed');
     } finally {
       setSubmitting(false);
     }
@@ -138,11 +163,46 @@ export default function AdminPaymentsPage() {
     try {
       const res = await paymentService.markPaymentSuccess(paymentId);
       if (res.success) {
-        toast.success('Payment verified and tax invoice generated!');
+        showSuccess('Payment approved & verified! Tax invoice generated and meal records marked paid.');
         await loadData(currentPage, pageSize);
       }
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Verification failed');
+      showError(err.response?.data?.message || 'Verification failed');
+    }
+  };
+
+  const handleRejectPayment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!rejectingPayment) return;
+
+    try {
+      setRejectSubmitting(true);
+      const res = await paymentService.rejectPayment(rejectingPayment.id, rejectionReason);
+      if (res.success) {
+        showSuccess(`Payment #${rejectingPayment.paymentNumber} rejected.`);
+        setRejectingPayment(null);
+        setRejectionReason('');
+        await loadData(currentPage, pageSize);
+      }
+    } catch (err: any) {
+      showError(err.response?.data?.message || 'Failed to reject payment');
+    } finally {
+      setRejectSubmitting(false);
+    }
+  };
+
+  const handleSendBulkReminders = async () => {
+    try {
+      setSendingReminders(true);
+      const res = await paymentService.sendBulkReminders();
+      if (res.success) {
+        showSuccess(res.message || 'Payment reminders dispatched successfully to all customers with pending dues!');
+        await loadData(currentPage, pageSize);
+      }
+    } catch (err: any) {
+      showError(err.response?.data?.message || 'Failed to send reminders');
+    } finally {
+      setSendingReminders(false);
     }
   };
 
@@ -153,7 +213,7 @@ export default function AdminPaymentsPage() {
         setSelectedInvoice(res.data);
       }
     } catch (err) {
-      toast.error('Failed to load invoice details');
+      showError('Failed to load invoice details');
     }
   };
 
@@ -163,38 +223,90 @@ export default function AdminPaymentsPage() {
       p.userName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.userEmail?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.paymentNumber?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.transactionRef?.toLowerCase().includes(searchQuery.toLowerCase());
+      p.transactionRef?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.paymentApp?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesMethod = !selectedMethod || p.paymentMethod === selectedMethod;
     return matchesSearch && matchesMethod;
   });
 
   const totalOutstanding = employees.reduce((sum, e) => sum + Number(e.outstandingBalance || 0), 0);
+  const pendingApprovalCount = payments.filter((p) => p.status === 'PENDING_VERIFICATION').length;
+
+  const dayOfMonth = new Date().getDate();
+  const isReminderWindow = reminderStatus?.active || (dayOfMonth >= 25 && dayOfMonth <= 31);
 
   return (
     <div className="space-y-6">
+      {/* Monthly Settlement Reminder Widget (25th - 30th) */}
+      <div className="bg-gradient-to-r from-emerald-800 via-teal-800 to-slate-900 rounded-2xl p-4 sm:p-5 text-white shadow-lg border border-emerald-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-start space-x-3">
+          <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-xl shrink-0">
+            <Bell className="w-6 h-6 text-emerald-300 animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center space-x-2">
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                isReminderWindow ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500/30 text-emerald-200'
+              }`}>
+                {isReminderWindow ? '⚡ 25th-30th Reminder Active' : 'Monthly Reminder Schedule'}
+              </span>
+              <span className="text-xs text-emerald-200">
+                {reminderStatus?.daysLeftInMonth ? `${reminderStatus.daysLeftInMonth} days remaining in month` : 'Auto-triggers on 25th-31st'}
+              </span>
+            </div>
+            <h3 className="text-sm sm:text-base font-bold text-white mt-1">
+              Total Outstanding Balance: Rs. {totalOutstanding.toFixed(2)} ({employees.filter(e => e.outstandingBalance > 0).length} customers due)
+            </h3>
+            <p className="text-xs text-slate-300 mt-0.5">
+              Automatic cron scheduler triggers payment reminders daily at 9:00 AM between the 25th and 30th of every month.
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={handleSendBulkReminders}
+          disabled={sendingReminders}
+          className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-black shadow-md transition shrink-0 flex items-center justify-center space-x-2 disabled:opacity-50"
+        >
+          <Send className={`w-4 h-4 ${sendingReminders ? 'animate-spin' : ''}`} />
+          <span>{sendingReminders ? 'Sending...' : 'Send Reminders Now'}</span>
+        </button>
+      </div>
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
             <CreditCard className="w-5 h-5 text-emerald-600" />
-            <span>Balances, Payments & Settlement</span>
+            <span>Balances, Customer Payments & Settlement</span>
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Record customer payments, verify transactions, and settle meal balances.
+            Review customer self-service UTR submissions, approve settlements, and record admin payments.
           </p>
         </div>
 
-        <button
-          onClick={() => {
-            setSelectedUserId('');
-            setAmount('');
-            setShowModal(true);
-          }}
-          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Record New Payment</span>
-        </button>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => loadData(currentPage, pageSize)}
+            disabled={loading}
+            className="p-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition"
+            title="Refresh"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-emerald-600' : ''}`} />
+          </button>
+
+          <button
+            onClick={() => {
+              setSelectedUserId('');
+              setAmount('');
+              setShowModal(true);
+            }}
+            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Record Manual Payment</span>
+          </button>
+        </div>
       </div>
 
       {/* Customer Balances Grid */}
@@ -202,7 +314,7 @@ export default function AdminPaymentsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-slate-100">
           <div>
             <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
-              Customer Running Balances
+              Customer Running Balances ({employees.length})
             </h2>
             <p className="text-xs text-slate-500">
               Click &apos;Settle / Pay&apos; to log a payment and generate an official invoice.
@@ -214,7 +326,7 @@ export default function AdminPaymentsPage() {
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-72 overflow-y-auto pr-1">
           {employees.map((emp) => (
             <div
               key={emp.id}
@@ -264,7 +376,7 @@ export default function AdminPaymentsPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search user, ref #..."
+              placeholder="Search user, ref #, app..."
               className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
@@ -310,9 +422,9 @@ export default function AdminPaymentsPage() {
             className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
           >
             <option value="">All Statuses</option>
-            <option value="SUCCESS">SUCCESS (Verified)</option>
-            <option value="PENDING_VERIFICATION">PENDING_VERIFICATION</option>
-            <option value="FAILED">FAILED</option>
+            <option value="PENDING_VERIFICATION">⏳ PENDING VERIFICATION (Awaiting Approval)</option>
+            <option value="SUCCESS">✓ SUCCESS (Approved & Settled)</option>
+            <option value="FAILED">✕ FAILED / REJECTED</option>
           </select>
         </div>
       </div>
@@ -323,18 +435,23 @@ export default function AdminPaymentsPage() {
           <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
             Payment & Settlement Transactions Log
           </h2>
+          {pendingApprovalCount > 0 && (
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+              {pendingApprovalCount} Awaiting Admin Approval
+            </span>
+          )}
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[700px] text-left text-xs">
+          <table className="w-full min-w-[760px] text-left text-xs">
             <thead className="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
               <tr>
                 <th className="py-3 px-4">Payment #</th>
                 <th className="py-3 px-4">Customer</th>
                 <th className="py-3 px-4">Amount</th>
-                <th className="py-3 px-4">Method & Ref</th>
+                <th className="py-3 px-4">App & UTR Ref</th>
                 <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4">Verified By</th>
+                <th className="py-3 px-4">Approval / Actions</th>
                 <th className="py-3 px-4 text-right">Invoice</th>
               </tr>
             </thead>
@@ -348,7 +465,12 @@ export default function AdminPaymentsPage() {
               ) : filteredPayments.length > 0 ? (
                 filteredPayments.map((p) => (
                   <tr key={p.id} className="hover:bg-slate-50/70 transition">
-                    <td className="py-3 px-4 font-bold text-slate-900">{p.paymentNumber}</td>
+                    <td className="py-3 px-4 font-bold text-slate-900">
+                      <div>{p.paymentNumber}</div>
+                      <div className="text-[10px] text-slate-400 font-normal">
+                        {p.paymentDate || (p.createdAt ? p.createdAt.split('T')[0] : '')}
+                      </div>
+                    </td>
                     <td className="py-3 px-4">
                       <div className="font-semibold text-slate-800">{p.userName}</div>
                       <div className="text-[10px] text-slate-500">{p.userEmail}</div>
@@ -357,32 +479,56 @@ export default function AdminPaymentsPage() {
                       Rs. {Number(p.amount).toFixed(2)}
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-semibold text-slate-700">{p.paymentMethod}</div>
+                      <div className="font-bold text-slate-800">{p.paymentApp || p.paymentMethod}</div>
                       {p.transactionRef && (
-                        <div className="text-[10px] text-slate-400">Ref: {p.transactionRef}</div>
+                        <div className="text-[10px] font-mono text-slate-600 flex items-center space-x-1">
+                          <Hash className="w-3 h-3 text-slate-400" />
+                          <span>{p.transactionRef}</span>
+                        </div>
                       )}
+                      {p.notes && <div className="text-[10px] text-slate-400 italic">&ldquo;{p.notes}&rdquo;</div>}
                     </td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                         p.status === 'SUCCESS' ? 'bg-emerald-100 text-emerald-800' :
-                        p.status === 'PENDING_VERIFICATION' ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800'
+                        p.status === 'PENDING_VERIFICATION' ? 'bg-amber-100 text-amber-800 animate-pulse' : 'bg-red-100 text-red-800'
                       }`}>
-                        {p.status}
+                        {p.status === 'PENDING_VERIFICATION' ? 'Awaiting Approval' : p.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-500">
-                      {p.verifiedBy ? (
-                        <div>
-                          <div>{p.verifiedBy}</div>
-                          {p.verifiedAt && <div className="text-[10px] text-slate-400">{p.verifiedAt}</div>}
+                    <td className="py-3 px-4">
+                      {p.status === 'PENDING_VERIFICATION' ? (
+                        <div className="flex items-center space-x-1.5">
+                          <button
+                            onClick={() => handleVerifyPayment(p.id)}
+                            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
+                            title="Approve and settle customer dues"
+                          >
+                            <Check className="w-3.5 h-3.5" />
+                            <span>Approve</span>
+                          </button>
+                          <button
+                            onClick={() => {
+                              setRejectingPayment(p);
+                              setRejectionReason('');
+                            }}
+                            className="px-2.5 py-1 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
+                            title="Reject payment"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                            <span>Reject</span>
+                          </button>
+                        </div>
+                      ) : p.status === 'SUCCESS' ? (
+                        <div className="text-slate-500 text-[11px]">
+                          <span className="font-semibold text-emerald-700">✓ Approved</span>
+                          {p.verifiedBy && <div className="text-[10px] text-slate-400">by {p.verifiedBy}</div>}
                         </div>
                       ) : (
-                        <button
-                          onClick={() => handleVerifyPayment(p.id)}
-                          className="px-2 py-0.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded text-[10px] font-bold transition"
-                        >
-                          Verify Now
-                        </button>
+                        <div className="text-red-600 text-[11px]">
+                          <span className="font-bold">✕ Rejected</span>
+                          {p.rejectionReason && <div className="text-[10px] text-slate-500">{p.rejectionReason}</div>}
+                        </div>
                       )}
                     </td>
                     <td className="py-3 px-4 text-right">
@@ -392,7 +538,7 @@ export default function AdminPaymentsPage() {
                           className="px-2.5 py-1 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
                         >
                           <FileText className="w-3.5 h-3.5" />
-                          <span>View Invoice</span>
+                          <span>Invoice</span>
                         </button>
                       ) : (
                         <span className="text-slate-400 text-[10px]">-</span>
@@ -422,7 +568,61 @@ export default function AdminPaymentsPage() {
         />
       </div>
 
-      {/* Record Payment Modal */}
+      {/* Rejection Modal */}
+      {rejectingPayment && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-slate-200 animate-in fade-in zoom-in duration-150">
+            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
+              <h2 className="text-base font-bold text-red-600 flex items-center space-x-2">
+                <AlertCircle className="w-5 h-5" />
+                <span>Reject Payment Settlement</span>
+              </h2>
+              <button onClick={() => setRejectingPayment(null)} className="text-slate-400 hover:text-slate-600">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-600">
+              You are rejecting payment <strong>#{rejectingPayment.paymentNumber}</strong> of <strong>Rs. {Number(rejectingPayment.amount).toFixed(2)}</strong> from <strong>{rejectingPayment.userName}</strong>.
+            </p>
+
+            <form onSubmit={handleRejectPayment} className="space-y-3">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+                  Rejection Reason / Note <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  required
+                  rows={3}
+                  value={rejectionReason}
+                  onChange={(e) => setRejectionReason(e.target.value)}
+                  placeholder="e.g. UTR not matched in bank statement / Incorrect payment amount"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+
+              <div className="flex justify-end space-x-2 pt-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setRejectingPayment(null)}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={rejectSubmitting}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                >
+                  {rejectSubmitting ? 'Rejecting...' : 'Confirm Rejection'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Record Manual Payment Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-slate-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
@@ -455,18 +655,31 @@ export default function AdminPaymentsPage() {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Amount (Rs.)</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="1"
-                  required
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  placeholder="0.00"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Amount (Rs.)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="1"
+                    required
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    placeholder="0.00"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Payment Date</label>
+                  <input
+                    type="date"
+                    required
+                    value={paymentDate}
+                    onChange={(e) => setPaymentDate(e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -477,7 +690,7 @@ export default function AdminPaymentsPage() {
                     onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
-                    <option value="UPI">UPI / GPay / PhonePe</option>
+                    <option value="UPI">UPI / QR Code</option>
                     <option value="CASH">Cash</option>
                     <option value="BANK_TRANSFER">Bank Transfer</option>
                     <option value="CREDIT_CARD">Card</option>
@@ -486,15 +699,26 @@ export default function AdminPaymentsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Transaction Ref #</label>
+                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Payment App</label>
                   <input
                     type="text"
-                    value={transactionRef}
-                    onChange={(e) => setTransactionRef(e.target.value)}
-                    placeholder="e.g. UPI/12345678"
+                    value={paymentApp}
+                    onChange={(e) => setPaymentApp(e.target.value)}
+                    placeholder="e.g. GPay, PhonePe"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Transaction Ref / UTR #</label>
+                <input
+                  type="text"
+                  value={transactionRef}
+                  onChange={(e) => setTransactionRef(e.target.value)}
+                  placeholder="e.g. 423589123456"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
               </div>
 
               <div>
@@ -517,7 +741,7 @@ export default function AdminPaymentsPage() {
                   className="rounded text-emerald-600 focus:ring-emerald-500"
                 />
                 <label htmlFor="markSuccess" className="text-xs font-semibold text-slate-700">
-                  Mark as Verified & Generate Tax Invoice Immediately
+                  Mark as Verified & Settle Invoices Immediately
                 </label>
               </div>
 
