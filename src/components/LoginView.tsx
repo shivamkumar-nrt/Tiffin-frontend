@@ -110,20 +110,20 @@ export const LoginView: React.FC = () => {
         />
       )}
       {/* Left Hero Showcase (Full showcase on LG, compact top banner on mobile) */}
-      <div className="lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-5 sm:p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden text-white">
+      <div className="lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-teal-950 p-5 sm:p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden text-white">
         {/* Ambient Glows */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
         {/* Top Brand Logo */}
         <div className="relative z-10 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-orange-500/30 group-hover:scale-105 transition">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition">
               <Utensils className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
               <h1 className="text-lg sm:text-xl font-black tracking-tight text-white">TiffinSystem</h1>
-              <p className="text-[10px] sm:text-[11px] text-orange-200/80 font-medium">Daily Fresh Food & Account Portal</p>
+              <p className="text-[10px] sm:text-[11px] text-emerald-200/80 font-medium">Daily Fresh Food & Account Portal</p>
             </div>
           </Link>
 
@@ -137,14 +137,14 @@ export const LoginView: React.FC = () => {
 
         {/* Center Showcase Content (Hidden on small mobile, visible on lg) */}
         <div className="relative z-10 my-6 lg:my-10 space-y-4 lg:space-y-6 max-w-xl hidden lg:block">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-teal-400" />
             <span>Pure, Fresh & Home-Style Meals</span>
           </div>
 
           <h2 className="text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
             Delicious Daily Meals, <br />
-            <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-amber-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200 bg-clip-text text-transparent">
               Managed Seamlessly.
             </span>
           </h2>
@@ -156,7 +156,7 @@ export const LoginView: React.FC = () => {
           {/* Value Proposition Cards */}
           <div className="space-y-3 pt-2">
             <div className="flex items-start space-x-3.5 p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <div className="w-9 h-9 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0 mt-0.5">
+              <div className="w-9 h-9 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0 mt-0.5">
                 <ChefHat className="w-5 h-5" />
               </div>
               <div>
@@ -168,7 +168,7 @@ export const LoginView: React.FC = () => {
             </div>
 
             <div className="flex items-start space-x-3.5 p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <div className="w-9 h-9 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 flex-shrink-0 mt-0.5">
+              <div className="w-9 h-9 rounded-xl bg-teal-500/20 flex items-center justify-center text-teal-400 flex-shrink-0 mt-0.5">
                 <Receipt className="w-5 h-5" />
               </div>
               <div>
@@ -184,7 +184,7 @@ export const LoginView: React.FC = () => {
         {/* Bottom Social Proof */}
         <div className="relative z-10 pt-4 lg:pt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
           <div className="flex items-center space-x-2">
-            <HeartHandshake className="w-4 h-4 text-orange-400" />
+            <HeartHandshake className="w-4 h-4 text-emerald-400" />
             <span className="text-[11px] sm:text-xs">Hygienic Kitchen • Fast Delivery</span>
           </div>
           <span className="font-bold text-white text-[11px] sm:text-xs">4.9 ★ Rating</span>
@@ -217,7 +217,7 @@ export const LoginView: React.FC = () => {
               }}
               className={`py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center space-x-1.5 ${
                 mode === 'LOGIN'
-                  ? 'bg-white text-orange-600 shadow-sm'
+                  ? 'bg-white text-emerald-600 shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -234,7 +234,7 @@ export const LoginView: React.FC = () => {
               }}
               className={`py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center space-x-1.5 ${
                 mode === 'SIGNUP'
-                  ? 'bg-white text-orange-600 shadow-sm'
+                  ? 'bg-white text-emerald-600 shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -274,7 +274,7 @@ export const LoginView: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -292,7 +292,7 @@ export const LoginView: React.FC = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -300,7 +300,7 @@ export const LoginView: React.FC = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-xl text-xs shadow-md shadow-orange-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50"
+                  className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl text-xs shadow-md shadow-emerald-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50"
                 >
                   <span>{loading ? 'Signing In...' : 'Sign In'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -323,7 +323,7 @@ export const LoginView: React.FC = () => {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -342,7 +342,7 @@ export const LoginView: React.FC = () => {
                       value={signupEmail}
                       onChange={(e) => setSignupEmail(e.target.value)}
                       placeholder="e.g. rahul@gmail.com"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -362,7 +362,7 @@ export const LoginView: React.FC = () => {
                       value={signupPassword}
                       onChange={(e) => setSignupPassword(e.target.value)}
                       placeholder="At least 6 characters"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -380,7 +380,7 @@ export const LoginView: React.FC = () => {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 9876543210"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -388,7 +388,7 @@ export const LoginView: React.FC = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-xl text-xs shadow-md shadow-orange-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50"
+                  className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl text-xs shadow-md shadow-emerald-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50"
                 >
                   <span>{loading ? 'Creating Account...' : 'Sign Up & Start Ordering'}</span>
                   <ArrowRight className="w-4 h-4" />

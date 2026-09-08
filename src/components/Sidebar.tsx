@@ -58,11 +58,11 @@ export const Sidebar: React.FC = () => {
               href={item.href}
               className={`flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all ${
                 isActive
-                  ? 'bg-orange-50 text-orange-700 font-semibold shadow-sm border border-orange-100'
+                  ? 'bg-emerald-50 text-emerald-700 font-semibold shadow-sm border border-emerald-100'
                   : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-orange-600' : 'text-slate-400'}`} />
+              <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-600' : 'text-slate-400'}`} />
               <span>{item.name}</span>
             </Link>
           );

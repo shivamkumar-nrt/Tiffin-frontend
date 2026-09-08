@@ -72,7 +72,7 @@ export default function UserRequestPage() {
       {submitting && <Loader fullScreen text="Placing your tiffin order..." />}
       <div>
         <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-          <PlusCircle className="w-5 h-5 text-orange-600" />
+          <PlusCircle className="w-5 h-5 text-emerald-600" />
           <span>Order Thali / Combo Tiffin</span>
         </h1>
         <p className="text-xs text-slate-500 mt-0.5">
@@ -94,7 +94,7 @@ export default function UserRequestPage() {
             required
             value={serviceDate}
             onChange={(e) => setServiceDate(e.target.value)}
-            className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
 
@@ -118,18 +118,18 @@ export default function UserRequestPage() {
                     onClick={() => setSelectedCombo(combo)}
                     className={`p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between ${
                       isSelected
-                        ? 'border-orange-600 bg-orange-50/50 shadow-md ring-2 ring-orange-500/20'
+                        ? 'border-emerald-600 bg-emerald-50/50 shadow-md ring-2 ring-emerald-500/20'
                         : 'border-slate-200 hover:border-slate-300 bg-white'
                     }`}
                   >
                     <div className="space-y-2">
                       <div className="flex justify-between items-start">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          combo.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800'
+                          combo.tiffinType === 'FULL' ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
                         }`}>
                           {combo.tiffinType}
                         </span>
-                        <div className="text-base font-black text-orange-600">
+                        <div className="text-base font-black text-emerald-600">
                           Rs. {Number(combo.price).toFixed(2)}
                         </div>
                       </div>
@@ -148,7 +148,7 @@ export default function UserRequestPage() {
                         <div className="space-y-1">
                           {combo.includedItems?.map((dish, idx) => (
                             <div key={idx} className="flex items-center space-x-1.5 text-xs text-slate-700">
-                              <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                               <span>{dish}</span>
                             </div>
                           ))}
@@ -158,7 +158,7 @@ export default function UserRequestPage() {
 
                     <div className="mt-4 pt-3 border-t border-slate-100">
                       <div className={`text-center py-1.5 rounded-xl text-xs font-bold transition ${
-                        isSelected ? 'bg-orange-600 text-white' : 'bg-slate-100 text-slate-600'
+                        isSelected ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'
                       }`}>
                         {isSelected ? '✓ Selected' : 'Select Package'}
                       </div>
@@ -184,14 +184,14 @@ export default function UserRequestPage() {
             value={specialInstructions}
             onChange={(e) => setSpecialInstructions(e.target.value)}
             placeholder="e.g. Less spicy / Extra salad / Deliver to 2nd Floor"
-            className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
 
         <button
           type="submit"
           disabled={submitting || !selectedCombo}
-          className="w-full py-4 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-2xl text-sm shadow-md shadow-orange-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
+          className="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl text-sm shadow-md shadow-emerald-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
         >
           <span>{submitting ? 'Placing Order...' : `Confirm Order - ${selectedCombo?.name || ''} (Rs. ${Number(selectedCombo?.price || 0).toFixed(2)})`}</span>
           <ArrowRight className="w-4 h-4" />

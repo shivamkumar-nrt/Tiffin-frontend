@@ -12,7 +12,7 @@ export default function AdminPricesPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[300px]">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
     </div>
   );
 }

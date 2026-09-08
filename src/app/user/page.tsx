@@ -104,10 +104,10 @@ export default function UserDashboardPage() {
     <div className="space-y-6 relative">
       {submitting && <Loader fullScreen text="Placing your tiffin order..." />}
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 rounded-2xl p-6 text-white shadow-lg shadow-orange-500/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 rounded-2xl p-6 text-white shadow-lg shadow-emerald-500/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black tracking-tight">Welcome to Tiffin Portal</h1>
-          <p className="text-orange-100 text-xs mt-1">
+          <p className="text-emerald-100 text-xs mt-1">
             Order your daily fresh home-style meals, track meal history, and view invoices.
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function UserDashboardPage() {
         {/* Due Balance Card on Banner */}
         <div className="flex items-center space-x-3">
           <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-3 rounded-xl text-right">
-            <div className="text-[10px] uppercase font-bold text-orange-200">Current Outstanding Due</div>
+            <div className="text-[10px] uppercase font-bold text-emerald-200">Current Outstanding Due</div>
             <div className="text-2xl font-black text-white">
               Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
             </div>
@@ -137,7 +137,7 @@ export default function UserDashboardPage() {
         <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
           <div className="flex justify-between items-center pb-3 border-b border-slate-100">
             <div className="flex items-center space-x-2">
-              <ChefHat className="w-5 h-5 text-orange-600" />
+              <ChefHat className="w-5 h-5 text-emerald-600" />
               <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
                 Today&apos;s Special Meal Menu ({format(new Date(), 'dd MMMM yyyy')})
               </h2>
@@ -195,7 +195,7 @@ export default function UserDashboardPage() {
         {/* Quick Order Widget from Dynamic Combos */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
           <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
-            <PlusCircle className="w-5 h-5 text-orange-600" />
+            <PlusCircle className="w-5 h-5 text-emerald-600" />
             <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Quick Order Tiffin</h2>
           </div>
 
@@ -208,7 +208,7 @@ export default function UserDashboardPage() {
                   required
                   value={requestDate}
                   onChange={(e) => setRequestDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -223,7 +223,7 @@ export default function UserDashboardPage() {
                         onClick={() => setSelectedCombo(combo)}
                         className={`p-2.5 rounded-xl border cursor-pointer flex items-center justify-between text-xs transition ${
                           isSel
-                            ? 'border-orange-600 bg-orange-50 text-orange-950 font-semibold shadow-sm ring-1 ring-orange-500'
+                            ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-semibold shadow-sm ring-1 ring-emerald-500'
                             : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                         }`}
                       >
@@ -233,7 +233,7 @@ export default function UserDashboardPage() {
                             {combo.includedItems?.length || 0} items included
                           </div>
                         </div>
-                        <div className="text-right font-black text-orange-600">
+                        <div className="text-right font-black text-emerald-600">
                           Rs. {Number(combo.price).toFixed(2)}
                         </div>
                       </div>
@@ -251,14 +251,14 @@ export default function UserDashboardPage() {
                   value={specialInstructions}
                   onChange={(e) => setSpecialInstructions(e.target.value)}
                   placeholder="e.g. Less oil / Extra salad"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={submitting || !selectedCombo}
-                className="w-full mt-2 py-3 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-xl text-xs shadow-md shadow-orange-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-1.5"
+                className="w-full mt-2 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl text-xs shadow-md shadow-emerald-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-1.5"
               >
                 <span>{submitting ? 'Submitting...' : `Order ${selectedCombo?.name || ''}`}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -276,7 +276,7 @@ export default function UserDashboardPage() {
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
           <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">My Recent Tiffin Requests</h2>
-          <Link href="/user/records" className="text-xs text-orange-600 font-bold hover:underline">
+          <Link href="/user/records" className="text-xs text-emerald-600 font-bold hover:underline">
             View All Records &rarr;
           </Link>
         </div>
@@ -298,7 +298,7 @@ export default function UserDashboardPage() {
                   <tr key={req.id} className="hover:bg-slate-50/70 transition">
                     <td className="py-3 px-4 font-bold text-slate-900">{req.serviceDate}</td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-800">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
                         {req.comboName ? req.comboName : req.tiffinType}
                       </span>
                     </td>

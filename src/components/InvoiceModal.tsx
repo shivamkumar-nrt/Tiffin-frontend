@@ -28,13 +28,13 @@ export const InvoiceModal: React.FC<InvoiceModalProps> = ({ invoice, onClose }) 
         {/* Modal Top Actions */}
         <div className="px-4 sm:px-6 py-3.5 bg-slate-50 border-b border-slate-200 flex flex-wrap justify-between items-center gap-2 print:hidden flex-shrink-0">
           <div className="flex items-center space-x-2 text-slate-800 font-bold text-xs sm:text-sm truncate">
-            <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 flex-shrink-0" />
+            <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 flex-shrink-0" />
             <span className="truncate">Invoice: {invoice.invoiceNumber}</span>
           </div>
           <div className="flex items-center space-x-1.5 sm:space-x-2">
             <button
               onClick={handleDownloadPdf}
-              className="flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3 py-1.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-semibold shadow-sm transition"
+              className="flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-sm transition"
             >
               <Download className="w-3.5 h-3.5" />
               <span>PDF</span>
@@ -60,7 +60,7 @@ export const InvoiceModal: React.FC<InvoiceModalProps> = ({ invoice, onClose }) 
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start pb-6 border-b border-slate-200 gap-3">
             <div>
-              <h1 className="text-xl sm:text-2xl font-black text-orange-600 tracking-tight">TIFFIN SERVICE</h1>
+              <h1 className="text-xl sm:text-2xl font-black text-emerald-600 tracking-tight">TIFFIN SERVICE</h1>
               <p className="text-xs text-slate-500 mt-0.5">Fresh & Nutritious Daily Meal Delivery</p>
               <p className="text-[11px] text-slate-400">Admin Email: shivamstm01@gmail.com | Mobile: +91 9876543210</p>
             </div>
@@ -122,7 +122,7 @@ export const InvoiceModal: React.FC<InvoiceModalProps> = ({ invoice, onClose }) 
                       <td className="py-2 px-3 font-medium text-slate-800">{item.serviceDate}</td>
                       <td className="py-2 px-3">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          item.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800'
+                          item.tiffinType === 'FULL' ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
                         }`}>
                           {item.tiffinType}
                         </span>

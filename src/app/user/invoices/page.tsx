@@ -79,7 +79,7 @@ export default function UserInvoicesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <FileText className="w-5 h-5 text-orange-600" />
+            <FileText className="w-5 h-5 text-emerald-600" />
             <span>My Invoices & Payment Receipts</span>
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -94,7 +94,7 @@ export default function UserInvoicesPage() {
             className="p-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition"
             title="Refresh Invoices"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-orange-600' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-emerald-600' : ''}`} />
           </button>
           <div className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs shadow-sm">
             <span className="text-slate-500">Invoiced Amount: </span>
@@ -113,7 +113,7 @@ export default function UserInvoicesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search invoice number..."
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
@@ -122,7 +122,7 @@ export default function UserInvoicesPage() {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
               placeholder="From Date"
             />
           </div>
@@ -132,7 +132,7 @@ export default function UserInvoicesPage() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
               placeholder="To Date"
             />
           </div>
@@ -193,7 +193,7 @@ export default function UserInvoicesPage() {
                             </button>
                             <button
                               onClick={() => handleDownloadPdf(inv.id)}
-                              className="px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
+                              className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
                             >
                               <Download className="w-3.5 h-3.5" />
                               <span>PDF</span>

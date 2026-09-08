@@ -162,7 +162,7 @@ export default function AdminCombosPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <PackageCheck className="w-5 h-5 text-orange-600" />
+            <PackageCheck className="w-5 h-5 text-emerald-600" />
             <span>Combos & Thali Packages</span>
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -172,7 +172,7 @@ export default function AdminCombosPage() {
 
         <button
           onClick={openCreateModal}
-          className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition self-start sm:self-auto"
+          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Create New Combo / Thali</span>
@@ -191,7 +191,7 @@ export default function AdminCombosPage() {
               setCurrentPage(1);
             }}
             placeholder="Search combo by name, dish..."
-            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
 
@@ -205,7 +205,7 @@ export default function AdminCombosPage() {
               }}
               className={`flex-1 py-2 rounded-xl text-xs font-bold transition ${
                 typeFilter === tab
-                  ? 'bg-orange-600 text-white shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -226,21 +226,21 @@ export default function AdminCombosPage() {
             {paginatedCombos.map((combo) => (
               <div
                 key={combo.id}
-                className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 flex flex-col justify-between hover:border-orange-300 hover:shadow-md transition"
+                className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 flex flex-col justify-between hover:border-emerald-300 hover:shadow-md transition"
               >
                 <div className="space-y-3">
                   {/* Title & Price Header */}
                   <div className="flex justify-between items-start gap-2">
                     <div>
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                        combo.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800'
+                        combo.tiffinType === 'FULL' ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
                       }`}>
                         {combo.tiffinType}
                       </span>
                       <h2 className="text-base font-bold text-slate-900 mt-1">{combo.name}</h2>
                     </div>
                     <div className="text-right">
-                      <div className="text-lg font-black text-orange-600">
+                      <div className="text-lg font-black text-emerald-600">
                         Rs. {Number(combo.price).toFixed(2)}
                       </div>
                       <span className={`text-[10px] font-bold ${combo.active ? 'text-emerald-600' : 'text-slate-400'}`}>
@@ -349,7 +349,7 @@ export default function AdminCombosPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Full Thali or Special Combo"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
 
@@ -360,7 +360,7 @@ export default function AdminCombosPage() {
                   <select
                     value={tiffinType}
                     onChange={(e) => setTiffinType(e.target.value as TiffinType)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
                   >
                     <option value="FULL">FULL Thali / Big Combo</option>
                     <option value="HALF">HALF Thali / Mini Combo</option>
@@ -380,7 +380,7 @@ export default function AdminCombosPage() {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="e.g. 120.00"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-bold"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-bold"
                 />
               </div>
 
@@ -393,7 +393,7 @@ export default function AdminCombosPage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="e.g. 4 Phulkas + 1 Paneer Dish + 1 Dal + Rice + Dessert"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -414,7 +414,7 @@ export default function AdminCombosPage() {
                           key={dish.id}
                           className={`flex items-center space-x-2.5 p-2 rounded-lg cursor-pointer transition text-xs ${
                             isSelected
-                              ? 'bg-orange-100/70 text-orange-900 font-semibold'
+                              ? 'bg-emerald-100/70 text-emerald-900 font-semibold'
                               : 'hover:bg-slate-100 text-slate-700'
                           }`}
                         >
@@ -422,7 +422,7 @@ export default function AdminCombosPage() {
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => toggleDishSelection(dish.name)}
-                            className="rounded text-orange-600 focus:ring-orange-500"
+                            className="rounded text-emerald-600 focus:ring-emerald-500"
                           />
                           <span>{dish.name}</span>
                           <span className="text-[10px] text-slate-400 font-normal">
@@ -445,7 +445,7 @@ export default function AdminCombosPage() {
                   id="activeToggle"
                   checked={isActive}
                   onChange={(e) => setIsActive(e.target.checked)}
-                  className="rounded text-orange-600 focus:ring-orange-500"
+                  className="rounded text-emerald-600 focus:ring-emerald-500"
                 />
                 <label htmlFor="activeToggle" className="text-xs font-semibold text-slate-700">
                   Active (Visible for users to order)
@@ -463,7 +463,7 @@ export default function AdminCombosPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {submitting ? 'Saving...' : editingId ? 'Update Combo' : 'Create Combo'}
                 </button>

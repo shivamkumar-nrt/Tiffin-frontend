@@ -176,7 +176,7 @@ export default function AdminPaymentsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <CreditCard className="w-5 h-5 text-orange-600" />
+            <CreditCard className="w-5 h-5 text-emerald-600" />
             <span>Balances, Payments & Settlement</span>
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -190,7 +190,7 @@ export default function AdminPaymentsPage() {
             setAmount('');
             setShowModal(true);
           }}
-          className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
         >
           <Plus className="w-4 h-4" />
           <span>Record New Payment</span>
@@ -244,7 +244,7 @@ export default function AdminPaymentsPage() {
                 <button
                   type="button"
                   onClick={() => handleSelectUserForPayment(emp)}
-                  className="w-full py-1.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition shadow-sm"
+                  className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-sm"
                 >
                   Settle / Pay
                 </button>
@@ -265,7 +265,7 @@ export default function AdminPaymentsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search user, ref #..."
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
         </div>
@@ -275,7 +275,7 @@ export default function AdminPaymentsPage() {
           <select
             value={selectedUser}
             onChange={(e) => setSelectedUser(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Customers</option>
             {employees.map((emp) => (
@@ -291,7 +291,7 @@ export default function AdminPaymentsPage() {
           <select
             value={selectedMethod}
             onChange={(e) => setSelectedMethod(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
           >
             <option value="">All Methods</option>
             <option value="UPI">UPI / GPay / PhonePe</option>
@@ -307,7 +307,7 @@ export default function AdminPaymentsPage() {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
           >
             <option value="">All Statuses</option>
             <option value="SUCCESS">SUCCESS (Verified)</option>
@@ -389,7 +389,7 @@ export default function AdminPaymentsPage() {
                       {p.invoiceId ? (
                         <button
                           onClick={() => handleViewInvoice(p.invoiceId!)}
-                          className="px-2.5 py-1 bg-slate-100 hover:bg-orange-50 hover:text-orange-700 text-slate-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
+                          className="px-2.5 py-1 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
                         >
                           <FileText className="w-3.5 h-3.5" />
                           <span>View Invoice</span>
@@ -444,7 +444,7 @@ export default function AdminPaymentsPage() {
                     const found = employees.find((x) => String(x.id) === e.target.value);
                     if (found) setAmount(String(found.outstandingBalance || 0));
                   }}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   <option value="">-- Choose Customer --</option>
                   {employees.map((emp) => (
@@ -465,7 +465,7 @@ export default function AdminPaymentsPage() {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   placeholder="0.00"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -475,7 +475,7 @@ export default function AdminPaymentsPage() {
                   <select
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     <option value="UPI">UPI / GPay / PhonePe</option>
                     <option value="CASH">Cash</option>
@@ -492,7 +492,7 @@ export default function AdminPaymentsPage() {
                     value={transactionRef}
                     onChange={(e) => setTransactionRef(e.target.value)}
                     placeholder="e.g. UPI/12345678"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
@@ -504,7 +504,7 @@ export default function AdminPaymentsPage() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="e.g. Cleared monthly dues"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -514,7 +514,7 @@ export default function AdminPaymentsPage() {
                   id="markSuccess"
                   checked={markAsSuccess}
                   onChange={(e) => setMarkAsSuccess(e.target.checked)}
-                  className="rounded text-orange-600 focus:ring-orange-500"
+                  className="rounded text-emerald-600 focus:ring-emerald-500"
                 />
                 <label htmlFor="markSuccess" className="text-xs font-semibold text-slate-700">
                   Mark as Verified & Generate Tax Invoice Immediately
@@ -532,7 +532,7 @@ export default function AdminPaymentsPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {submitting ? 'Processing...' : 'Confirm & Save Payment'}
                 </button>

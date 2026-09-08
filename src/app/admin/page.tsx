@@ -93,10 +93,10 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 rounded-2xl p-6 text-white shadow-lg shadow-orange-500/10">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 rounded-2xl p-6 text-white shadow-lg shadow-emerald-500/10">
         <div>
           <h1 className="text-2xl font-black tracking-tight">Admin Overview</h1>
-          <p className="text-orange-100 text-xs mt-1">
+          <p className="text-emerald-100 text-xs mt-1">
             Monitor pending approvals, daily consumption, outstanding balances & payments.
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function AdminDashboardPage() {
           </Link>
           <Link
             href="/admin/combos"
-            className="px-4 py-2 bg-white text-orange-700 hover:bg-orange-50 rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1.5"
+            className="px-4 py-2 bg-white text-emerald-700 hover:bg-emerald-50 rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1.5"
           >
             <PackageCheck className="w-4 h-4" />
             <span>Combos & Thalis</span>
@@ -147,7 +147,7 @@ export default function AdminDashboardPage() {
                 {stats?.totalTiffinsToday || 0}
               </div>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
               <Utensils className="w-5 h-5" />
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function AdminDashboardPage() {
               <Clock className="w-4 h-4 text-amber-500" />
               <h2 className="text-sm font-bold text-slate-800">Pending Requests Awaiting Approval</h2>
             </div>
-            <Link href="/admin/requests" className="text-xs text-orange-600 font-bold hover:text-orange-700">
+            <Link href="/admin/requests" className="text-xs text-emerald-600 font-bold hover:text-emerald-700">
               View All &rarr;
             </Link>
           </div>
@@ -216,7 +216,7 @@ export default function AdminDashboardPage() {
                       <div className="flex items-center space-x-2">
                         <span className="text-xs font-bold text-slate-900">{req.userName}</span>
                         <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
-                          req.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800'
+                          req.tiffinType === 'FULL' ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
                         }`}>
                           {req.comboName ? req.comboName : req.tiffinType}
                         </span>
@@ -266,12 +266,12 @@ export default function AdminDashboardPage() {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
             <div className="flex justify-between items-center pb-3 border-b border-slate-100">
               <div className="flex items-center space-x-2">
-                <PackageCheck className="w-4 h-4 text-orange-600" />
+                <PackageCheck className="w-4 h-4 text-emerald-600" />
                 <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
                   Active Combos & Thalis
                 </h3>
               </div>
-              <Link href="/admin/combos" className="text-[11px] text-orange-600 font-bold hover:underline">
+              <Link href="/admin/combos" className="text-[11px] text-emerald-600 font-bold hover:underline">
                 Manage
               </Link>
             </div>
@@ -290,7 +290,7 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs font-black text-orange-600">
+                      <div className="text-xs font-black text-emerald-600">
                         Rs. {Number(combo.price).toFixed(2)}
                       </div>
                       <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">

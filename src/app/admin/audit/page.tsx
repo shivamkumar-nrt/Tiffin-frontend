@@ -80,7 +80,7 @@ export default function AdminAuditPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <History className="w-5 h-5 text-orange-600" />
+            <History className="w-5 h-5 text-emerald-600" />
             <span>Audit Trail & Activity Log</span>
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -95,10 +95,10 @@ export default function AdminAuditPage() {
             className="p-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition"
             title="Refresh Logs"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-orange-600' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-emerald-600' : ''}`} />
           </button>
           <div className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs shadow-sm font-semibold text-slate-700">
-            Total Logs: <span className="text-orange-600 font-bold">{logs.length}</span>
+            Total Logs: <span className="text-emerald-600 font-bold">{logs.length}</span>
           </div>
         </div>
       </div>
@@ -113,14 +113,14 @@ export default function AdminAuditPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search audit details or user..."
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="ALL">All Actions</option>
             {uniqueActions.map((act) => (
@@ -133,7 +133,7 @@ export default function AdminAuditPage() {
           <select
             value={entityFilter}
             onChange={(e) => setEntityFilter(e.target.value)}
-            className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="ALL">All Entities</option>
             {uniqueEntities.map((ent) => (
@@ -156,11 +156,11 @@ export default function AdminAuditPage() {
             {paginatedLogs.map((log) => (
               <div
                 key={log.id}
-                className="p-3.5 bg-slate-50 border border-slate-200/70 rounded-xl flex items-start justify-between gap-4 hover:border-orange-200 transition"
+                className="p-3.5 bg-slate-50 border border-slate-200/70 rounded-xl flex items-start justify-between gap-4 hover:border-emerald-200 transition"
               >
                 <div className="space-y-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-800">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
                       {log.action}
                     </span>
                     <span className="text-xs font-bold text-slate-800">

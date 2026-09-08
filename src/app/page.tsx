@@ -87,7 +87,7 @@ export default function PublicHomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-orange-500 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500 selection:text-white overflow-x-hidden">
       {/* Dynamic Background Glowing Orbs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <motion.div
@@ -97,7 +97,7 @@ export default function PublicHomePage() {
             y: [0, 40, 0],
           }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-orange-600/15 rounded-full blur-[140px]"
+          className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-emerald-600/15 rounded-full blur-[140px]"
         />
         <motion.div
           animate={{
@@ -106,7 +106,7 @@ export default function PublicHomePage() {
             y: [0, -60, 0],
           }}
           transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/3 -right-40 w-[550px] h-[550px] bg-amber-500/15 rounded-full blur-[150px]"
+          className="absolute top-1/3 -right-40 w-[550px] h-[550px] bg-teal-500/15 rounded-full blur-[150px]"
         />
         <motion.div
           animate={{
@@ -115,7 +115,7 @@ export default function PublicHomePage() {
             y: [0, 50, 0],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] bg-rose-600/10 rounded-full blur-[140px]"
+          className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[140px]"
         />
       </div>
 
@@ -131,108 +131,106 @@ export default function PublicHomePage() {
           <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group">
             <motion.div
               whileHover={{ rotate: 15, scale: 1.1 }}
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-orange-600 via-amber-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-orange-500/30"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30"
             >
               <Utensils className="w-5 h-5" />
             </motion.div>
             <div>
               <div className="flex items-center space-x-1.5 sm:space-x-2">
-                <span className="font-black text-lg sm:text-xl text-white tracking-tight group-hover:text-orange-400 transition">
-                  Tiffin<span className="text-orange-500">System</span>
+                <span className="font-black text-lg sm:text-xl text-white tracking-tight group-hover:text-emerald-400 transition">
+                  Tiffin<span className="text-emerald-400">System</span>
                 </span>
-                <span className="hidden sm:inline-flex items-center space-x-1 px-2 py-0.5 text-[10px] font-extrabold bg-orange-500/20 border border-orange-500/30 text-orange-400 rounded-full animate-pulse">
-                  <Flame className="w-2.5 h-2.5 text-orange-400 fill-orange-400" />
-                  <span>Fresh & Hot</span>
+                <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  PURE FOOD
                 </span>
               </div>
-              <p className="text-[10px] text-slate-400 -mt-0.5">Home-Style Kitchen Service</p>
+              <div className="text-[10px] text-slate-400 font-medium">Daily Fresh Home Meals & Portal</div>
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center space-x-8 text-xs font-semibold text-slate-300">
-            <a href="#combos" className="hover:text-orange-400 transition-colors">Menu & Thalis</a>
-            <a href="#experience" className="hover:text-orange-400 transition-colors">The Experience</a>
-            <a href="#how-it-works" className="hover:text-orange-400 transition-colors">How It Works</a>
-            <a href="#reviews" className="hover:text-orange-400 transition-colors">Reviews</a>
-            <a href="#faq" className="hover:text-orange-400 transition-colors">FAQ</a>
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center space-x-7 text-xs font-semibold text-slate-300">
+            <a href="#combos" className="hover:text-emerald-400 transition">Menu & Combos</a>
+            <a href="#experience" className="hover:text-emerald-400 transition">Experience</a>
+            <a href="#how-it-works" className="hover:text-emerald-400 transition">How It Works</a>
+            <a href="#reviews" className="hover:text-emerald-400 transition">Reviews</a>
+            <a href="#faq" className="hover:text-emerald-400 transition">FAQ</a>
           </div>
 
-          {/* Action Buttons & Mobile Hamburger */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Nav Right CTA */}
+          <div className="hidden sm:flex items-center space-x-3">
             {user ? (
               <Link
                 href={isAdmin ? '/admin' : '/user'}
-                className="px-3.5 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white rounded-xl text-xs font-bold shadow-lg shadow-orange-600/30 flex items-center space-x-1.5 sm:space-x-2 transition transform hover:-translate-y-0.5"
+                className="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 flex items-center space-x-1.5 transition transform hover:scale-105"
               >
-                <span>{isAdmin ? 'Admin' : 'Portal'}</span>
+                <span>Go to Portal ({user.fullName.split(' ')[0]})</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             ) : (
               <>
                 <Link
                   href="/login"
-                  className="hidden xs:inline-block px-3 sm:px-4 py-2 sm:py-2.5 text-xs font-bold text-slate-300 hover:text-white transition rounded-xl hover:bg-slate-800/60"
+                  className="px-4 py-2 text-xs font-bold text-slate-300 hover:text-white transition"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/login"
-                  className="relative group overflow-hidden px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-orange-600/30 transition transform hover:-translate-y-0.5 flex items-center space-x-1.5"
+                  className="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 flex items-center space-x-1.5 transition transform hover:scale-105"
                 >
-                  <span>Order Now</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  <span>Order Tiffin</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </>
             )}
-
-            {/* Mobile Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition focus:outline-none"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-orange-400" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 transition"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
 
-        {/* Mobile Dropdown Navigation Drawer */}
+        {/* Mobile Slideout */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-slate-950/95 border-t border-slate-800 px-5 py-4 space-y-3 backdrop-blur-2xl">
-            <div className="space-y-2 text-xs font-semibold text-slate-300">
+          <div className="md:hidden mt-3 p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 shadow-2xl">
+            <div className="space-y-1 text-xs font-semibold text-slate-300">
               <a
                 href="#combos"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-emerald-400 transition"
               >
-                🍲 Menu & Thalis
+                🍱 Menu Combos
               </a>
               <a
                 href="#experience"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-emerald-400 transition"
               >
                 ✨ The Experience
               </a>
               <a
                 href="#how-it-works"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-emerald-400 transition"
               >
                 ⏱️ How It Works
               </a>
               <a
                 href="#reviews"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-emerald-400 transition"
               >
                 ⭐ Customer Reviews
               </a>
               <a
                 href="#faq"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-orange-400 transition"
+                className="block py-2 px-3 rounded-lg hover:bg-slate-900 hover:text-emerald-400 transition"
               >
                 ❓ Frequently Asked Questions
               </a>
@@ -249,7 +247,7 @@ export default function PublicHomePage() {
               <Link
                 href="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex-1 py-2.5 bg-gradient-to-r from-orange-600 to-amber-600 text-center text-white rounded-xl text-xs font-bold shadow-md transition"
+                className="flex-1 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-center text-white rounded-xl text-xs font-bold shadow-md transition"
               >
                 Create Account
               </Link>
@@ -274,16 +272,16 @@ export default function PublicHomePage() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-500/30 text-orange-400 text-xs font-bold shadow-inner"
+                className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shadow-inner"
               >
-                <Sparkles className="w-3.5 h-3.5 text-orange-400 animate-spin" />
+                <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-spin" />
                 <span>100% Pure Desi Ghee & Fresh Home-Cooked Meals</span>
               </motion.div>
 
               {/* Title */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
                 Wholesome Home Food <br />
-                <span className="bg-gradient-to-r from-orange-500 via-amber-400 to-yellow-300 bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200 bg-clip-text text-transparent drop-shadow-sm">
                   Delivered Hot & Fresh
                 </span> <br />
                 To Your Doorstep.
@@ -298,7 +296,7 @@ export default function PublicHomePage() {
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                 <Link
                   href="/login"
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white rounded-2xl text-sm font-extrabold shadow-xl shadow-orange-600/30 flex items-center justify-center space-x-2.5 transition transform hover:-translate-y-1 hover:shadow-2xl"
+                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 hover:from-emerald-500 hover:to-teal-400 text-white rounded-2xl text-sm font-extrabold shadow-xl shadow-emerald-600/30 flex items-center justify-center space-x-2.5 transition transform hover:-translate-y-1 hover:shadow-2xl"
                 >
                   <Utensils className="w-4 h-4" />
                   <span>Start Daily Tiffin Now</span>
@@ -309,7 +307,7 @@ export default function PublicHomePage() {
                   href="#combos"
                   className="w-full sm:w-auto px-7 py-4 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white rounded-2xl text-sm font-bold shadow-md flex items-center justify-center space-x-2 transition backdrop-blur-md"
                 >
-                  <PackageCheck className="w-4 h-4 text-orange-400" />
+                  <PackageCheck className="w-4 h-4 text-emerald-400" />
                   <span>Explore Menu & Rates</span>
                 </a>
               </div>
@@ -363,7 +361,7 @@ export default function PublicHomePage() {
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="absolute -bottom-6 -right-6 z-20 hidden sm:flex items-center space-x-2 bg-gradient-to-r from-orange-600 to-amber-600 text-white px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl"
+                className="absolute -bottom-6 -right-6 z-20 hidden sm:flex items-center space-x-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl"
               >
                 <Star className="w-4 h-4 fill-white" />
                 <span className="text-xs font-black">4.9/5 Average Taste Rating</span>
@@ -374,7 +372,7 @@ export default function PublicHomePage() {
                 {/* Header */}
                 <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-500/20 border border-orange-500/40 text-orange-400 flex items-center justify-center font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-bold">
                       <ChefHat className="w-5 h-5" />
                     </div>
                     <div>
@@ -385,7 +383,7 @@ export default function PublicHomePage() {
                       </p>
                     </div>
                   </div>
-                  <span className="px-2.5 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 rounded-lg text-xs font-black">
+                  <span className="px-2.5 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 rounded-lg text-xs font-black">
                     Popular
                   </span>
                 </div>
@@ -419,12 +417,12 @@ export default function PublicHomePage() {
                 <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
                   <div>
                     <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Starting From</div>
-                    <div className="text-xl font-black text-orange-400">Rs. 80.00 / Meal</div>
+                    <div className="text-xl font-black text-emerald-400">Rs. 80.00 / Meal</div>
                   </div>
 
                   <Link
                     href="/login"
-                    className="px-5 py-2.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-orange-600/30 flex items-center space-x-1.5 transition transform hover:scale-105"
+                    className="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/30 flex items-center space-x-1.5 transition transform hover:scale-105"
                   >
                     <span>Order Now</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -442,7 +440,7 @@ export default function PublicHomePage() {
           {/* Header & Tabs */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-3">
-              <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/30 text-orange-400 text-xs font-bold">
+              <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
                 <PackageCheck className="w-3.5 h-3.5" />
                 <span>Daily Menu Catalog</span>
               </div>
@@ -462,7 +460,7 @@ export default function PublicHomePage() {
                   onClick={() => setActiveTab(tab)}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                     activeTab === tab
-                      ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-md'
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -492,27 +490,27 @@ export default function PublicHomePage() {
                     exit={{ opacity: 0, scale: 0.95 }}
                     whileHover={{ y: -8 }}
                     transition={{ duration: 0.3 }}
-                    className="group relative rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 p-6 sm:p-7 border border-slate-800 hover:border-orange-500/60 shadow-xl hover:shadow-2xl hover:shadow-orange-500/10 flex flex-col justify-between transition-all"
+                    className="group relative rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 p-6 sm:p-7 border border-slate-800 hover:border-emerald-500/60 shadow-xl hover:shadow-2xl hover:shadow-emerald-500/10 flex flex-col justify-between transition-all"
                   >
                     <div className="space-y-5">
                       {/* Top Header */}
                       <div className="flex justify-between items-start">
                         <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold ${
                           combo.tiffinType === 'FULL'
-                            ? 'bg-orange-500/20 border border-orange-500/40 text-orange-300'
-                            : 'bg-blue-500/20 border border-blue-500/40 text-blue-300'
+                            ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300'
+                            : 'bg-teal-500/20 border border-teal-500/40 text-teal-300'
                         }`}>
                           {combo.tiffinType === 'FULL' ? 'Full Thali Combo' : 'Half Thali Meal'}
                         </span>
 
-                        <div className="text-2xl font-black text-orange-400">
+                        <div className="text-2xl font-black text-emerald-400">
                           Rs. {Number(combo.price).toFixed(2)}
                         </div>
                       </div>
 
                       {/* Name & Desc */}
                       <div>
-                        <h3 className="text-lg font-black text-white group-hover:text-orange-400 transition">
+                        <h3 className="text-lg font-black text-white group-hover:text-emerald-400 transition">
                           {combo.name}
                         </h3>
                         {combo.description && (
@@ -530,7 +528,7 @@ export default function PublicHomePage() {
                         <div className="space-y-2">
                           {combo.includedItems?.map((dish, idx) => (
                             <div key={idx} className="flex items-center space-x-2.5 text-xs text-slate-300">
-                              <div className="w-4 h-4 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center flex-shrink-0">
+                              <div className="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
                                 <Check className="w-2.5 h-2.5 stroke-[3]" />
                               </div>
                               <span className="font-medium">{dish}</span>
@@ -544,7 +542,7 @@ export default function PublicHomePage() {
                     <div className="mt-8 pt-4 border-t border-slate-800/80">
                       <Link
                         href="/login"
-                        className="w-full py-3 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white rounded-xl text-xs font-bold shadow-md shadow-orange-600/20 flex items-center justify-center space-x-2 transition transform hover:scale-[1.02]"
+                        className="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 flex items-center justify-center space-x-2 transition transform hover:scale-[1.02]"
                       >
                         <span>Select & Order This Thali</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -567,7 +565,7 @@ export default function PublicHomePage() {
       <section id="experience" className="relative z-10 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold">
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
               <Award className="w-3.5 h-3.5" />
               <span>Premium Quality Promise</span>
             </div>
@@ -582,9 +580,9 @@ export default function PublicHomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.div
               whileHover={{ y: -6 }}
-              className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-orange-500/50 space-y-3 backdrop-blur-md"
+              className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 space-y-3 backdrop-blur-md"
             >
-              <div className="w-12 h-12 rounded-2xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-2xl">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl">
                 🍲
               </div>
               <h3 className="text-base font-extrabold text-white">100% Pure Desi Ghee</h3>
@@ -595,9 +593,9 @@ export default function PublicHomePage() {
 
             <motion.div
               whileHover={{ y: -6 }}
-              className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 space-y-3 backdrop-blur-md"
+              className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/50 space-y-3 backdrop-blur-md"
             >
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl">
+              <div className="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-2xl">
                 🔒
               </div>
               <h3 className="text-base font-extrabold text-white">Locked Price Snapshot</h3>
@@ -626,7 +624,7 @@ export default function PublicHomePage() {
       <section id="how-it-works" className="relative z-10 py-20 bg-slate-900/60 border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/30 text-orange-400 text-xs font-bold">
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
               <Clock className="w-3.5 h-3.5" />
               <span>Effortless 3-Step Process</span>
             </div>
@@ -643,7 +641,7 @@ export default function PublicHomePage() {
               whileHover={{ scale: 1.03 }}
               className="bg-slate-900 p-8 rounded-3xl border border-slate-800 shadow-xl space-y-4 text-center relative overflow-hidden"
             >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 text-white font-black text-xl flex items-center justify-center mx-auto shadow-lg shadow-orange-500/30">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-black text-xl flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/30">
                 1
               </div>
               <h3 className="text-base font-extrabold text-white">1. Select Combo & Date</h3>
@@ -656,7 +654,7 @@ export default function PublicHomePage() {
               whileHover={{ scale: 1.03 }}
               className="bg-slate-900 p-8 rounded-3xl border border-slate-800 shadow-xl space-y-4 text-center relative overflow-hidden"
             >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-600 to-yellow-500 text-white font-black text-xl flex items-center justify-center mx-auto shadow-lg shadow-amber-500/30">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-600 to-cyan-500 text-white font-black text-xl flex items-center justify-center mx-auto shadow-lg shadow-teal-500/30">
                 2
               </div>
               <h3 className="text-base font-extrabold text-white">2. Fresh Kitchen Cooking</h3>
@@ -685,8 +683,8 @@ export default function PublicHomePage() {
       <section id="reviews" className="relative z-10 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 text-xs font-bold">
-              <Star className="w-3.5 h-3.5 fill-yellow-400" />
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+              <Star className="w-3.5 h-3.5 fill-emerald-400" />
               <span>Real Customer Stories</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
@@ -734,7 +732,7 @@ export default function PublicHomePage() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-slate-800 flex items-center space-x-3">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-orange-600 to-amber-500 text-white font-bold text-xs flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-bold text-xs flex items-center justify-center">
                     {review.name[0]}
                   </div>
                   <div>
@@ -768,12 +766,12 @@ export default function PublicHomePage() {
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-white hover:text-orange-400 transition"
+                  className="w-full p-5 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-white hover:text-emerald-400 transition"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
                     className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
-                      openFaq === idx ? 'transform rotate-180 text-orange-400' : ''
+                      openFaq === idx ? 'transform rotate-180 text-emerald-400' : ''
                     }`}
                   />
                 </button>
@@ -798,7 +796,7 @@ export default function PublicHomePage() {
       </section>
 
       {/* 8. High-Converting Animated CTA Banner */}
-      <section className="relative z-10 py-20 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 text-white overflow-hidden shadow-2xl">
+      <section className="relative z-10 py-20 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 text-white overflow-hidden shadow-2xl">
         <div className="max-w-5xl mx-auto px-4 text-center space-y-6 relative z-10">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -809,7 +807,7 @@ export default function PublicHomePage() {
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight drop-shadow-md">
               Ready For Wholesome Home Meals Every Day?
             </h2>
-            <p className="text-sm sm:text-base text-orange-100 max-w-2xl mx-auto font-medium">
+            <p className="text-sm sm:text-base text-emerald-100 max-w-2xl mx-auto font-medium">
               Create your account in 10 seconds, choose your favorite thali, and start enjoying healthy homemade food right away.
             </p>
           </motion.div>
@@ -831,7 +829,7 @@ export default function PublicHomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="space-y-3.5">
             <div className="flex items-center space-x-2 text-white font-black text-lg">
-              <div className="w-8 h-8 rounded-xl bg-orange-500 flex items-center justify-center text-white">
+              <div className="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-600/30">
                 <Utensils className="w-4 h-4" />
               </div>
               <span>TiffinSystem</span>
@@ -844,11 +842,11 @@ export default function PublicHomePage() {
           <div className="space-y-2.5">
             <div className="font-bold text-white text-xs uppercase tracking-wider">Quick Navigation</div>
             <ul className="space-y-2 text-[11px]">
-              <li><a href="#combos" className="hover:text-orange-400 transition">Menu & Daily Combos</a></li>
-              <li><a href="#experience" className="hover:text-orange-400 transition">The Food Experience</a></li>
-              <li><a href="#how-it-works" className="hover:text-orange-400 transition">How It Works</a></li>
-              <li><a href="#reviews" className="hover:text-orange-400 transition">Customer Reviews</a></li>
-              <li><a href="#faq" className="hover:text-orange-400 transition">FAQ</a></li>
+              <li><a href="#combos" className="hover:text-emerald-400 transition">Menu & Daily Combos</a></li>
+              <li><a href="#experience" className="hover:text-emerald-400 transition">The Food Experience</a></li>
+              <li><a href="#how-it-works" className="hover:text-emerald-400 transition">How It Works</a></li>
+              <li><a href="#reviews" className="hover:text-emerald-400 transition">Customer Reviews</a></li>
+              <li><a href="#faq" className="hover:text-emerald-400 transition">FAQ</a></li>
             </ul>
           </div>
 
@@ -865,7 +863,7 @@ export default function PublicHomePage() {
               </li>
               <li className="flex justify-between">
                 <span>Service Days:</span>
-                <span className="text-orange-400 font-bold">Monday to Sunday</span>
+                <span className="text-emerald-400 font-bold">Monday to Sunday</span>
               </li>
             </ul>
           </div>
@@ -874,15 +872,15 @@ export default function PublicHomePage() {
             <div className="font-bold text-white text-xs uppercase tracking-wider">Kitchen & Support</div>
             <ul className="space-y-2 text-[11px]">
               <li className="flex items-center space-x-2">
-                <Mail className="w-3.5 h-3.5 text-orange-400" />
+                <Mail className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="text-slate-300">shivamstm01@gmail.com</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Phone className="w-3.5 h-3.5 text-orange-400" />
+                <Phone className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="text-slate-300">+91 9876543210</span>
               </li>
               <li className="flex items-center space-x-2">
-                <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="text-slate-300">Daily Fast Doorstep Delivery</span>
               </li>
             </ul>
