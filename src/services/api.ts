@@ -386,3 +386,15 @@ export const auditLogService = {
     return res.data;
   },
 };
+
+// System Health & Warmup API
+export const healthService = {
+  checkHealth: async () => {
+    try {
+      const res = await apiClient.get('/health');
+      return res.data;
+    } catch {
+      return null;
+    }
+  },
+};

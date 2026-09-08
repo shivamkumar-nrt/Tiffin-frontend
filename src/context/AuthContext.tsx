@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { authService, userService } from '@/services/api';
+import { authService, userService, healthService } from '@/services/api';
 import { AuthResponse, RoleType } from '@/types';
 
 interface AuthContextType {
@@ -39,6 +39,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
     setLoading(false);
+    // Silent warmup ping to backend to prevent cold start delays
+    healthService.checkHealth().catch(() => {});
   }, []);
 
   const login = async (email: string, pass: string) => {
