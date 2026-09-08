@@ -32,6 +32,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import Loader from '@/components/Loader';
 
 export default function PublicHomePage() {
   const { user, isAdmin } = useAuth();
@@ -473,9 +474,8 @@ export default function PublicHomePage() {
 
           {/* Combos Grid */}
           {loading ? (
-            <div className="py-20 text-center">
-              <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-orange-500 border-t-transparent"></div>
-              <p className="text-xs text-slate-400 mt-3">Loading fresh kitchen menu...</p>
+            <div className="py-16">
+              <Loader text="Loading fresh kitchen menu..." />
             </div>
           ) : filteredCombos.length > 0 ? (
             <motion.div

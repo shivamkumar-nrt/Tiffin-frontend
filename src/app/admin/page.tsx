@@ -19,8 +19,11 @@ import {
   AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
+import Loader from '@/components/Loader';
+import { useToast } from '@/context/ToastContext';
 
 export default function AdminDashboardPage() {
+  const { showSuccess, showError } = useToast();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [combos, setCombos] = useState<ComboPackage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -40,8 +43,8 @@ export default function AdminDashboardPage() {
       if (comboRes.success && comboRes.data) {
         setCombos(comboRes.data);
       }
-    } catch (err) {
-      console.error('Failed to load admin stats', err);
+    } catch (err: any) {
+      showError(err.message || 'Failed to load admin stats');
     } finally {
       setLoading(false);
     }
@@ -55,9 +58,10 @@ export default function AdminDashboardPage() {
     try {
       setActionLoading(id);
       await tiffinRequestService.approveRequest(id);
+      showSuccess('Tiffin request approved successfully');
       await loadStats();
     } catch (err: any) {
-      alert(err.response?.data?.message || 'Approval failed');
+      showError(err.response?.data?.message || 'Approval failed');
     } finally {
       setActionLoading(null);
     }
@@ -69,9 +73,10 @@ export default function AdminDashboardPage() {
     try {
       setActionLoading(id);
       await tiffinRequestService.rejectRequest(id, reason);
+      showSuccess('Tiffin request rejected');
       await loadStats();
     } catch (err: any) {
-      alert(err.response?.data?.message || 'Rejection failed');
+      showError(err.response?.data?.message || 'Rejection failed');
     } finally {
       setActionLoading(null);
     }
@@ -80,7 +85,7 @@ export default function AdminDashboardPage() {
   if (loading && !stats) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+        <Loader text="Loading Admin Overview & Analytics..." />
       </div>
     );
   }

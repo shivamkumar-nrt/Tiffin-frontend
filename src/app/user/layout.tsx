@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { Navbar } from '@/components/Navbar';
 import { Sidebar } from '@/components/Sidebar';
+import Loader from '@/components/Loader';
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
   const { user, loading, isEmployee, refreshBalance } = useAuth();
@@ -23,7 +24,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
   if (loading || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-600"></div>
+        <Loader text="Loading your portal..." />
       </div>
     );
   }
