@@ -68,7 +68,8 @@ export default function UserRequestPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 relative">
+      {submitting && <Loader fullScreen text="Placing your tiffin order..." />}
       <div>
         <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
           <PlusCircle className="w-5 h-5 text-orange-600" />

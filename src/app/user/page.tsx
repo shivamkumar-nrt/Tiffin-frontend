@@ -101,7 +101,8 @@ export default function UserDashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {submitting && <Loader fullScreen text="Placing your tiffin order..." />}
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-amber-500 rounded-2xl p-6 text-white shadow-lg shadow-orange-500/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

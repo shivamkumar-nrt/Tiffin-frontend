@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/context/ToastContext';
+import Loader from '@/components/Loader';
 
 export const LoginView: React.FC = () => {
   const { login } = useAuth();
@@ -100,7 +101,14 @@ export const LoginView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 bg-slate-50 lg:bg-white">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 bg-slate-50 lg:bg-white relative">
+      {/* Fullscreen Animated Bar Loader on API call */}
+      {loading && (
+        <Loader
+          fullScreen
+          text={mode === 'LOGIN' ? 'Signing into your account...' : 'Creating your account & logging in...'}
+        />
+      )}
       {/* Left Hero Showcase (Full showcase on LG, compact top banner on mobile) */}
       <div className="lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-5 sm:p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden text-white">
         {/* Ambient Glows */}
