@@ -6,16 +6,18 @@ import { ComboPackage, TiffinType } from '@/types';
 import { PlusCircle, Calendar, PackageCheck, Check, ArrowRight, Sparkles, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
+import Loader from '@/components/Loader';
+import { useToast } from '@/context/ToastContext';
 
 export default function UserRequestPage() {
   const router = useRouter();
+  const { showSuccess, showError, showWarning } = useToast();
   const [serviceDate, setServiceDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
   const [combos, setCombos] = useState<ComboPackage[]>([]);
   const [selectedCombo, setSelectedCombo] = useState<ComboPackage | null>(null);
   const [specialInstructions, setSpecialInstructions] = useState('');
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const fetchCombos = async () => {
@@ -26,8 +28,8 @@ export default function UserRequestPage() {
           setCombos(res.data);
           setSelectedCombo(res.data[0]);
         }
-      } catch (err) {
-        console.error('Failed to load combos', err);
+      } catch (err: any) {
+        showError(err.message || 'Failed to load meal packages');
       } finally {
         setLoading(false);
       }
@@ -38,7 +40,7 @@ export default function UserRequestPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCombo) {
-      alert('Please select a Thali or Combo package');
+      showWarning('Please select a Thali or Combo package');
       return;
     }
 
@@ -53,13 +55,13 @@ export default function UserRequestPage() {
       });
 
       if (res.success) {
-        setSuccess(true);
+        showSuccess(`Order confirmed for ${selectedCombo.name} on ${serviceDate}!`);
         setTimeout(() => {
           router.push('/user/records');
-        }, 1200);
+        }, 1000);
       }
     } catch (err: any) {
-      alert(err.response?.data?.message || 'Request submission failed');
+      showError(err.response?.data?.message || 'Request submission failed');
     } finally {
       setSubmitting(false);
     }
@@ -76,13 +78,6 @@ export default function UserRequestPage() {
           Select your service date and choose from Full Thali, Half Thali, or Special Combo meals.
         </p>
       </div>
-
-      {success && (
-        <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center space-x-2 text-xs text-emerald-800 font-bold">
-          <Check className="w-5 h-5 text-emerald-600" />
-          <span>Tiffin request submitted successfully! Redirecting to your history...</span>
-        </div>
-      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Service Date Box */}
@@ -109,8 +104,8 @@ export default function UserRequestPage() {
           </label>
 
           {loading ? (
-            <div className="text-center py-10 bg-white rounded-2xl border border-slate-200">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+            <div className="py-16 bg-white rounded-2xl border border-slate-200">
+              <Loader text="Loading available Thalis and Combos..." />
             </div>
           ) : combos.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

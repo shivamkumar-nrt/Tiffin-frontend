@@ -15,12 +15,16 @@ import {
   Flame,
   Candy,
   PackageCheck,
-  FileText
+  FileText,
+  RefreshCw
 } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
+import Loader from '@/components/Loader';
+import { useToast } from '@/context/ToastContext';
 
 export default function UserDashboardPage() {
+  const { showSuccess, showError, showWarning } = useToast();
   const [stats, setStats] = useState<UserDashboardStats | null>(null);
   const [combos, setCombos] = useState<ComboPackage[]>([]);
   const [selectedCombo, setSelectedCombo] = useState<ComboPackage | null>(null);
@@ -30,7 +34,6 @@ export default function UserDashboardPage() {
   const [requestDate, setRequestDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
   const [specialInstructions, setSpecialInstructions] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [requestSuccess, setRequestSuccess] = useState<string | null>(null);
 
   const loadData = async () => {
     try {
@@ -45,12 +48,12 @@ export default function UserDashboardPage() {
       }
       if (comboRes.success && comboRes.data) {
         setCombos(comboRes.data);
-        if (comboRes.data.length > 0) {
+        if (comboRes.data.length > 0 && !selectedCombo) {
           setSelectedCombo(comboRes.data[0]);
         }
       }
-    } catch (err) {
-      console.error('Failed to load user dashboard stats', err);
+    } catch (err: any) {
+      showError(err.message || 'Failed to load user dashboard stats');
     } finally {
       setLoading(false);
     }
@@ -63,13 +66,12 @@ export default function UserDashboardPage() {
   const handleQuickRequest = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCombo) {
-      alert('Please select a Thali or Combo package');
+      showWarning('Please select a Thali or Combo package');
       return;
     }
 
     try {
       setSubmitting(true);
-      setRequestSuccess(null);
       const res = await tiffinRequestService.submitRequest({
         serviceDate: requestDate,
         tiffinType: selectedCombo.tiffinType,
@@ -79,12 +81,12 @@ export default function UserDashboardPage() {
       });
 
       if (res.success) {
-        setRequestSuccess(`Request placed for ${selectedCombo.name} on ${requestDate} (Rs. ${Number(selectedCombo.price).toFixed(2)})!`);
+        showSuccess(`Request placed for ${selectedCombo.name} on ${requestDate} (Rs. ${Number(selectedCombo.price).toFixed(2)})!`);
         setSpecialInstructions('');
         await loadData();
       }
     } catch (err: any) {
-      alert(err.response?.data?.message || 'Request submission failed');
+      showError(err.response?.data?.message || 'Request submission failed');
     } finally {
       setSubmitting(false);
     }
@@ -93,7 +95,7 @@ export default function UserDashboardPage() {
   if (loading && !stats) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+        <Loader text="Loading your dashboard & today's menu..." />
       </div>
     );
   }
@@ -110,20 +112,23 @@ export default function UserDashboardPage() {
         </div>
 
         {/* Due Balance Card on Banner */}
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-3 rounded-xl text-right">
-          <div className="text-[10px] uppercase font-bold text-orange-200">Current Outstanding Due</div>
-          <div className="text-2xl font-black text-white">
-            Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
+        <div className="flex items-center space-x-3">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-3 rounded-xl text-right">
+            <div className="text-[10px] uppercase font-bold text-orange-200">Current Outstanding Due</div>
+            <div className="text-2xl font-black text-white">
+              Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
+            </div>
           </div>
+          <button
+            onClick={loadData}
+            disabled={loading}
+            className="p-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white transition"
+            title="Refresh Dashboard"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+          </button>
         </div>
       </div>
-
-      {requestSuccess && (
-        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center space-x-2 text-xs text-emerald-800 font-bold">
-          <CheckCircle className="w-4 h-4 text-emerald-600" />
-          <span>{requestSuccess}</span>
-        </div>
-      )}
 
       {/* Main Grid: Today's Menu & Quick Request */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

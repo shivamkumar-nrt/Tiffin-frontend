@@ -24,6 +24,7 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 30000,
 });
 
 apiClient.interceptors.request.use((config) => {
@@ -42,7 +43,6 @@ apiClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       if (typeof window !== 'undefined') {
         const path = window.location.pathname;
-        // Only redirect to /login if user is attempting to access protected routes (/admin or /user)
         if (path.startsWith('/admin') || path.startsWith('/user')) {
           localStorage.removeItem('tiffin_token');
           localStorage.removeItem('tiffin_user');
@@ -54,19 +54,49 @@ apiClient.interceptors.response.use(
   }
 );
 
+// High-speed In-Memory Client Cache for ultra-fast instant UI rendering
+const memoryCache = new Map<string, { data: any; timestamp: number }>();
+const CACHE_TTL_MS = 60000; // 1 minute client cache
+
+export const clearApiCache = (pattern?: string) => {
+  if (!pattern) {
+    memoryCache.clear();
+  } else {
+    memoryCache.forEach((_, key) => {
+      if (key.includes(pattern)) {
+        memoryCache.delete(key);
+      }
+    });
+  }
+};
+
+const cachedGet = async <T>(url: string, params?: any, ttlMs: number = CACHE_TTL_MS): Promise<T> => {
+  const cacheKey = `${url}:${JSON.stringify(params || {})}`;
+  const cached = memoryCache.get(cacheKey);
+
+  if (cached && Date.now() - cached.timestamp < ttlMs) {
+    return cached.data as T;
+  }
+
+  const res = await apiClient.get<T>(url, { params });
+  memoryCache.set(cacheKey, { data: res.data, timestamp: Date.now() });
+  return res.data;
+};
+
 // Auth APIs
 export const authService = {
   login: async (credentials: { email: string; password: string }) => {
+    clearApiCache();
     const res = await apiClient.post<ApiResponse<AuthResponse>>('/auth/login', credentials);
     return res.data;
   },
   register: async (data: { email: string; password: string; fullName: string; phone?: string; department?: string; role?: string }) => {
+    clearApiCache();
     const res = await apiClient.post<ApiResponse<User>>('/auth/register', data);
     return res.data;
   },
   getCurrentUser: async () => {
-    const res = await apiClient.get<ApiResponse<User>>('/auth/me');
-    return res.data;
+    return cachedGet<ApiResponse<User>>('/auth/me', undefined, 120000);
   },
 };
 
@@ -77,10 +107,10 @@ export const userService = {
     return res.data;
   },
   getAllEmployees: async () => {
-    const res = await apiClient.get<ApiResponse<User[]>>('/users/employees');
-    return res.data;
+    return cachedGet<ApiResponse<User[]>>('/users/employees', undefined, 15000);
   },
   createUser: async (data: any) => {
+    clearApiCache('users');
     const res = await apiClient.post<ApiResponse<User>>('/users', data);
     return res.data;
   },
@@ -89,6 +119,7 @@ export const userService = {
     return res.data;
   },
   updateUserStatus: async (id: number, status: 'ACTIVE' | 'INACTIVE') => {
+    clearApiCache('users');
     const res = await apiClient.patch<ApiResponse<User>>(`/users/${id}/status`, { status });
     return res.data;
   },
@@ -105,30 +136,32 @@ export const userService = {
 // Menu Items & Dishes APIs
 export const menuService = {
   getAllMenuItems: async () => {
-    const res = await apiClient.get<ApiResponse<MenuItem[]>>('/menus/items');
-    return res.data;
+    return cachedGet<ApiResponse<MenuItem[]>>('/menus/items', undefined, 30000);
   },
   createMenuItem: async (item: MenuItem) => {
+    clearApiCache('menus');
     const res = await apiClient.post<ApiResponse<MenuItem>>('/menus/items', item);
     return res.data;
   },
   deleteMenuItem: async (id: number) => {
+    clearApiCache('menus');
     const res = await apiClient.delete<ApiResponse<string>>(`/menus/items/${id}`);
     return res.data;
   },
   getMenuByDate: async (date?: string) => {
-    const res = await apiClient.get<ApiResponse<Menu>>('/menus', { params: { date } });
-    return res.data;
+    return cachedGet<ApiResponse<Menu>>('/menus', { date }, 30000);
   },
   getMenusInRange: async (startDate: string, endDate: string) => {
     const res = await apiClient.get<ApiResponse<Menu[]>>('/menus/range', { params: { startDate, endDate } });
     return res.data;
   },
   saveMenu: async (menu: Menu) => {
+    clearApiCache('menus');
     const res = await apiClient.post<ApiResponse<Menu>>('/menus', menu);
     return res.data;
   },
   deleteMenu: async (id: number) => {
+    clearApiCache('menus');
     const res = await apiClient.delete<ApiResponse<string>>(`/menus/${id}`);
     return res.data;
   },
@@ -137,26 +170,27 @@ export const menuService = {
 // Combos & Thalis APIs
 export const comboService = {
   getAllCombos: async () => {
-    const res = await apiClient.get<ApiResponse<ComboPackage[]>>('/combos');
-    return res.data;
+    return cachedGet<ApiResponse<ComboPackage[]>>('/combos', undefined, 20000);
   },
   getActiveCombos: async () => {
-    const res = await apiClient.get<ApiResponse<ComboPackage[]>>('/combos/active');
-    return res.data;
+    return cachedGet<ApiResponse<ComboPackage[]>>('/combos/active', undefined, 30000);
   },
   getComboById: async (id: number) => {
     const res = await apiClient.get<ApiResponse<ComboPackage>>(`/combos/${id}`);
     return res.data;
   },
   createCombo: async (combo: ComboPackage) => {
+    clearApiCache('combos');
     const res = await apiClient.post<ApiResponse<ComboPackage>>('/combos', combo);
     return res.data;
   },
   updateCombo: async (id: number, combo: ComboPackage) => {
+    clearApiCache('combos');
     const res = await apiClient.put<ApiResponse<ComboPackage>>(`/combos/${id}`, combo);
     return res.data;
   },
   deleteCombo: async (id: number) => {
+    clearApiCache('combos');
     const res = await apiClient.delete<ApiResponse<string>>(`/combos/${id}`);
     return res.data;
   },
@@ -165,18 +199,18 @@ export const comboService = {
 // Price APIs
 export const priceService = {
   getCurrentPrices: async () => {
-    const res = await apiClient.get<ApiResponse<{ FULL: PriceConfig; HALF: PriceConfig }>>('/prices/current');
-    return res.data;
+    return cachedGet<ApiResponse<{ FULL: PriceConfig; HALF: PriceConfig }>>('/prices/current', undefined, 60000);
   },
   getAllPrices: async () => {
-    const res = await apiClient.get<ApiResponse<PriceConfig[]>>('/prices');
-    return res.data;
+    return cachedGet<ApiResponse<PriceConfig[]>>('/prices', undefined, 60000);
   },
   createPrice: async (price: PriceConfig) => {
+    clearApiCache('prices');
     const res = await apiClient.post<ApiResponse<PriceConfig>>('/prices', price);
     return res.data;
   },
   updatePrice: async (id: number, price: PriceConfig) => {
+    clearApiCache('prices');
     const res = await apiClient.put<ApiResponse<PriceConfig>>(`/prices/${id}`, price);
     return res.data;
   },
@@ -185,6 +219,7 @@ export const priceService = {
 // Tiffin Request APIs
 export const tiffinRequestService = {
   submitRequest: async (data: { userId?: number; serviceDate: string; tiffinType: 'FULL' | 'HALF'; comboId?: number; comboName?: string; specialInstructions?: string }) => {
+    clearApiCache('dashboard');
     const res = await apiClient.post<ApiResponse<TiffinRequest>>('/tiffin-requests', data);
     return res.data;
   },
@@ -197,14 +232,17 @@ export const tiffinRequestService = {
     return res.data;
   },
   approveRequest: async (id: number) => {
+    clearApiCache('dashboard');
     const res = await apiClient.patch<ApiResponse<TiffinRequest>>(`/tiffin-requests/${id}/approve`);
     return res.data;
   },
   rejectRequest: async (id: number, rejectionReason?: string) => {
+    clearApiCache('dashboard');
     const res = await apiClient.patch<ApiResponse<TiffinRequest>>(`/tiffin-requests/${id}/reject`, { rejectionReason });
     return res.data;
   },
   cancelRequest: async (id: number) => {
+    clearApiCache('dashboard');
     const res = await apiClient.patch<ApiResponse<TiffinRequest>>(`/tiffin-requests/${id}/cancel`);
     return res.data;
   },
@@ -233,10 +271,12 @@ export const tiffinRecordService = {
 // Payment APIs
 export const paymentService = {
   recordPayment: async (data: { userId: number; amount: number; paymentMethod: string; transactionRef?: string; notes?: string; markAsSuccess?: boolean }) => {
+    clearApiCache();
     const res = await apiClient.post<ApiResponse<Payment>>('/payments', data);
     return res.data;
   },
   markPaymentSuccess: async (id: number) => {
+    clearApiCache();
     const res = await apiClient.patch<ApiResponse<Payment>>(`/payments/${id}/success`);
     return res.data;
   },
@@ -276,20 +316,17 @@ export const invoiceService = {
 // Dashboard APIs
 export const dashboardService = {
   getAdminStats: async () => {
-    const res = await apiClient.get<ApiResponse<DashboardStats>>('/dashboard/admin');
-    return res.data;
+    return cachedGet<ApiResponse<DashboardStats>>('/dashboard/admin', undefined, 10000);
   },
   getUserStats: async () => {
-    const res = await apiClient.get<ApiResponse<UserDashboardStats>>('/dashboard/user');
-    return res.data;
+    return cachedGet<ApiResponse<UserDashboardStats>>('/dashboard/user', undefined, 10000);
   },
 };
 
 // Audit Log APIs
 export const auditLogService = {
   getRecentLogs: async () => {
-    const res = await apiClient.get<ApiResponse<AuditLog[]>>('/audit-logs/recent');
-    return res.data;
+    return cachedGet<ApiResponse<AuditLog[]>>('/audit-logs/recent', undefined, 10000);
   },
   getLogs: async (params?: { page?: number; size?: number }) => {
     const res = await apiClient.get<ApiResponse<PageResponse<AuditLog>>>('/audit-logs', { params });

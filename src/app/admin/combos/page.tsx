@@ -11,20 +11,29 @@ import {
   Check,
   Utensils,
   Sparkles,
-  Tag,
-  CheckCircle2,
-  XCircle,
+  Search,
   X
 } from 'lucide-react';
+import { Pagination } from '@/components/Pagination';
+import { Loader } from '@/components/Loader';
+import { useToast } from '@/context/ToastContext';
 
 export default function AdminCombosPage() {
+  const toast = useToast();
   const [combos, setCombos] = useState<ComboPackage[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
+
+  // Filters State
+  const [searchQuery, setSearchQuery] = useState('');
+  const [typeFilter, setTypeFilter] = useState<string>('ALL');
+
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
 
   // Form State
   const [name, setName] = useState('');
@@ -49,7 +58,7 @@ export default function AdminCombosPage() {
         setMenuItems(itemsRes.data);
       }
     } catch (err) {
-      console.error('Failed to load combos/items', err);
+      toast.error('Failed to load combos catalog');
     } finally {
       setLoading(false);
     }
@@ -92,14 +101,12 @@ export default function AdminCombosPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || Number(price) <= 0) {
-      alert('Please provide valid name and price');
+      toast.warning('Please provide a valid combo name and price');
       return;
     }
 
     try {
       setSubmitting(true);
-      setMessage(null);
-
       const payload: ComboPackage = {
         name: name.trim(),
         tiffinType,
@@ -111,16 +118,16 @@ export default function AdminCombosPage() {
 
       if (editingId) {
         await comboService.updateCombo(editingId, payload);
-        setMessage(`Combo '${name}' updated successfully!`);
+        toast.success(`Combo '${name}' updated successfully!`);
       } else {
         await comboService.createCombo(payload);
-        setMessage(`Combo '${name}' created successfully!`);
+        toast.success(`Combo '${name}' created successfully!`);
       }
 
       setShowModal(false);
       await loadData();
     } catch (err: any) {
-      alert(err.response?.data?.message || 'Failed to save combo');
+      toast.error(err.response?.data?.message || 'Failed to save combo package');
     } finally {
       setSubmitting(false);
     }
@@ -130,12 +137,24 @@ export default function AdminCombosPage() {
     if (!confirm(`Are you sure you want to delete combo '${comboName}'?`)) return;
     try {
       await comboService.deleteCombo(id);
-      setMessage(`Combo '${comboName}' deleted`);
+      toast.info(`Combo '${comboName}' deleted`);
       await loadData();
     } catch (err: any) {
-      alert(err.response?.data?.message || 'Failed to delete combo');
+      toast.error(err.response?.data?.message || 'Failed to delete combo');
     }
   };
+
+  const filteredCombos = combos.filter((c) => {
+    const matchesSearch =
+      !searchQuery.trim() ||
+      c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (c.description && c.description.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchesType = typeFilter === 'ALL' || c.tiffinType === typeFilter;
+    return matchesSearch && matchesType;
+  });
+
+  const totalPages = Math.ceil(filteredCombos.length / pageSize) || 1;
+  const paginatedCombos = filteredCombos.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div className="space-y-6">
@@ -153,104 +172,151 @@ export default function AdminCombosPage() {
 
         <button
           onClick={openCreateModal}
-          className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+          className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Create New Combo / Thali</span>
         </button>
       </div>
 
-      {message && (
-        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center space-x-2 text-xs text-emerald-800 font-bold">
-          <Check className="w-4 h-4 text-emerald-600" />
-          <span>{message}</span>
+      {/* Filter Bar */}
+      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="relative">
+          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
+            placeholder="Search combo by name, dish..."
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+          />
         </div>
-      )}
+
+        <div className="flex items-center space-x-2">
+          {(['ALL', 'FULL', 'HALF'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => {
+                setTypeFilter(tab);
+                setCurrentPage(1);
+              }}
+              className={`flex-1 py-2 rounded-xl text-xs font-bold transition ${
+                typeFilter === tab
+                  ? 'bg-orange-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {tab === 'ALL' ? 'All Combos' : tab === 'FULL' ? 'Full Thalis' : 'Half Thalis'}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Combos Grid */}
       {loading ? (
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+        <div className="py-12 text-center bg-white rounded-2xl border border-slate-200">
+          <Loader text="Loading meal packages..." />
         </div>
-      ) : combos.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {combos.map((combo) => (
-            <div
-              key={combo.id}
-              className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 flex flex-col justify-between hover:border-orange-300 hover:shadow-md transition"
-            >
-              <div className="space-y-3">
-                {/* Title & Price Header */}
-                <div className="flex justify-between items-start gap-2">
-                  <div>
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                      combo.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800'
-                    }`}>
-                      {combo.tiffinType}
-                    </span>
-                    <h2 className="text-base font-bold text-slate-900 mt-1">{combo.name}</h2>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg font-black text-orange-600">
-                      Rs. {Number(combo.price).toFixed(2)}
+      ) : paginatedCombos.length > 0 ? (
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedCombos.map((combo) => (
+              <div
+                key={combo.id}
+                className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 flex flex-col justify-between hover:border-orange-300 hover:shadow-md transition"
+              >
+                <div className="space-y-3">
+                  {/* Title & Price Header */}
+                  <div className="flex justify-between items-start gap-2">
+                    <div>
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        combo.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800'
+                      }`}>
+                        {combo.tiffinType}
+                      </span>
+                      <h2 className="text-base font-bold text-slate-900 mt-1">{combo.name}</h2>
                     </div>
-                    <span className={`text-[10px] font-bold ${combo.active ? 'text-emerald-600' : 'text-slate-400'}`}>
-                      {combo.active ? '● Active' : '○ Inactive'}
-                    </span>
+                    <div className="text-right">
+                      <div className="text-lg font-black text-orange-600">
+                        Rs. {Number(combo.price).toFixed(2)}
+                      </div>
+                      <span className={`text-[10px] font-bold ${combo.active ? 'text-emerald-600' : 'text-slate-400'}`}>
+                        {combo.active ? '● Active' : '○ Inactive'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  {combo.description && (
+                    <p className="text-xs text-slate-500">{combo.description}</p>
+                  )}
+
+                  {/* Included Dishes / Food Items */}
+                  <div className="pt-2 border-t border-slate-100">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                      Included Dishes ({combo.includedItems?.length || 0})
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto">
+                      {combo.includedItems && combo.includedItems.length > 0 ? (
+                        combo.includedItems.map((dish, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-lg text-[11px] font-medium text-slate-700"
+                          >
+                            {dish}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-xs text-slate-400">Standard Daily Thali items</span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-                {/* Description */}
-                {combo.description && (
-                  <p className="text-xs text-slate-500">{combo.description}</p>
-                )}
-
-                {/* Included Dishes / Food Items */}
-                <div className="pt-2 border-t border-slate-100">
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    Included Dishes ({combo.includedItems?.length || 0})
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto">
-                    {combo.includedItems && combo.includedItems.length > 0 ? (
-                      combo.includedItems.map((dish, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-lg text-[11px] font-medium text-slate-700"
-                        >
-                          {dish}
-                        </span>
-                      ))
-                    ) : (
-                      <span className="text-xs text-slate-400">Standard Daily Thali items</span>
-                    )}
-                  </div>
+                {/* Actions */}
+                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-end space-x-2">
+                  <button
+                    onClick={() => openEditModal(combo)}
+                    className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
+                  >
+                    <Edit2 className="w-3.5 h-3.5" />
+                    <span>Edit</span>
+                  </button>
+                  <button
+                    onClick={() => combo.id && handleDelete(combo.id, combo.name)}
+                    className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Delete</span>
+                  </button>
                 </div>
               </div>
+            ))}
+          </div>
 
-              {/* Actions */}
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-end space-x-2">
-                <button
-                  onClick={() => openEditModal(combo)}
-                  className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
-                >
-                  <Edit2 className="w-3.5 h-3.5" />
-                  <span>Edit</span>
-                </button>
-                <button
-                  onClick={() => combo.id && handleDelete(combo.id, combo.name)}
-                  className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  <span>Delete</span>
-                </button>
-              </div>
-            </div>
-          ))}
+          {/* Pagination */}
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalItems={filteredCombos.length}
+              pageSize={pageSize}
+              pageSizeOptions={[6, 12, 24]}
+              onPageChange={(p) => setCurrentPage(p)}
+              onPageSizeChange={(s) => {
+                setPageSize(s);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
         </div>
       ) : (
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center text-slate-400">
           <PackageCheck className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <h3 className="text-sm font-bold text-slate-700">No Combos or Thalis Created Yet</h3>
+          <h3 className="text-sm font-bold text-slate-700">No Combos or Thalis Found</h3>
           <p className="text-xs text-slate-500 mt-1">Click &apos;Create New Combo / Thali&apos; to add your first package.</p>
         </div>
       )}
@@ -258,7 +324,7 @@ export default function AdminCombosPage() {
       {/* Create / Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-4 sm:p-6 space-y-4 border border-slate-200 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-4 sm:p-6 space-y-4 border border-slate-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
               <h2 className="text-base font-bold text-slate-900">
                 {editingId ? 'Edit Combo / Thali Package' : 'Create New Combo / Thali Package'}
@@ -294,7 +360,7 @@ export default function AdminCombosPage() {
                   <select
                     value={tiffinType}
                     onChange={(e) => setTiffinType(e.target.value as TiffinType)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
                   >
                     <option value="FULL">FULL Thali / Big Combo</option>
                     <option value="HALF">HALF Thali / Mini Combo</option>
@@ -314,7 +380,7 @@ export default function AdminCombosPage() {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="e.g. 120.00"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-bold"
                 />
               </div>
 
@@ -390,14 +456,14 @@ export default function AdminCombosPage() {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm disabled:opacity-50"
+                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {submitting ? 'Saving...' : editingId ? 'Update Combo' : 'Create Combo'}
                 </button>

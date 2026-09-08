@@ -20,9 +20,11 @@ import {
   HeartHandshake
 } from 'lucide-react';
 import Link from 'next/link';
+import { useToast } from '@/context/ToastContext';
 
 export const LoginView: React.FC = () => {
   const { login } = useAuth();
+  const { showSuccess, showError, showWarning } = useToast();
   const [mode, setMode] = useState<'LOGIN' | 'SIGNUP'>('LOGIN');
 
   // Sign In State (Clean blank inputs)
@@ -46,8 +48,11 @@ export const LoginView: React.FC = () => {
 
     try {
       await login(email, password);
+      showSuccess('Signed in successfully!');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed. Please verify your email and password.');
+      const msg = err.response?.data?.message || 'Login failed. Please verify your email and password.';
+      setError(msg);
+      showError(msg);
     } finally {
       setLoading(false);
     }
@@ -60,11 +65,13 @@ export const LoginView: React.FC = () => {
 
     if (!fullName.trim() || !signupEmail.trim() || !signupPassword.trim()) {
       setError('Please fill in all required fields.');
+      showWarning('Please fill in all required fields.');
       return;
     }
 
     if (signupPassword.length < 6) {
       setError('Password must be at least 6 characters.');
+      showWarning('Password must be at least 6 characters.');
       return;
     }
 
@@ -79,11 +86,14 @@ export const LoginView: React.FC = () => {
       });
 
       if (res.success) {
+        showSuccess('Account created successfully! Logging you in...');
         setSuccessMsg('Account created successfully! Logging you in...');
         await login(signupEmail.trim(), signupPassword);
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Registration failed. Email might already exist.');
+      const msg = err.response?.data?.message || 'Registration failed. Email might already exist.';
+      setError(msg);
+      showError(msg);
     } finally {
       setLoading(false);
     }
