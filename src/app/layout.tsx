@@ -4,6 +4,7 @@ import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
 import { SidebarProvider } from '@/context/SidebarContext';
 import GlobalApiLoader from '@/components/GlobalApiLoader';
+import PushNotificationManager from '@/components/PushNotificationManager';
 
 export const metadata: Metadata = {
   title: 'Tiffin Service Management System',
@@ -21,6 +22,7 @@ export default function RootLayout({
         <ToastProvider>
           <AuthProvider>
             <SidebarProvider>
+              <PushNotificationManager />
               <GlobalApiLoader />
               {children}
             </SidebarProvider>

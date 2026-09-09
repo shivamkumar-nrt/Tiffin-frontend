@@ -14,11 +14,14 @@ import {
   Check,
   RotateCcw,
   X,
-  Sparkles
+  Sparkles,
+  MessageCircle
 } from 'lucide-react';
 import { Pagination } from '@/components/Pagination';
 import { Loader } from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
+import { openWhatsApp, whatsappTemplates } from '@/utils/whatsapp';
+import { showLocalPushNotification } from '@/utils/pushNotification';
 import { format, subDays, startOfMonth } from 'date-fns';
 
 export default function AdminRequestsPage() {
@@ -339,31 +342,54 @@ export default function AdminRequestsPage() {
                       ) : '-'}
                     </td>
                     <td className="py-3 px-4 text-right">
-                      {req.status === 'PENDING' ? (
-                        <div className="flex items-center justify-end space-x-1.5">
-                          <button
-                            onClick={() => handleApprove(req)}
-                            disabled={actionLoading === req.id}
-                            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold transition flex items-center space-x-1 disabled:opacity-50 shadow-sm"
-                          >
-                            <Check className="w-3 h-3" />
-                            <span>Approve</span>
-                          </button>
-                          <button
-                            onClick={() => {
-                              setRejectingRequest(req);
-                              setRejectionReason('');
-                            }}
-                            disabled={actionLoading === req.id}
-                            className="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-[11px] font-bold transition flex items-center space-x-1 disabled:opacity-50"
-                          >
-                            <XCircle className="w-3 h-3" />
-                            <span>Reject</span>
-                          </button>
-                        </div>
-                      ) : (
-                        <span className="text-[11px] text-slate-400 font-medium">Completed</span>
-                      )}
+                      {(() => {
+                        const matchedEmp = employees.find(e => e.id === req.userId || e.email === req.userEmail);
+                        const empPhone = matchedEmp?.phone;
+
+                        return (
+                          <div className="flex items-center justify-end space-x-1.5">
+                            {req.status === 'PENDING' ? (
+                              <>
+                                <button
+                                  onClick={() => handleApprove(req)}
+                                  disabled={actionLoading === req.id}
+                                  className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold transition flex items-center space-x-1 disabled:opacity-50 shadow-sm"
+                                >
+                                  <Check className="w-3 h-3" />
+                                  <span>Approve</span>
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setRejectingRequest(req);
+                                    setRejectionReason('');
+                                  }}
+                                  disabled={actionLoading === req.id}
+                                  className="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-[11px] font-bold transition flex items-center space-x-1 disabled:opacity-50"
+                                >
+                                  <XCircle className="w-3 h-3" />
+                                  <span>Reject</span>
+                                </button>
+                              </>
+                            ) : (
+                              <span className="text-[11px] text-slate-400 font-medium mr-1">Completed</span>
+                            )}
+                            {empPhone && (
+                              <button
+                                onClick={() => {
+                                  const msg = req.status === 'APPROVED'
+                                    ? whatsappTemplates.requestApproved(req.userName || 'Customer', req.serviceDate, req.comboName || req.tiffinType)
+                                    : whatsappTemplates.paymentReminder(req.userName || 'Customer', 120);
+                                  openWhatsApp(empPhone, msg);
+                                }}
+                                className="p-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg transition"
+                                title="Chat on WhatsApp"
+                              >
+                                <MessageCircle className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </td>
                   </tr>
                 ))

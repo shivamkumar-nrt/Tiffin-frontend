@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { userService } from '@/services/api';
 import { User, UserStatus } from '@/types';
-import { Users, Plus, Search, Shield, CheckCircle, XCircle, Check, KeyRound, X, RotateCcw } from 'lucide-react';
+import { Users, Plus, Search, Shield, CheckCircle, XCircle, Check, KeyRound, X, RotateCcw, MessageCircle } from 'lucide-react';
 import { Pagination } from '@/components/Pagination';
 import { Loader } from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
+import { openWhatsApp, whatsappTemplates } from '@/utils/whatsapp';
 
 export default function AdminUsersPage() {
   const toast = useToast();
@@ -251,6 +252,17 @@ export default function AdminUsersPage() {
                       </span>
                     </td>
                     <td className="py-3 px-4 text-right space-x-2">
+                      {u.phone && (
+                        <button
+                          onClick={() => openWhatsApp(u.phone || '', whatsappTemplates.paymentReminder(u.fullName, 0))}
+                          className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
+                          title="Chat with user on WhatsApp"
+                        >
+                          <MessageCircle className="w-3.5 h-3.5" />
+                          <span>WhatsApp</span>
+                        </button>
+                      )}
+
                       <button
                         onClick={() => {
                           setResetModalUser(u);

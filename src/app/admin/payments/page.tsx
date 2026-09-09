@@ -21,12 +21,15 @@ import {
   Calendar,
   Smartphone,
   CheckCircle2,
-  RefreshCw
+  RefreshCw,
+  MessageCircle
 } from 'lucide-react';
 import { InvoiceModal } from '@/components/InvoiceModal';
 import { Pagination } from '@/components/Pagination';
 import { Loader } from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
+import { openWhatsApp, whatsappTemplates } from '@/utils/whatsapp';
+import { showLocalPushNotification } from '@/utils/pushNotification';
 
 export default function AdminPaymentsPage() {
   const { showSuccess, showError, showWarning } = useToast();
@@ -497,39 +500,72 @@ export default function AdminPaymentsPage() {
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      {p.status === 'PENDING_VERIFICATION' ? (
-                        <div className="flex items-center space-x-1.5">
-                          <button
-                            onClick={() => handleVerifyPayment(p.id)}
-                            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
-                            title="Approve and settle customer dues"
-                          >
-                            <Check className="w-3.5 h-3.5" />
-                            <span>Approve</span>
-                          </button>
-                          <button
-                            onClick={() => {
-                              setRejectingPayment(p);
-                              setRejectionReason('');
-                            }}
-                            className="px-2.5 py-1 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
-                            title="Reject payment"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                            <span>Reject</span>
-                          </button>
-                        </div>
-                      ) : p.status === 'SUCCESS' ? (
-                        <div className="text-slate-500 text-[11px]">
-                          <span className="font-semibold text-emerald-700">✓ Approved</span>
-                          {p.verifiedBy && <div className="text-[10px] text-slate-400">by {p.verifiedBy}</div>}
-                        </div>
-                      ) : (
-                        <div className="text-red-600 text-[11px]">
-                          <span className="font-bold">✕ Rejected</span>
-                          {p.rejectionReason && <div className="text-[10px] text-slate-500">{p.rejectionReason}</div>}
-                        </div>
-                      )}
+                      {(() => {
+                        const matchedEmp = employees.find(e => e.id === p.userId || e.email === p.userEmail);
+                        const empPhone = matchedEmp?.phone;
+
+                        if (p.status === 'PENDING_VERIFICATION') {
+                          return (
+                            <div className="flex items-center space-x-1.5">
+                              <button
+                                onClick={() => handleVerifyPayment(p.id)}
+                                className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
+                                title="Approve and settle customer dues"
+                              >
+                                <Check className="w-3.5 h-3.5" />
+                                <span>Approve</span>
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setRejectingPayment(p);
+                                  setRejectionReason('');
+                                }}
+                                className="px-2 py-1 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
+                                title="Reject payment"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                                <span>Reject</span>
+                              </button>
+                              {empPhone && (
+                                <button
+                                  onClick={() => openWhatsApp(empPhone, whatsappTemplates.paymentReminder(p.userName || 'Customer', p.amount))}
+                                  className="p-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg transition"
+                                  title="Chat / Send Reminder on WhatsApp"
+                                >
+                                  <MessageCircle className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                            </div>
+                          );
+                        }
+
+                        if (p.status === 'SUCCESS') {
+                          return (
+                            <div className="flex items-center space-x-2">
+                              <div className="text-slate-500 text-[11px]">
+                                <span className="font-semibold text-emerald-700">✓ Approved</span>
+                                {p.verifiedBy && <div className="text-[10px] text-slate-400">by {p.verifiedBy}</div>}
+                              </div>
+                              {empPhone && (
+                                <button
+                                  onClick={() => openWhatsApp(empPhone, whatsappTemplates.paymentVerified(p.userName || 'Customer', p.amount, p.transactionRef))}
+                                  className="p-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg transition"
+                                  title="Send Approval Receipt on WhatsApp"
+                                >
+                                  <MessageCircle className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <div className="text-red-600 text-[11px]">
+                            <span className="font-bold">✕ Rejected</span>
+                            {p.rejectionReason && <div className="text-[10px] text-slate-500">{p.rejectionReason}</div>}
+                          </div>
+                        );
+                      })()}
                     </td>
                     <td className="py-3 px-4 text-right">
                       {p.invoiceId ? (
