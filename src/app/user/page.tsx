@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { dashboardService, tiffinRequestService, comboService, paymentService } from '@/services/api';
-import { UserDashboardStats, ComboPackage, ReminderStatus } from '@/types';
+import { dashboardService, tiffinRequestService, comboService, paymentService, notificationService } from '@/services/api';
+import { UserDashboardStats, ComboPackage, ReminderStatus, BroadcastNotification } from '@/types';
 import {
   Utensils,
   CreditCard,
@@ -19,10 +19,11 @@ import {
   RefreshCw,
   Bell,
   Sparkles,
-  QrCode
+  QrCode,
+  Megaphone
 } from 'lucide-react';
 import Link from 'next/link';
-import { format } from 'date-fns';
+import { format, formatDistanceToNow, parseISO } from 'date-fns';
 import Loader from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
 import UserPaymentModal from '@/components/UserPaymentModal';
@@ -33,6 +34,7 @@ export default function UserDashboardPage() {
   const [stats, setStats] = useState<UserDashboardStats | null>(null);
   const [combos, setCombos] = useState<ComboPackage[]>([]);
   const [selectedCombo, setSelectedCombo] = useState<ComboPackage | null>(null);
+  const [announcements, setAnnouncements] = useState<BroadcastNotification[]>([]);
   const [loading, setLoading] = useState(true);
   const [reminderStatus, setReminderStatus] = useState<ReminderStatus | null>(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
@@ -45,10 +47,11 @@ export default function UserDashboardPage() {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [dashRes, comboRes, reminderRes] = await Promise.all([
+      const [dashRes, comboRes, reminderRes, notifRes] = await Promise.all([
         dashboardService.getUserStats(),
         comboService.getActiveCombos(),
         paymentService.getReminderStatus().catch(() => null),
+        notificationService.getMyNotifications().catch(() => null),
       ]);
 
       if (dashRes.success && dashRes.data) {
@@ -62,6 +65,9 @@ export default function UserDashboardPage() {
       }
       if (reminderRes && reminderRes.success && reminderRes.data) {
         setReminderStatus(reminderRes.data);
+      }
+      if (notifRes && notifRes.success && Array.isArray(notifRes.data)) {
+        setAnnouncements(notifRes.data);
       }
     } catch (err: any) {
       showError(err.message || 'Failed to load user dashboard stats');
@@ -175,7 +181,7 @@ export default function UserDashboardPage() {
             {hasDues && (
               <button
                 onClick={() => setIsPaymentModalOpen(true)}
-                className="mt-1.5 px-3 py-1 bg-white text-emerald-800 hover:bg-emerald-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1"
+                className="mt-1.5 px-3 py-1 bg-white text-emerald-800 hover:bg-emerald-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
               >
                 <CreditCard className="w-3 h-3" />
                 <span>Pay via UPI QR</span>
@@ -185,13 +191,54 @@ export default function UserDashboardPage() {
           <button
             onClick={loadData}
             disabled={loading}
-            className="p-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white transition"
+            className="p-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white transition cursor-pointer"
             title="Refresh Dashboard"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
         </div>
       </div>
+
+      {/* Latest Kitchen Announcements / Broadcast Notice Board */}
+      {announcements.length > 0 && (
+        <div className="bg-white rounded-2xl border border-emerald-100 shadow-sm p-4 sm:p-5 space-y-3">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+            <div className="flex items-center space-x-2">
+              <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                <Megaphone className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">Kitchen Announcements & Special Notices</h3>
+                <p className="text-[11px] text-slate-400">Direct updates from kitchen administrator</p>
+              </div>
+            </div>
+            <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-bold">
+              {announcements.length} Update{announcements.length > 1 ? 's' : ''}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {announcements.slice(0, 2).map((notice, nIdx) => (
+              <div
+                key={nIdx}
+                className="p-3.5 bg-gradient-to-br from-slate-50 to-emerald-50/30 rounded-xl border border-slate-200/80 hover:border-emerald-300 transition space-y-1.5"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-slate-900 truncate">
+                    📢 {notice.title}
+                  </span>
+                  <span className="text-[10px] text-slate-400 shrink-0">
+                    {notice.createdAt ? formatDistanceToNow(parseISO(notice.createdAt), { addSuffix: true }) : 'Recent'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line line-clamp-3">
+                  {notice.message}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Prominent Live UPI QR Code & Settlement Card (Directly visible to user) */}
       <UpiPaymentCard

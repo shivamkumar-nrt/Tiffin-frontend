@@ -144,6 +144,17 @@ export default function AdminNotificationsPage() {
         setTitle('');
         setMessage('');
 
+        // If WhatsApp links are generated, automatically open the first one for single customer
+        if (res.data.whatsAppLinks && res.data.whatsAppLinks.length > 0) {
+          if (targetAudience === 'SINGLE' || res.data.whatsAppLinks.length === 1) {
+            try {
+              window.open(res.data.whatsAppLinks[0].whatsappLink, '_blank');
+            } catch (err) {
+              console.warn('Popup blocked, available in 1-Click WhatsApp list', err);
+            }
+          }
+        }
+
         // Trigger local push preview
         if (sendPush) {
           showLocalPushNotification('📢 ' + res.data.title, res.data.message, '/admin/notifications');
@@ -364,49 +375,105 @@ export default function AdminNotificationsPage() {
             </button>
           </form>
 
-          {/* Last Broadcast WhatsApp Links Box */}
-          {lastBroadcast && lastBroadcast.whatsAppLinks && lastBroadcast.whatsAppLinks.length > 0 && (
-            <div className="bg-emerald-950 text-white rounded-2xl p-5 shadow-xl border border-emerald-500/30 space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-200">
-              <div className="flex items-center justify-between border-b border-emerald-800/80 pb-2.5">
+          {/* Last Broadcast Dispatch Result & WhatsApp Box */}
+          {lastBroadcast && (
+            <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-xl border border-emerald-500/40 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <div className="flex items-center space-x-2">
-                  <MessageCircle className="w-5 h-5 text-emerald-400" />
-                  <span className="font-bold text-sm text-emerald-300">
-                    1-Click WhatsApp Direct Chat List ({lastBroadcast.whatsAppLinks.length} Customers)
-                  </span>
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                    <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-sm text-white">Broadcast Dispatched Successfully</span>
+                    <p className="text-[11px] text-emerald-400 font-medium">Delivered across selected channels ({lastBroadcast.recipientsCount} recipient{lastBroadcast.recipientsCount !== 1 ? 's' : ''})</p>
+                  </div>
                 </div>
                 <button
                   onClick={() => setLastBroadcast(null)}
-                  className="text-xs text-slate-400 hover:text-white"
+                  className="text-xs text-slate-400 hover:text-white px-2 py-1 bg-slate-800 rounded-lg cursor-pointer"
                 >
-                  Close
+                  Dismiss
                 </button>
               </div>
-              <p className="text-[11px] text-slate-300">
-                Click on any customer below to instantly open WhatsApp with the pre-formatted announcement:
-              </p>
 
-              <div className="max-h-52 overflow-y-auto space-y-1.5 pr-1">
-                {lastBroadcast.whatsAppLinks.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between p-2.5 bg-emerald-900/60 rounded-xl border border-emerald-500/20 hover:bg-emerald-900 transition"
-                  >
-                    <div>
-                      <div className="text-xs font-bold text-white">{item.customerName}</div>
-                      <div className="text-[10px] text-emerald-400">{item.phone}</div>
-                    </div>
-                    <a
-                      href={item.whatsappLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 py-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg text-xs flex items-center space-x-1 transition shadow-sm"
-                    >
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      <span>Send WhatsApp</span>
-                    </a>
+              {/* Delivery Channels Status Badges */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div className="p-2.5 bg-slate-800/80 rounded-xl border border-slate-700/60 flex items-center space-x-2">
+                  <Mail className="w-4 h-4 text-sky-400 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[11px] font-bold text-slate-200">Email</div>
+                    <div className="text-[10px] text-emerald-400">Dispatched / Sent</div>
                   </div>
-                ))}
+                </div>
+                <div className="p-2.5 bg-slate-800/80 rounded-xl border border-slate-700/60 flex items-center space-x-2">
+                  <Bell className="w-4 h-4 text-amber-400 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[11px] font-bold text-slate-200">In-App & Push</div>
+                    <div className="text-[10px] text-emerald-400">Live on Bell & Screen</div>
+                  </div>
+                </div>
+                <div className="p-2.5 bg-slate-800/80 rounded-xl border border-slate-700/60 flex items-center space-x-2">
+                  <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[11px] font-bold text-slate-200">WhatsApp</div>
+                    <div className="text-[10px] text-emerald-400">{lastBroadcast.whatsAppLinks?.length || 0} Links Ready</div>
+                  </div>
+                </div>
               </div>
+
+              {/* WhatsApp Links Section */}
+              {lastBroadcast.whatsAppLinks && lastBroadcast.whatsAppLinks.length > 0 && (
+                <div className="space-y-2 pt-1 border-t border-slate-800">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-emerald-300 flex items-center space-x-1.5">
+                      <MessageCircle className="w-4 h-4 text-emerald-400" />
+                      <span>1-Click WhatsApp Direct Chat ({lastBroadcast.whatsAppLinks.length} Customer{lastBroadcast.whatsAppLinks.length > 1 ? 's' : ''})</span>
+                    </span>
+                    <span className="text-[10px] text-slate-400">Pre-formatted announcement</span>
+                  </div>
+
+                  {lastBroadcast.whatsAppLinks.length === 1 ? (
+                    <div className="p-3 bg-emerald-950/80 rounded-xl border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+                      <div>
+                        <div className="text-xs font-bold text-white">{lastBroadcast.whatsAppLinks[0].customerName}</div>
+                        <div className="text-[11px] text-emerald-400 font-mono">{lastBroadcast.whatsAppLinks[0].phone || 'No phone'}</div>
+                      </div>
+                      <a
+                        href={lastBroadcast.whatsAppLinks[0].whatsappLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:w-auto px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-lg cursor-pointer"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        <span>Open WhatsApp Chat Now</span>
+                      </a>
+                    </div>
+                  ) : (
+                    <div className="max-h-52 overflow-y-auto space-y-1.5 pr-1">
+                      {lastBroadcast.whatsAppLinks.map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between p-2.5 bg-slate-800/80 rounded-xl border border-slate-700 hover:bg-slate-800 transition"
+                        >
+                          <div>
+                            <div className="text-xs font-bold text-white">{item.customerName}</div>
+                            <div className="text-[10px] text-emerald-400 font-mono">{item.phone}</div>
+                          </div>
+                          <a
+                            href={item.whatsappLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg text-xs flex items-center space-x-1 transition shadow-sm cursor-pointer"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5" />
+                            <span>Send WhatsApp</span>
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
