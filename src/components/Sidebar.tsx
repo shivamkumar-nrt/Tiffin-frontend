@@ -19,7 +19,8 @@ import {
   ShieldCheck,
   ChevronLeft,
   ChevronRight,
-  X
+  X,
+  Megaphone
 } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
@@ -35,6 +36,7 @@ export const Sidebar: React.FC = () => {
     { name: 'Combos & Thalis', href: '/admin/combos', icon: PackageCheck },
     { name: 'Balances & Payments', href: '/admin/payments', icon: CreditCard },
     { name: 'Invoices Center', href: '/admin/invoices', icon: FileText },
+    { name: 'Broadcast & Alerts', href: '/admin/notifications', icon: Megaphone },
     { name: 'Users Directory', href: '/admin/employees', icon: Users },
     { name: 'Audit Logs', href: '/admin/audit', icon: History },
   ];

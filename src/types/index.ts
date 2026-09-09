@@ -220,3 +220,32 @@ export interface PageResponse<T> {
   size: number;
   number: number;
 }
+
+export interface BroadcastNotification {
+  id: number;
+  title: string;
+  message: string;
+  targetAudience: 'ALL' | 'WITH_DUES' | 'SINGLE';
+  targetUserId?: number;
+  targetUserName?: string;
+  channels: string;
+  sentBy: string;
+  recipientsCount: number;
+  createdAt: string;
+  whatsAppLinks?: Array<{
+    userId: string;
+    customerName: string;
+    phone: string;
+    whatsappLink: string;
+  }>;
+}
+
+export interface BroadcastRequest {
+  title: string;
+  message: string;
+  targetAudience: 'ALL' | 'WITH_DUES' | 'SINGLE';
+  targetUserId?: number;
+  sendEmail: boolean;
+  sendWhatsApp: boolean;
+  sendPush: boolean;
+}

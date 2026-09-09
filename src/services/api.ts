@@ -398,3 +398,18 @@ export const healthService = {
     }
   },
 };
+
+// Notification & Broadcast APIs
+export const notificationService = {
+  sendBroadcast: async (data: any) => {
+    clearApiCache();
+    const res = await apiClient.post<ApiResponse<any>>('/notifications/broadcast', data);
+    return res.data;
+  },
+  getBroadcastHistory: async () => {
+    return cachedGet<ApiResponse<any[]>>('/notifications/history', undefined, 10000);
+  },
+  getMyNotifications: async () => {
+    return cachedGet<ApiResponse<any[]>>('/notifications/my', undefined, 15000);
+  },
+};
