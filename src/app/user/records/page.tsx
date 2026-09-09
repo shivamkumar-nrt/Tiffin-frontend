@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { tiffinRecordService } from '@/services/api';
 import { TiffinRecord } from '@/types';
-import { CalendarCheck, Utensils, CheckCircle2, AlertCircle, Search, Filter, RefreshCw } from 'lucide-react';
+import { CalendarCheck, Utensils, CheckCircle2, AlertCircle, Search, Filter, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import Loader from '@/components/Loader';
 import Pagination from '@/components/Pagination';
 import { useToast } from '@/context/ToastContext';
@@ -13,12 +13,13 @@ export default function UserRecordsPage() {
   const [records, setRecords] = useState<TiffinRecord[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Filters
+  // Filters & Sorting
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [typeFilter, setTypeFilter] = useState('ALL');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [sortAsc, setSortAsc] = useState(true); // Default to Ascending by Date
 
   // Pagination
   const [page, setPage] = useState(1);
@@ -43,26 +44,32 @@ export default function UserRecordsPage() {
   }, []);
 
   const filteredRecords = useMemo(() => {
-    return records.filter((rec) => {
-      const matchesSearch =
-        (rec.menuSnapshot && rec.menuSnapshot.toLowerCase().includes(search.toLowerCase())) ||
-        (rec.serviceDate && rec.serviceDate.includes(search));
+    return records
+      .filter((rec) => {
+        const matchesSearch =
+          (rec.menuSnapshot && rec.menuSnapshot.toLowerCase().includes(search.toLowerCase())) ||
+          (rec.serviceDate && rec.serviceDate.includes(search));
 
-      const matchesStatus = statusFilter === 'ALL' || rec.status === statusFilter;
-      const matchesType = typeFilter === 'ALL' || rec.tiffinType === typeFilter;
+        const matchesStatus = statusFilter === 'ALL' || rec.status === statusFilter;
+        const matchesType = typeFilter === 'ALL' || rec.tiffinType === typeFilter;
 
-      let matchesDate = true;
-      if (startDate && rec.serviceDate < startDate) matchesDate = false;
-      if (endDate && rec.serviceDate > endDate) matchesDate = false;
+        let matchesDate = true;
+        if (startDate && rec.serviceDate < startDate) matchesDate = false;
+        if (endDate && rec.serviceDate > endDate) matchesDate = false;
 
-      return matchesSearch && matchesStatus && matchesType && matchesDate;
-    });
-  }, [records, search, statusFilter, typeFilter, startDate, endDate]);
+        return matchesSearch && matchesStatus && matchesType && matchesDate;
+      })
+      .sort((a, b) => {
+        const dateA = a.serviceDate || '';
+        const dateB = b.serviceDate || '';
+        return sortAsc ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+      });
+  }, [records, search, statusFilter, typeFilter, startDate, endDate, sortAsc]);
 
   // Reset pagination on filter change
   useEffect(() => {
     setPage(1);
-  }, [search, statusFilter, typeFilter, startDate, endDate, limit]);
+  }, [search, statusFilter, typeFilter, startDate, endDate, sortAsc, limit]);
 
   const paginatedRecords = useMemo(() => {
     const start = (page - 1) * limit;
@@ -87,9 +94,17 @@ export default function UserRecordsPage() {
 
         <div className="flex items-center space-x-2">
           <button
+            onClick={() => setSortAsc(!sortAsc)}
+            className="px-3 py-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center space-x-1.5 shadow-xs cursor-pointer"
+            title="Toggle Date Order"
+          >
+            {sortAsc ? <ArrowUp className="w-3.5 h-3.5 text-emerald-600" /> : <ArrowDown className="w-3.5 h-3.5 text-blue-600" />}
+            <span>Date: {sortAsc ? 'Ascending (1st → 30th)' : 'Descending (Newest First)'}</span>
+          </button>
+          <button
             onClick={loadRecords}
             disabled={loading}
-            className="p-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition"
+            className="p-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition cursor-pointer"
             title="Refresh History"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-emerald-600' : ''}`} />
