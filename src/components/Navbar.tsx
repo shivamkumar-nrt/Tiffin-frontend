@@ -12,6 +12,7 @@ import {
   PanelLeftOpen
 } from 'lucide-react';
 import Link from 'next/link';
+import NotificationBell from '@/components/NotificationBell';
 
 export const Navbar: React.FC = () => {
   const { user, logout, isAdmin } = useAuth();
@@ -77,6 +78,9 @@ export const Navbar: React.FC = () => {
                   <span className="text-emerald-950 font-bold">Rs. {Number(user.outstandingBalance || 0).toFixed(2)}</span>
                 </div>
               )}
+
+              {/* Notification Center Bell */}
+              <NotificationBell />
 
               {/* User Profile Tag */}
               <div className="flex items-center space-x-2.5 pl-2 sm:pl-3 border-l border-slate-200">
