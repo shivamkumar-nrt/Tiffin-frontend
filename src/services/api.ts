@@ -302,6 +302,10 @@ export const tiffinRecordService = {
     const res = await apiClient.get<ApiResponse<TiffinRecord[]>>(`/tiffin-records/unpaid/${userId}`);
     return res.data;
   },
+  addManualRecord: async (data: { userId: number; serviceDate: string; tiffinType: string; amount: number; menuSnapshot?: string }) => {
+    const res = await apiClient.post<ApiResponse<TiffinRecord>>('/tiffin-records/manual', data);
+    return res.data;
+  },
 };
 
 // Payment APIs

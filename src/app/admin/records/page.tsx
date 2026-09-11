@@ -36,6 +36,17 @@ export default function AdminRecordsPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
 
+  // Manual Entry Modal
+  const [isManualModalOpen, setIsManualModalOpen] = useState(false);
+  const [manualForm, setManualForm] = useState({
+    userId: '',
+    serviceDate: format(new Date(), 'yyyy-MM-dd'),
+    tiffinType: 'FULL',
+    amount: '',
+    menuSnapshot: 'Manual Entry'
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const loadData = async (page = currentPage, size = pageSize) => {
     try {
       setLoading(true);
@@ -114,6 +125,35 @@ export default function AdminRecordsPage() {
     toast.info('Filters reset to default view');
   };
 
+  const handleManualSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!manualForm.userId || !manualForm.serviceDate || !manualForm.tiffinType || !manualForm.amount) {
+      toast.error('Please fill all required fields');
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const res = await tiffinRecordService.addManualRecord({
+        userId: Number(manualForm.userId),
+        serviceDate: manualForm.serviceDate,
+        tiffinType: manualForm.tiffinType,
+        amount: Number(manualForm.amount),
+        menuSnapshot: manualForm.menuSnapshot
+      });
+      if (res.success) {
+        toast.success('Manual log added successfully');
+        setIsManualModalOpen(false);
+        loadData(1, pageSize);
+      } else {
+        toast.error(res.message || 'Failed to add manual log');
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || 'Error adding manual log');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const filteredRecords = records.filter((r) => {
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase();
@@ -145,6 +185,14 @@ export default function AdminRecordsPage() {
             <span className="text-slate-500">Page Total: </span>
             <span className="font-black text-emerald-600">Rs. {totalAmount.toFixed(2)}</span>
           </div>
+
+          <button
+            onClick={() => setIsManualModalOpen(true)}
+            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
+          >
+            <CalendarCheck className="w-3.5 h-3.5" />
+            <span>Add Log</span>
+          </button>
 
           <button
             onClick={resetFilters}
@@ -304,7 +352,7 @@ export default function AdminRecordsPage() {
           </table>
         </div>
 
-        {/* Pagination */}
+      {/* Pagination */}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -314,6 +362,106 @@ export default function AdminRecordsPage() {
           onPageSizeChange={handlePageSizeChange}
         />
       </div>
+
+      {/* Manual Entry Modal */}
+      {isManualModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-slate-900">Add Manual Tiffin Log</h2>
+              <button
+                onClick={() => setIsManualModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 transition"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <form onSubmit={handleManualSubmit} className="p-6 space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Select Customer *</label>
+                <select
+                  required
+                  value={manualForm.userId}
+                  onChange={(e) => setManualForm({ ...manualForm, userId: e.target.value })}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  <option value="">Select a customer</option>
+                  {employees.map((emp) => (
+                    <option key={emp.id} value={emp.id}>{emp.fullName} ({emp.email})</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Service Date *</label>
+                  <input
+                    type="date"
+                    required
+                    value={manualForm.serviceDate}
+                    onChange={(e) => setManualForm({ ...manualForm, serviceDate: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Tiffin Type *</label>
+                  <select
+                    required
+                    value={manualForm.tiffinType}
+                    onChange={(e) => setManualForm({ ...manualForm, tiffinType: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  >
+                    <option value="FULL">Full Thali</option>
+                    <option value="HALF">Half Thali</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Charged Amount (Rs) *</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  required
+                  value={manualForm.amount}
+                  onChange={(e) => setManualForm({ ...manualForm, amount: e.target.value })}
+                  placeholder="e.g., 60"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Menu/Notes Snapshot</label>
+                <input
+                  type="text"
+                  value={manualForm.menuSnapshot}
+                  onChange={(e) => setManualForm({ ...manualForm, menuSnapshot: e.target.value })}
+                  placeholder="What was served?"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </div>
+
+              <div className="pt-4 flex items-center justify-end space-x-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsManualModalOpen(false)}
+                  className="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-50 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 transition disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Saving...' : 'Save Record'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
