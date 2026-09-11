@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { tiffinRecordService, userService } from '@/services/api';
-import { TiffinRecord, User } from '@/types';
+import { tiffinRecordService, userService, comboService } from '@/services/api';
+import { TiffinRecord, User, ComboPackage } from '@/types';
 import {
   CalendarCheck,
   Search,
@@ -22,6 +22,7 @@ export default function AdminRecordsPage() {
   const [records, setRecords] = useState<TiffinRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState<User[]>([]);
+  const [combos, setCombos] = useState<ComboPackage[]>([]);
   
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
@@ -50,7 +51,7 @@ export default function AdminRecordsPage() {
   const loadData = async (page = currentPage, size = pageSize) => {
     try {
       setLoading(true);
-      const [recRes, empRes] = await Promise.all([
+      const [recRes, empRes, comboRes] = await Promise.all([
         tiffinRecordService.getRecords({
           userId: selectedUser ? Number(selectedUser) : undefined,
           status: selectedStatus || undefined,
@@ -60,6 +61,7 @@ export default function AdminRecordsPage() {
           size: size,
         }),
         userService.getAllEmployees(),
+        comboService.getActiveCombos(),
       ]);
 
       if (recRes.success && recRes.data) {
@@ -69,6 +71,9 @@ export default function AdminRecordsPage() {
       }
       if (empRes.success && empRes.data) {
         setEmployees(empRes.data);
+      }
+      if (comboRes.success && comboRes.data) {
+        setCombos(comboRes.data);
       }
     } catch (err) {
       toast.error('Failed to load consumption records');
@@ -143,6 +148,13 @@ export default function AdminRecordsPage() {
       if (res.success) {
         toast.success('Manual log added successfully');
         setIsManualModalOpen(false);
+        setManualForm({
+          userId: '',
+          serviceDate: format(new Date(), 'yyyy-MM-dd'),
+          tiffinType: 'FULL',
+          amount: '',
+          menuSnapshot: 'Manual Entry'
+        });
         loadData(1, pageSize);
       } else {
         toast.error(res.message || 'Failed to add manual log');
@@ -151,6 +163,25 @@ export default function AdminRecordsPage() {
       toast.error(error?.response?.data?.message || 'Error adding manual log');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleComboChange = (comboName: string) => {
+    const selected = combos.find(c => c.name === comboName);
+    if (selected) {
+      setManualForm(prev => ({
+        ...prev,
+        tiffinType: selected.tiffinType,
+        amount: selected.price.toString(),
+        menuSnapshot: `${selected.name} (${selected.includedItems.join(', ')})`
+      }));
+    } else {
+      // Custom / Fallback
+      setManualForm(prev => ({
+        ...prev,
+        tiffinType: comboName === 'HALF' ? 'HALF' : 'FULL',
+        menuSnapshot: 'Manual Entry'
+      }));
     }
   };
 
@@ -405,15 +436,20 @@ export default function AdminRecordsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Tiffin Type *</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Tiffin Package / Combo *</label>
                   <select
                     required
-                    value={manualForm.tiffinType}
-                    onChange={(e) => setManualForm({ ...manualForm, tiffinType: e.target.value })}
+                    onChange={(e) => handleComboChange(e.target.value)}
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
-                    <option value="FULL">Full Thali</option>
-                    <option value="HALF">Half Thali</option>
+                    <option value="">Select a Package</option>
+                    {combos.map((c) => (
+                      <option key={c.id} value={c.name}>
+                        {c.name} - Rs. {c.price} ({c.tiffinType})
+                      </option>
+                    ))}
+                    <option value="FULL">Custom Full Thali</option>
+                    <option value="HALF">Custom Half Thali</option>
                   </select>
                 </div>
               </div>
