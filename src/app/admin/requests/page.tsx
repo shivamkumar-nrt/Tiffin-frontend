@@ -22,7 +22,7 @@ import { Loader } from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
 import { openWhatsApp, whatsappTemplates } from '@/utils/whatsapp';
 import { showLocalPushNotification } from '@/utils/pushNotification';
-import { format, subDays, startOfMonth } from 'date-fns';
+import { format, subDays, startOfMonth, parseISO } from 'date-fns';
 
 export default function AdminRequestsPage() {
   const toast = useToast();
@@ -309,7 +309,9 @@ export default function AdminRequestsPage() {
               ) : filteredRequests.length > 0 ? (
                 filteredRequests.map((req) => (
                   <tr key={req.id} className="hover:bg-slate-50/70 transition">
-                    <td className="py-3 px-4 font-bold text-slate-900">{req.serviceDate}</td>
+                    <td className="py-3 px-4 font-bold text-slate-900">
+                      {req.serviceDate ? format(parseISO(req.serviceDate), 'dd MMM yyyy') : ''}
+                    </td>
                     <td className="py-3 px-4">
                       <div className="font-semibold text-slate-800">{req.userName}</div>
                       <div className="text-[10px] text-slate-500">{req.userEmail}</div>

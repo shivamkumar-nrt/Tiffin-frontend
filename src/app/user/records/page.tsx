@@ -7,6 +7,7 @@ import { CalendarCheck, Utensils, CheckCircle2, AlertCircle, Search, Filter, Ref
 import Loader from '@/components/Loader';
 import Pagination from '@/components/Pagination';
 import { useToast } from '@/context/ToastContext';
+import { format, parseISO } from 'date-fns';
 
 export default function UserRecordsPage() {
   const { showError } = useToast();
@@ -196,7 +197,9 @@ export default function UserRecordsPage() {
                   {paginatedRecords.length > 0 ? (
                     paginatedRecords.map((rec) => (
                       <tr key={rec.id} className="hover:bg-slate-50/70 transition">
-                        <td className="py-3 px-4 font-bold text-slate-900">{rec.serviceDate}</td>
+                        <td className="py-3 px-4 font-bold text-slate-900">
+                          {rec.serviceDate ? format(parseISO(rec.serviceDate), 'dd MMM yyyy') : ''}
+                        </td>
                         <td className="py-3 px-4">
                           <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                             rec.tiffinType === 'FULL' ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'

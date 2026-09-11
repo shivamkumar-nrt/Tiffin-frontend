@@ -15,7 +15,7 @@ import {
 import { Pagination } from '@/components/Pagination';
 import { Loader } from '@/components/Loader';
 import { useToast } from '@/context/ToastContext';
-import { format, subDays, startOfMonth } from 'date-fns';
+import { format, subDays, startOfMonth, parseISO } from 'date-fns';
 
 export default function AdminRecordsPage() {
   const toast = useToast();
@@ -343,7 +343,9 @@ export default function AdminRecordsPage() {
               ) : filteredRecords.length > 0 ? (
                 filteredRecords.map((rec) => (
                   <tr key={rec.id} className="hover:bg-slate-50/70 transition">
-                    <td className="py-3 px-4 font-bold text-slate-900">{rec.serviceDate}</td>
+                    <td className="py-3 px-4 font-bold text-slate-900">
+                      {rec.serviceDate ? format(parseISO(rec.serviceDate), 'dd MMM yyyy') : ''}
+                    </td>
                     <td className="py-3 px-4">
                       <div className="font-semibold text-slate-800">{rec.userName}</div>
                       <div className="text-[10px] text-slate-500">{rec.userEmail}</div>
