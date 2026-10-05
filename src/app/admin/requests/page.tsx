@@ -48,6 +48,17 @@ export default function AdminRequestsPage() {
   const [rejectingRequest, setRejectingRequest] = useState<TiffinRequest | null>(null);
   const [rejectionReason, setRejectionReason] = useState('');
 
+  // Edit State
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingRequest, setEditingRequest] = useState<TiffinRequest | null>(null);
+  const [editForm, setEditForm] = useState({
+    serviceDate: '',
+    tiffinType: 'FULL',
+    specialInstructions: '',
+    status: 'PENDING'
+  });
+  const [isSavingEdit, setIsSavingEdit] = useState(false);
+
   const loadData = async (page = currentPage, size = pageSize) => {
     try {
       setLoading(true);
@@ -158,6 +169,37 @@ export default function AdminRequestsPage() {
       toast.error(err.response?.data?.message || 'Rejection failed');
     } finally {
       setActionLoading(null);
+    }
+  };
+
+  const openEditModal = (req: TiffinRequest) => {
+    setEditingRequest(req);
+    setEditForm({
+      serviceDate: req.serviceDate,
+      tiffinType: req.tiffinType,
+      specialInstructions: req.specialInstructions || '',
+      status: req.status
+    });
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingRequest) return;
+    try {
+      setIsSavingEdit(true);
+      const res = await tiffinRequestService.updateRequest(editingRequest.id, editForm);
+      if (res.success) {
+        toast.success('Request updated successfully');
+        setIsEditModalOpen(false);
+        loadData(currentPage, pageSize);
+      } else {
+        toast.error(res.message || 'Failed to update request');
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || 'Error updating request');
+    } finally {
+      setIsSavingEdit(false);
     }
   };
 
@@ -389,6 +431,12 @@ export default function AdminRequestsPage() {
                                 <MessageCircle className="w-3.5 h-3.5" />
                               </button>
                             )}
+                            <button
+                              onClick={() => openEditModal(req)}
+                              className="text-xs text-blue-600 hover:text-blue-800 font-semibold px-2"
+                            >
+                              Edit
+                            </button>
                           </div>
                         );
                       })()}
@@ -465,6 +513,90 @@ export default function AdminRequestsPage() {
                   className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {actionLoading === rejectingRequest.id ? 'Rejecting...' : 'Confirm Reject'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Modal */}
+      {isEditModalOpen && editingRequest && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-slate-900">Edit Tiffin Request</h2>
+              <button
+                onClick={() => setIsEditModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 transition"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <form onSubmit={handleEditSubmit} className="p-6 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Service Date *</label>
+                  <input
+                    type="date"
+                    required
+                    value={editForm.serviceDate}
+                    onChange={(e) => setEditForm({ ...editForm, serviceDate: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                  <select
+                    value={editForm.status}
+                    onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  >
+                    <option value="PENDING">PENDING</option>
+                    <option value="APPROVED">APPROVED</option>
+                    <option value="REJECTED">REJECTED</option>
+                    <option value="CANCELLED">CANCELLED</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Tiffin Type</label>
+                <select
+                  value={editForm.tiffinType}
+                  onChange={(e) => setEditForm({ ...editForm, tiffinType: e.target.value })}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  <option value="FULL">FULL</option>
+                  <option value="HALF">HALF</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Special Instructions</label>
+                <input
+                  type="text"
+                  value={editForm.specialInstructions}
+                  onChange={(e) => setEditForm({ ...editForm, specialInstructions: e.target.value })}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </div>
+
+              <div className="flex gap-3 pt-4 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingEdit}
+                  className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold shadow-sm shadow-emerald-500/20 transition disabled:opacity-50"
+                >
+                  {isSavingEdit ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>
             </form>

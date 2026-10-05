@@ -37,14 +37,18 @@ export default function AdminRecordsPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
 
-  // Manual Entry Modal
+  // Manual Entry / Edit Modal
   const [isManualModalOpen, setIsManualModalOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editingRecordId, setEditingRecordId] = useState<number | null>(null);
+  
   const [manualForm, setManualForm] = useState({
     userId: '',
     serviceDate: format(new Date(), 'yyyy-MM-dd'),
     tiffinType: 'FULL',
     amount: '',
-    menuSnapshot: 'Manual Entry'
+    menuSnapshot: 'Manual Entry',
+    status: 'UNPAID'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -138,32 +142,64 @@ export default function AdminRecordsPage() {
     }
     setIsSubmitting(true);
     try {
-      const res = await tiffinRecordService.addManualRecord({
-        userId: Number(manualForm.userId),
-        serviceDate: manualForm.serviceDate,
-        tiffinType: manualForm.tiffinType,
-        amount: Number(manualForm.amount),
-        menuSnapshot: manualForm.menuSnapshot
-      });
-      if (res.success) {
-        toast.success('Manual log added successfully');
-        setIsManualModalOpen(false);
-        setManualForm({
-          userId: '',
-          serviceDate: format(new Date(), 'yyyy-MM-dd'),
-          tiffinType: 'FULL',
-          amount: '',
-          menuSnapshot: 'Manual Entry'
+      if (isEditMode && editingRecordId) {
+        const res = await tiffinRecordService.updateRecord(editingRecordId, {
+          serviceDate: manualForm.serviceDate,
+          tiffinType: manualForm.tiffinType,
+          amount: Number(manualForm.amount),
+          menuSnapshot: manualForm.menuSnapshot,
+          status: manualForm.status
         });
-        loadData(1, pageSize);
+        if (res.success) {
+          toast.success('Record updated successfully');
+          setIsManualModalOpen(false);
+          loadData(1, pageSize);
+        } else {
+          toast.error(res.message || 'Failed to update record');
+        }
       } else {
-        toast.error(res.message || 'Failed to add manual log');
+        const res = await tiffinRecordService.addManualRecord({
+          userId: Number(manualForm.userId),
+          serviceDate: manualForm.serviceDate,
+          tiffinType: manualForm.tiffinType,
+          amount: Number(manualForm.amount),
+          menuSnapshot: manualForm.menuSnapshot
+        });
+        if (res.success) {
+          toast.success('Manual log added successfully');
+          setIsManualModalOpen(false);
+          setManualForm({
+            userId: '',
+            serviceDate: format(new Date(), 'yyyy-MM-dd'),
+            tiffinType: 'FULL',
+            amount: '',
+            menuSnapshot: 'Manual Entry',
+            status: 'UNPAID'
+          });
+          loadData(1, pageSize);
+        } else {
+          toast.error(res.message || 'Failed to add manual log');
+        }
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || 'Error adding manual log');
+      toast.error(error?.response?.data?.message || 'Error saving record');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const openEditModal = (rec: TiffinRecord) => {
+    setIsEditMode(true);
+    setEditingRecordId(rec.id);
+    setManualForm({
+      userId: rec.userId.toString(),
+      serviceDate: rec.serviceDate,
+      tiffinType: rec.tiffinType,
+      amount: rec.chargedAmount.toString(),
+      menuSnapshot: rec.menuSnapshot || '',
+      status: rec.status
+    });
+    setIsManualModalOpen(true);
   };
 
   const handleComboChange = (comboName: string) => {
@@ -218,7 +254,19 @@ export default function AdminRecordsPage() {
           </div>
 
           <button
-            onClick={() => setIsManualModalOpen(true)}
+            onClick={() => {
+              setIsEditMode(false);
+              setEditingRecordId(null);
+              setManualForm({
+                userId: '',
+                serviceDate: format(new Date(), 'yyyy-MM-dd'),
+                tiffinType: 'FULL',
+                amount: '',
+                menuSnapshot: 'Manual Entry',
+                status: 'UNPAID'
+              });
+              setIsManualModalOpen(true);
+            }}
             className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
           >
             <CalendarCheck className="w-3.5 h-3.5" />
@@ -331,12 +379,13 @@ export default function AdminRecordsPage() {
                 <th className="py-3 px-4">Menu Items Snapshot</th>
                 <th className="py-3 px-4">Charged Price</th>
                 <th className="py-3 px-4">Settlement Status</th>
+                <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center">
+                  <td colSpan={7} className="py-8 text-center">
                     <Loader text="Loading consumption log..." />
                   </td>
                 </tr>
@@ -372,11 +421,19 @@ export default function AdminRecordsPage() {
                         {rec.status === 'BILLED_PAID' ? 'BILLED & SETTLED' : 'UNPAID'}
                       </span>
                     </td>
+                    <td className="py-3 px-4 text-right">
+                      <button
+                        onClick={() => openEditModal(rec)}
+                        className="text-xs text-blue-600 hover:text-blue-800 font-semibold"
+                      >
+                        Edit
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="text-center py-10 text-slate-400">
+                  <td colSpan={7} className="text-center py-10 text-slate-400">
                     No consumption records found matching criteria.
                   </td>
                 </tr>
@@ -479,6 +536,20 @@ export default function AdminRecordsPage() {
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
+
+              {isEditMode && (
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                  <select
+                    value={manualForm.status}
+                    onChange={(e) => setManualForm({ ...manualForm, status: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  >
+                    <option value="UNPAID">UNPAID</option>
+                    <option value="BILLED_PAID">BILLED & SETTLED</option>
+                  </select>
+                </div>
+              )}
 
               <div className="pt-4 flex items-center justify-end space-x-3 border-t border-slate-100">
                 <button

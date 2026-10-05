@@ -282,6 +282,11 @@ export const tiffinRequestService = {
     const res = await apiClient.patch<ApiResponse<TiffinRequest>>(`/tiffin-requests/${id}/cancel`);
     return res.data;
   },
+  updateRequest: async (id: number, data: { serviceDate?: string; tiffinType?: string; specialInstructions?: string; status?: string }) => {
+    clearApiCache('dashboard');
+    const res = await apiClient.put<ApiResponse<TiffinRequest>>(`/tiffin-requests/${id}`, data);
+    return res.data;
+  },
 };
 
 // Tiffin Record APIs
@@ -304,6 +309,10 @@ export const tiffinRecordService = {
   },
   addManualRecord: async (data: { userId: number; serviceDate: string; tiffinType: string; amount: number; menuSnapshot?: string }) => {
     const res = await apiClient.post<ApiResponse<TiffinRecord>>('/tiffin-records/manual', data);
+    return res.data;
+  },
+  updateRecord: async (id: number, data: { serviceDate?: string; tiffinType?: string; amount?: number; menuSnapshot?: string; status?: string }) => {
+    const res = await apiClient.put<ApiResponse<TiffinRecord>>(`/tiffin-records/${id}`, data);
     return res.data;
   },
 };
