@@ -11,7 +11,7 @@ import {
   Receipt, Clock, Check, Menu, X, Sparkles,
 } from 'lucide-react';
 import Loader from '@/components/Loader';
-import { GoldenThali } from '@/components/three';
+import ThaliShowcase from '@/components/ThaliShowcase';
 
 const glass = 'bg-ink-900/60 backdrop-blur-xl border border-gold-500/25 shadow-xl shadow-black/40';
 
@@ -161,8 +161,7 @@ export default function PublicHomePage() {
               className="lg:col-span-6 relative z-20"
             >
               <div className="relative w-full h-[360px] sm:h-[480px] lg:h-[540px]">
-                <div className="absolute inset-0 m-auto w-[78%] h-[78%] rounded-full bg-gradient-to-tr from-gold-300/60 to-white/0 blur-3xl" />
-                <GoldenThali />
+                <ThaliShowcase />
 
                 <motion.div
                   animate={{ y: [0, 10, 0] }}

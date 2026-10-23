@@ -22,7 +22,7 @@ import {
 import Link from 'next/link';
 import { useToast } from '@/context/ToastContext';
 import Loader from '@/components/Loader';
-import { GoldenThali } from '@/components/three';
+import ThaliShowcase from '@/components/ThaliShowcase';
 
 export const LoginView: React.FC = () => {
   const { login } = useAuth();
@@ -154,7 +154,7 @@ export const LoginView: React.FC = () => {
             Order healthy Full & Half Thalis, explore special custom combos, track daily food consumption records, and view automatic tax invoices.
           </p>
 
-          <div className="h-64 -mx-6 -my-2"><GoldenThali /></div>
+          <div className="h-64 -mx-6 -my-2"><ThaliShowcase compact /></div>
 
           {/* Value Proposition Cards */}
           <div className="space-y-3 pt-2">
