@@ -71,41 +71,41 @@ export default function UserRequestPage() {
     <div className="max-w-4xl mx-auto space-y-6 relative">
       {submitting && <Loader fullScreen text="Placing your tiffin order..." />}
       <div>
-        <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-          <PlusCircle className="w-5 h-5 text-emerald-600" />
+        <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
+          <PlusCircle className="w-5 h-5 text-orange-600" />
           <span>Order Thali / Combo Tiffin</span>
         </h1>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <p className="text-xs text-stone-500 mt-0.5">
           Select your service date and choose from Full Thali, Half Thali, or Special Combo meals.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Service Date Box */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase">
+            <label className="block text-xs font-bold text-stone-700 uppercase">
               1. Select Delivery Date
             </label>
-            <p className="text-[11px] text-slate-400">Choose today or advance booking for upcoming days</p>
+            <p className="text-[11px] text-stone-400">Choose today or advance booking for upcoming days</p>
           </div>
           <input
             type="date"
             required
             value={serviceDate}
             onChange={(e) => setServiceDate(e.target.value)}
-            className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="px-3.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
         </div>
 
         {/* Combos & Thalis Grid */}
         <div className="space-y-3">
-          <label className="block text-xs font-bold text-slate-700 uppercase">
+          <label className="block text-xs font-bold text-stone-700 uppercase">
             2. Choose Your Meal Package / Thali
           </label>
 
           {loading ? (
-            <div className="py-16 bg-white rounded-2xl border border-slate-200">
+            <div className="py-16 bg-white rounded-2xl border border-stone-200">
               <Loader text="Loading available Thalis and Combos..." />
             </div>
           ) : combos.length > 0 ? (
@@ -118,37 +118,37 @@ export default function UserRequestPage() {
                     onClick={() => setSelectedCombo(combo)}
                     className={`p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between ${
                       isSelected
-                        ? 'border-emerald-600 bg-emerald-50/50 shadow-md ring-2 ring-emerald-500/20'
-                        : 'border-slate-200 hover:border-slate-300 bg-white'
+                        ? 'border-orange-600 bg-orange-50/50 shadow-md ring-2 ring-orange-500/20'
+                        : 'border-stone-200 hover:border-stone-300 bg-white'
                     }`}
                   >
                     <div className="space-y-2">
                       <div className="flex justify-between items-start">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          combo.tiffinType === 'FULL' ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
+                          combo.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-amber-100 text-amber-800'
                         }`}>
                           {combo.tiffinType}
                         </span>
-                        <div className="text-base font-black text-emerald-600">
+                        <div className="text-base font-black text-orange-600">
                           Rs. {Number(combo.price).toFixed(2)}
                         </div>
                       </div>
 
-                      <h3 className="text-sm font-bold text-slate-900">{combo.name}</h3>
+                      <h3 className="text-sm font-bold text-stone-900">{combo.name}</h3>
 
                       {combo.description && (
-                        <p className="text-[11px] text-slate-500">{combo.description}</p>
+                        <p className="text-[11px] text-stone-500">{combo.description}</p>
                       )}
 
                       {/* Included Items */}
-                      <div className="pt-2 border-t border-slate-100/80">
-                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                      <div className="pt-2 border-t border-stone-100/80">
+                        <div className="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-1.5">
                           Dishes Included:
                         </div>
                         <div className="space-y-1">
                           {combo.includedItems?.map((dish, idx) => (
-                            <div key={idx} className="flex items-center space-x-1.5 text-xs text-slate-700">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            <div key={idx} className="flex items-center space-x-1.5 text-xs text-stone-700">
+                              <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
                               <span>{dish}</span>
                             </div>
                           ))}
@@ -156,9 +156,9 @@ export default function UserRequestPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-100">
+                    <div className="mt-4 pt-3 border-t border-stone-100">
                       <div className={`text-center py-1.5 rounded-xl text-xs font-bold transition ${
-                        isSelected ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'
+                        isSelected ? 'bg-orange-600 text-white' : 'bg-stone-100 text-stone-600'
                       }`}>
                         {isSelected ? '✓ Selected' : 'Select Package'}
                       </div>
@@ -168,15 +168,15 @@ export default function UserRequestPage() {
               })}
             </div>
           ) : (
-            <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center text-slate-400 text-xs">
+            <div className="bg-white p-8 rounded-2xl border border-stone-200 text-center text-stone-400 text-xs">
               No active meal packages available. Please contact administrator.
             </div>
           )}
         </div>
 
         {/* Special Instructions */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-          <label className="block text-xs font-bold text-slate-700 uppercase">
+        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm space-y-2">
+          <label className="block text-xs font-bold text-stone-700 uppercase">
             3. Dietary Notes / Delivery Instructions (Optional)
           </label>
           <input
@@ -184,14 +184,14 @@ export default function UserRequestPage() {
             value={specialInstructions}
             onChange={(e) => setSpecialInstructions(e.target.value)}
             placeholder="e.g. Less spicy / Extra salad / Deliver to 2nd Floor"
-            className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
         </div>
 
         <button
           type="submit"
           disabled={submitting || !selectedCombo}
-          className="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl text-sm shadow-md shadow-emerald-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
+          className="w-full py-4 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-2xl text-sm shadow-md shadow-orange-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
         >
           <span>{submitting ? 'Placing Order...' : `Confirm Order - ${selectedCombo?.name || ''} (Rs. ${Number(selectedCombo?.price || 0).toFixed(2)})`}</span>
           <ArrowRight className="w-4 h-4" />

@@ -163,10 +163,10 @@ export default function UserDashboardPage() {
       )}
 
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 rounded-2xl p-6 text-white shadow-lg shadow-emerald-500/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 rounded-2xl p-6 text-white shadow-lg shadow-orange-500/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black tracking-tight">Welcome to Tiffin Portal</h1>
-          <p className="text-emerald-100 text-xs mt-1">
+          <p className="text-orange-100 text-xs mt-1">
             Order your daily fresh home-style meals, track meal history, and view invoices.
           </p>
         </div>
@@ -174,14 +174,14 @@ export default function UserDashboardPage() {
         {/* Due Balance Card on Banner */}
         <div className="flex items-center space-x-3">
           <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-3 rounded-xl text-right">
-            <div className="text-[10px] uppercase font-bold text-emerald-200">Current Outstanding Due</div>
+            <div className="text-[10px] uppercase font-bold text-orange-200">Current Outstanding Due</div>
             <div className="text-2xl font-black text-white">
               Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
             </div>
             {hasDues && (
               <button
                 onClick={() => setIsPaymentModalOpen(true)}
-                className="mt-1.5 px-3 py-1 bg-white text-emerald-800 hover:bg-emerald-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
+                className="mt-1.5 px-3 py-1 bg-white text-orange-800 hover:bg-orange-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
               >
                 <CreditCard className="w-3 h-3" />
                 <span>Pay via UPI QR</span>
@@ -201,18 +201,18 @@ export default function UserDashboardPage() {
 
       {/* Latest Kitchen Announcements / Broadcast Notice Board */}
       {announcements.length > 0 && (
-        <div className="bg-white rounded-2xl border border-emerald-100 shadow-sm p-4 sm:p-5 space-y-3">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+        <div className="bg-white rounded-2xl border border-orange-100 shadow-sm p-4 sm:p-5 space-y-3">
+          <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
             <div className="flex items-center space-x-2">
-              <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+              <div className="w-7 h-7 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center font-bold">
                 <Megaphone className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">Kitchen Announcements & Special Notices</h3>
-                <p className="text-[11px] text-slate-400">Direct updates from kitchen administrator</p>
+                <h3 className="text-xs font-black text-stone-900 uppercase tracking-wider">Kitchen Announcements & Special Notices</h3>
+                <p className="text-[11px] text-stone-400">Direct updates from kitchen administrator</p>
               </div>
             </div>
-            <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-bold">
+            <span className="px-2 py-0.5 bg-orange-50 text-orange-700 rounded-full text-[10px] font-bold">
               {announcements.length} Update{announcements.length > 1 ? 's' : ''}
             </span>
           </div>
@@ -221,17 +221,17 @@ export default function UserDashboardPage() {
             {announcements.slice(0, 2).map((notice, nIdx) => (
               <div
                 key={nIdx}
-                className="p-3.5 bg-gradient-to-br from-slate-50 to-emerald-50/30 rounded-xl border border-slate-200/80 hover:border-emerald-300 transition space-y-1.5"
+                className="p-3.5 bg-gradient-to-br from-stone-50 to-orange-50/30 rounded-xl border border-stone-200/80 hover:border-orange-300 transition space-y-1.5"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-slate-900 truncate">
+                  <span className="text-xs font-bold text-stone-900 truncate">
                     📢 {notice.title}
                   </span>
-                  <span className="text-[10px] text-slate-400 shrink-0">
+                  <span className="text-[10px] text-stone-400 shrink-0">
                     {notice.createdAt ? formatDistanceToNow(parseISO(notice.createdAt), { addSuffix: true }) : 'Recent'}
                   </span>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line line-clamp-3">
+                <p className="text-xs text-stone-600 leading-relaxed whitespace-pre-line line-clamp-3">
                   {notice.message}
                 </p>
               </div>
@@ -250,11 +250,11 @@ export default function UserDashboardPage() {
       {/* Main Grid: Today's Menu & Quick Request */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Today's Delicious Menu */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div className="flex justify-between items-center pb-3 border-b border-slate-100">
+        <div className="lg:col-span-2 bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
+          <div className="flex justify-between items-center pb-3 border-b border-stone-100">
             <div className="flex items-center space-x-2">
-              <ChefHat className="w-5 h-5 text-emerald-600" />
-              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              <ChefHat className="w-5 h-5 text-orange-600" />
+              <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wider">
                 Today&apos;s Special Meal Menu ({format(new Date(), 'dd MMMM yyyy')})
               </h2>
             </div>
@@ -268,9 +268,9 @@ export default function UserDashboardPage() {
           {stats?.todayMenu ? (
             <div className="space-y-4">
               <div>
-                <h3 className="text-base font-bold text-slate-900">{stats.todayMenu.title}</h3>
+                <h3 className="text-base font-bold text-stone-900">{stats.todayMenu.title}</h3>
                 {stats.todayMenu.description && (
-                  <p className="text-xs text-slate-500 mt-1">{stats.todayMenu.description}</p>
+                  <p className="text-xs text-stone-500 mt-1">{stats.todayMenu.description}</p>
                 )}
               </div>
 
@@ -278,11 +278,11 @@ export default function UserDashboardPage() {
                 {stats.todayMenu.items?.map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-3 bg-slate-50 border border-slate-200/80 rounded-xl flex items-center justify-between"
+                    className="p-3 bg-stone-50 border border-stone-200/80 rounded-xl flex items-center justify-between"
                   >
                     <div>
-                      <div className="font-bold text-xs text-slate-800">{item.name}</div>
-                      <div className="text-[10px] text-slate-500 uppercase font-semibold">{item.category}</div>
+                      <div className="font-bold text-xs text-stone-800">{item.name}</div>
+                      <div className="text-[10px] text-stone-500 uppercase font-semibold">{item.category}</div>
                     </div>
                     <div className="flex items-center space-x-1">
                       {item.spicy && (
@@ -301,35 +301,35 @@ export default function UserDashboardPage() {
               </div>
             </div>
           ) : (
-            <div className="text-center py-10 bg-slate-50 rounded-xl border border-dashed border-slate-200">
-              <ChefHat className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-              <p className="text-xs text-slate-500">Fresh homemade thali meals prepared daily.</p>
+            <div className="text-center py-10 bg-stone-50 rounded-xl border border-dashed border-stone-200">
+              <ChefHat className="w-8 h-8 text-stone-400 mx-auto mb-2" />
+              <p className="text-xs text-stone-500">Fresh homemade thali meals prepared daily.</p>
             </div>
           )}
         </div>
 
         {/* Quick Order Widget from Dynamic Combos */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
-            <PlusCircle className="w-5 h-5 text-emerald-600" />
-            <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Quick Order Tiffin</h2>
+        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
+          <div className="flex items-center space-x-2 pb-3 border-b border-stone-100">
+            <PlusCircle className="w-5 h-5 text-orange-600" />
+            <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wider">Quick Order Tiffin</h2>
           </div>
 
           {combos.length > 0 ? (
             <form onSubmit={handleQuickRequest} className="space-y-3">
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Service Date</label>
+                <label className="block text-[11px] font-bold text-stone-500 uppercase mb-1">Service Date</label>
                 <input
                   type="date"
                   required
                   value={requestDate}
                   onChange={(e) => setRequestDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Select Thali / Combo</label>
+                <label className="block text-[11px] font-bold text-stone-500 uppercase mb-1">Select Thali / Combo</label>
                 <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
                   {combos.map((combo) => {
                     const isSel = selectedCombo?.id === combo.id;
@@ -339,17 +339,17 @@ export default function UserDashboardPage() {
                         onClick={() => setSelectedCombo(combo)}
                         className={`p-2.5 rounded-xl border cursor-pointer flex items-center justify-between text-xs transition ${
                           isSel
-                            ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-semibold shadow-sm ring-1 ring-emerald-500'
-                            : 'border-slate-200 hover:bg-slate-50 text-slate-700'
+                            ? 'border-orange-600 bg-orange-50 text-orange-950 font-semibold shadow-sm ring-1 ring-orange-500'
+                            : 'border-stone-200 hover:bg-stone-50 text-stone-700'
                         }`}
                       >
                         <div>
                           <div className="font-bold">{combo.name}</div>
-                          <div className="text-[10px] text-slate-400">
+                          <div className="text-[10px] text-stone-400">
                             {combo.includedItems?.length || 0} items included
                           </div>
                         </div>
-                        <div className="text-right font-black text-emerald-600">
+                        <div className="text-right font-black text-orange-600">
                           Rs. {Number(combo.price).toFixed(2)}
                         </div>
                       </div>
@@ -359,7 +359,7 @@ export default function UserDashboardPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">
+                <label className="block text-[11px] font-bold text-stone-500 uppercase mb-1">
                   Special Note (Optional)
                 </label>
                 <input
@@ -367,21 +367,21 @@ export default function UserDashboardPage() {
                   value={specialInstructions}
                   onChange={(e) => setSpecialInstructions(e.target.value)}
                   placeholder="e.g. Less oil / Extra salad"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={submitting || !selectedCombo}
-                className="w-full mt-2 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl text-xs shadow-md shadow-emerald-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-1.5"
+                className="w-full mt-2 py-3 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-xl text-xs shadow-md shadow-orange-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-1.5"
               >
                 <span>{submitting ? 'Submitting...' : `Order ${selectedCombo?.name || ''}`}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
           ) : (
-            <div className="text-center py-6 text-slate-400 text-xs">
+            <div className="text-center py-6 text-stone-400 text-xs">
               No active meal packages configured yet.
             </div>
           )}
@@ -389,17 +389,17 @@ export default function UserDashboardPage() {
       </div>
 
       {/* Recent Requests Tracker */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
-          <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">My Recent Tiffin Requests</h2>
-          <Link href="/user/records" className="text-xs text-emerald-600 font-bold hover:underline">
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
+          <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">My Recent Tiffin Requests</h2>
+          <Link href="/user/records" className="text-xs text-orange-600 font-bold hover:underline">
             View All Records &rarr;
           </Link>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[650px] text-left text-xs">
-            <thead className="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
+            <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
               <tr>
                 <th className="py-3 px-4">Service Date</th>
                 <th className="py-3 px-4">Meal / Combo Package</th>
@@ -408,34 +408,34 @@ export default function UserDashboardPage() {
                 <th className="py-3 px-4">Admin Remarks</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100">
               {stats?.recentRequests && stats.recentRequests.length > 0 ? (
                 stats.recentRequests.map((req) => (
-                  <tr key={req.id} className="hover:bg-slate-50/70 transition">
-                    <td className="py-3 px-4 font-bold text-slate-900">{req.serviceDate}</td>
+                  <tr key={req.id} className="hover:bg-stone-50/70 transition">
+                    <td className="py-3 px-4 font-bold text-stone-900">{req.serviceDate}</td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-800">
                         {req.comboName ? req.comboName : req.tiffinType}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-600">{req.specialInstructions || '-'}</td>
+                    <td className="py-3 px-4 text-stone-600">{req.specialInstructions || '-'}</td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        req.status === 'APPROVED' ? 'bg-emerald-100 text-emerald-800' :
+                        req.status === 'APPROVED' ? 'bg-green-100 text-green-800' :
                         req.status === 'PENDING' ? 'bg-amber-100 text-amber-800' :
-                        req.status === 'REJECTED' ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-600'
+                        req.status === 'REJECTED' ? 'bg-red-100 text-red-800' : 'bg-stone-100 text-stone-600'
                       }`}>
                         {req.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-500 text-[11px]">
+                    <td className="py-3 px-4 text-stone-500 text-[11px]">
                       {req.rejectionReason || (req.reviewedBy ? `Approved by ${req.reviewedBy}` : 'Awaiting Review')}
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="text-center py-6 text-slate-400">
+                  <td colSpan={5} className="text-center py-6 text-stone-400">
                     No requests submitted yet.
                   </td>
                 </tr>

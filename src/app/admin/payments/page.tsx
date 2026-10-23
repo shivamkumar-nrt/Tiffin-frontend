@@ -241,26 +241,26 @@ export default function AdminPaymentsPage() {
   return (
     <div className="space-y-6">
       {/* Monthly Settlement Reminder Widget (25th - 30th) */}
-      <div className="bg-gradient-to-r from-emerald-800 via-teal-800 to-slate-900 rounded-2xl p-4 sm:p-5 text-white shadow-lg border border-emerald-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-orange-800 via-amber-800 to-stone-900 rounded-2xl p-4 sm:p-5 text-white shadow-lg border border-orange-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start space-x-3">
           <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-xl shrink-0">
-            <Bell className="w-6 h-6 text-emerald-300 animate-pulse" />
+            <Bell className="w-6 h-6 text-orange-300 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                isReminderWindow ? 'bg-amber-400 text-amber-950' : 'bg-emerald-500/30 text-emerald-200'
+                isReminderWindow ? 'bg-amber-400 text-amber-950' : 'bg-orange-500/30 text-orange-200'
               }`}>
                 {isReminderWindow ? '⚡ 25th-30th Reminder Active' : 'Monthly Reminder Schedule'}
               </span>
-              <span className="text-xs text-emerald-200">
+              <span className="text-xs text-orange-200">
                 {reminderStatus?.daysLeftInMonth ? `${reminderStatus.daysLeftInMonth} days remaining in month` : 'Auto-triggers on 25th-31st'}
               </span>
             </div>
             <h3 className="text-sm sm:text-base font-bold text-white mt-1">
               Total Outstanding Balance: Rs. {totalOutstanding.toFixed(2)} ({employees.filter(e => e.outstandingBalance > 0).length} customers due)
             </h3>
-            <p className="text-xs text-slate-300 mt-0.5">
+            <p className="text-xs text-stone-300 mt-0.5">
               Automatic cron scheduler triggers payment reminders daily at 9:00 AM between the 25th and 30th of every month.
             </p>
           </div>
@@ -269,7 +269,7 @@ export default function AdminPaymentsPage() {
         <button
           onClick={handleSendBulkReminders}
           disabled={sendingReminders}
-          className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-black shadow-md transition shrink-0 flex items-center justify-center space-x-2 disabled:opacity-50"
+          className="px-4 py-2.5 bg-orange-500 hover:bg-orange-400 text-stone-950 rounded-xl text-xs font-black shadow-md transition shrink-0 flex items-center justify-center space-x-2 disabled:opacity-50"
         >
           <Send className={`w-4 h-4 ${sendingReminders ? 'animate-spin' : ''}`} />
           <span>{sendingReminders ? 'Sending...' : 'Send Reminders Now'}</span>
@@ -279,11 +279,11 @@ export default function AdminPaymentsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <CreditCard className="w-5 h-5 text-emerald-600" />
+          <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
+            <CreditCard className="w-5 h-5 text-orange-600" />
             <span>Balances, Customer Payments & Settlement</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-stone-500 mt-0.5">
             Review customer self-service UTR submissions, approve settlements, and record admin payments.
           </p>
         </div>
@@ -292,10 +292,10 @@ export default function AdminPaymentsPage() {
           <button
             onClick={() => loadData(currentPage, pageSize)}
             disabled={loading}
-            className="p-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition"
+            className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
             title="Refresh"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-emerald-600' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-orange-600' : ''}`} />
           </button>
 
           <button
@@ -304,7 +304,7 @@ export default function AdminPaymentsPage() {
               setAmount('');
               setShowModal(true);
             }}
-            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+            className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
           >
             <Plus className="w-4 h-4" />
             <span>Record Manual Payment</span>
@@ -313,18 +313,18 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Customer Balances Grid */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-slate-100">
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4 sm:p-5">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-stone-100">
           <div>
-            <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+            <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
               Customer Running Balances ({employees.length})
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-stone-500">
               Click &apos;Settle / Pay&apos; to log a payment and generate an official invoice.
             </p>
           </div>
           <div className="text-left sm:text-right">
-            <span className="text-[10px] text-slate-400 font-bold uppercase block">Total Outstanding Dues</span>
+            <span className="text-[10px] text-stone-400 font-bold uppercase block">Total Outstanding Dues</span>
             <span className="text-lg font-black text-red-600">Rs. {totalOutstanding.toFixed(2)}</span>
           </div>
         </div>
@@ -333,33 +333,33 @@ export default function AdminPaymentsPage() {
           {employees.map((emp) => (
             <div
               key={emp.id}
-              className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl flex flex-col justify-between hover:bg-slate-50/90 transition"
+              className="p-3.5 bg-stone-50 border border-stone-200/80 rounded-xl flex flex-col justify-between hover:bg-stone-50/90 transition"
             >
               <div>
                 <div className="flex justify-between items-start">
                   <div>
-                    <div className="font-bold text-xs text-slate-800">{emp.fullName}</div>
-                    <div className="text-[10px] text-slate-500 truncate max-w-[160px]">{emp.email}</div>
+                    <div className="font-bold text-xs text-stone-800">{emp.fullName}</div>
+                    <div className="text-[10px] text-stone-500 truncate max-w-[160px]">{emp.email}</div>
                   </div>
                   <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                    emp.outstandingBalance > 0 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'
+                    emp.outstandingBalance > 0 ? 'bg-red-100 text-red-800' : 'bg-orange-100 text-orange-800'
                   }`}>
                     {emp.outstandingBalance > 0 ? 'DUE' : 'CLEAR'}
                   </span>
                 </div>
                 <div className="mt-2.5">
-                  <div className="text-[10px] text-slate-400 font-bold uppercase">Balance Due</div>
-                  <div className="text-base font-black text-slate-800">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">Balance Due</div>
+                  <div className="text-base font-black text-stone-800">
                     Rs. {Number(emp.outstandingBalance || 0).toFixed(2)}
                   </div>
                 </div>
               </div>
 
-              <div className="mt-3 pt-2.5 border-t border-slate-200/60">
+              <div className="mt-3 pt-2.5 border-t border-stone-200/60">
                 <button
                   type="button"
                   onClick={() => handleSelectUserForPayment(emp)}
-                  className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-sm"
+                  className="w-full py-1.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition shadow-sm"
                 >
                   Settle / Pay
                 </button>
@@ -370,27 +370,27 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Filter Bar for Payments Table */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Search Payment</label>
+          <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Search Payment</label>
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search user, ref #, app..."
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Customer</label>
+          <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Customer</label>
           <select
             value={selectedUser}
             onChange={(e) => setSelectedUser(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
             <option value="">All Customers</option>
             {employees.map((emp) => (
@@ -402,11 +402,11 @@ export default function AdminPaymentsPage() {
         </div>
 
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Payment Method</label>
+          <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Payment Method</label>
           <select
             value={selectedMethod}
             onChange={(e) => setSelectedMethod(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
+            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
           >
             <option value="">All Methods</option>
             <option value="UPI">UPI / GPay / PhonePe</option>
@@ -418,11 +418,11 @@ export default function AdminPaymentsPage() {
         </div>
 
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Status</label>
+          <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Status</label>
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
+            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
           >
             <option value="">All Statuses</option>
             <option value="PENDING_VERIFICATION">⏳ PENDING VERIFICATION (Awaiting Approval)</option>
@@ -433,9 +433,9 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Payment History Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
-          <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
+          <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
             Payment & Settlement Transactions Log
           </h2>
           {pendingApprovalCount > 0 && (
@@ -447,7 +447,7 @@ export default function AdminPaymentsPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-left text-xs">
-            <thead className="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
+            <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
               <tr>
                 <th className="py-3 px-4">Payment #</th>
                 <th className="py-3 px-4">Customer</th>
@@ -458,7 +458,7 @@ export default function AdminPaymentsPage() {
                 <th className="py-3 px-4 text-right">Invoice</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100">
               {loading ? (
                 <tr>
                   <td colSpan={7} className="py-8 text-center">
@@ -467,33 +467,33 @@ export default function AdminPaymentsPage() {
                 </tr>
               ) : filteredPayments.length > 0 ? (
                 filteredPayments.map((p) => (
-                  <tr key={p.id} className="hover:bg-slate-50/70 transition">
-                    <td className="py-3 px-4 font-bold text-slate-900">
+                  <tr key={p.id} className="hover:bg-stone-50/70 transition">
+                    <td className="py-3 px-4 font-bold text-stone-900">
                       <div>{p.paymentNumber}</div>
-                      <div className="text-[10px] text-slate-400 font-normal">
+                      <div className="text-[10px] text-stone-400 font-normal">
                         {p.paymentDate || (p.createdAt ? p.createdAt.split('T')[0] : '')}
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-semibold text-slate-800">{p.userName}</div>
-                      <div className="text-[10px] text-slate-500">{p.userEmail}</div>
+                      <div className="font-semibold text-stone-800">{p.userName}</div>
+                      <div className="text-[10px] text-stone-500">{p.userEmail}</div>
                     </td>
-                    <td className="py-3 px-4 font-black text-emerald-700">
+                    <td className="py-3 px-4 font-black text-orange-700">
                       Rs. {Number(p.amount).toFixed(2)}
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-bold text-slate-800">{p.paymentApp || p.paymentMethod}</div>
+                      <div className="font-bold text-stone-800">{p.paymentApp || p.paymentMethod}</div>
                       {p.transactionRef && (
-                        <div className="text-[10px] font-mono text-slate-600 flex items-center space-x-1">
-                          <Hash className="w-3 h-3 text-slate-400" />
+                        <div className="text-[10px] font-mono text-stone-600 flex items-center space-x-1">
+                          <Hash className="w-3 h-3 text-stone-400" />
                           <span>{p.transactionRef}</span>
                         </div>
                       )}
-                      {p.notes && <div className="text-[10px] text-slate-400 italic">&ldquo;{p.notes}&rdquo;</div>}
+                      {p.notes && <div className="text-[10px] text-stone-400 italic">&ldquo;{p.notes}&rdquo;</div>}
                     </td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        p.status === 'SUCCESS' ? 'bg-emerald-100 text-emerald-800' :
+                        p.status === 'SUCCESS' ? 'bg-green-100 text-green-800' :
                         p.status === 'PENDING_VERIFICATION' ? 'bg-amber-100 text-amber-800 animate-pulse' : 'bg-red-100 text-red-800'
                       }`}>
                         {p.status === 'PENDING_VERIFICATION' ? 'Awaiting Approval' : p.status}
@@ -509,7 +509,7 @@ export default function AdminPaymentsPage() {
                             <div className="flex items-center space-x-1.5">
                               <button
                                 onClick={() => handleVerifyPayment(p.id)}
-                                className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
+                                className="px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
                                 title="Approve and settle customer dues"
                               >
                                 <Check className="w-3.5 h-3.5" />
@@ -529,7 +529,7 @@ export default function AdminPaymentsPage() {
                               {empPhone && (
                                 <button
                                   onClick={() => openWhatsApp(empPhone, whatsappTemplates.paymentReminder(p.userName || 'Customer', p.amount))}
-                                  className="p-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg transition"
+                                  className="p-1 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 rounded-lg transition"
                                   title="Chat / Send Reminder on WhatsApp"
                                 >
                                   <MessageCircle className="w-3.5 h-3.5" />
@@ -542,14 +542,14 @@ export default function AdminPaymentsPage() {
                         if (p.status === 'SUCCESS') {
                           return (
                             <div className="flex items-center space-x-2">
-                              <div className="text-slate-500 text-[11px]">
-                                <span className="font-semibold text-emerald-700">✓ Approved</span>
-                                {p.verifiedBy && <div className="text-[10px] text-slate-400">by {p.verifiedBy}</div>}
+                              <div className="text-stone-500 text-[11px]">
+                                <span className="font-semibold text-green-700">✓ Approved</span>
+                                {p.verifiedBy && <div className="text-[10px] text-stone-400">by {p.verifiedBy}</div>}
                               </div>
                               {empPhone && (
                                 <button
                                   onClick={() => openWhatsApp(empPhone, whatsappTemplates.paymentVerified(p.userName || 'Customer', p.amount, p.transactionRef))}
-                                  className="p-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg transition"
+                                  className="p-1 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 rounded-lg transition"
                                   title="Send Approval Receipt on WhatsApp"
                                 >
                                   <MessageCircle className="w-3.5 h-3.5" />
@@ -562,7 +562,7 @@ export default function AdminPaymentsPage() {
                         return (
                           <div className="text-red-600 text-[11px]">
                             <span className="font-bold">✕ Rejected</span>
-                            {p.rejectionReason && <div className="text-[10px] text-slate-500">{p.rejectionReason}</div>}
+                            {p.rejectionReason && <div className="text-[10px] text-stone-500">{p.rejectionReason}</div>}
                           </div>
                         );
                       })()}
@@ -571,20 +571,20 @@ export default function AdminPaymentsPage() {
                       {p.invoiceId ? (
                         <button
                           onClick={() => handleViewInvoice(p.invoiceId!)}
-                          className="px-2.5 py-1 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
+                          className="px-2.5 py-1 bg-stone-100 hover:bg-orange-50 hover:text-orange-700 text-stone-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
                         >
                           <FileText className="w-3.5 h-3.5" />
                           <span>Invoice</span>
                         </button>
                       ) : (
-                        <span className="text-slate-400 text-[10px]">-</span>
+                        <span className="text-stone-400 text-[10px]">-</span>
                       )}
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-slate-400">
+                  <td colSpan={7} className="text-center py-10 text-stone-400">
                     No payment records logged yet matching filters.
                   </td>
                 </tr>
@@ -606,25 +606,25 @@ export default function AdminPaymentsPage() {
 
       {/* Rejection Modal */}
       {rejectingPayment && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-slate-200 animate-in fade-in zoom-in duration-150">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-stone-200 animate-in fade-in zoom-in duration-150">
+            <div className="flex justify-between items-center pb-2 border-b border-stone-100">
               <h2 className="text-base font-bold text-red-600 flex items-center space-x-2">
                 <AlertCircle className="w-5 h-5" />
                 <span>Reject Payment Settlement</span>
               </h2>
-              <button onClick={() => setRejectingPayment(null)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setRejectingPayment(null)} className="text-stone-400 hover:text-stone-600">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-xs text-slate-600">
+            <p className="text-xs text-stone-600">
               You are rejecting payment <strong>#{rejectingPayment.paymentNumber}</strong> of <strong>Rs. {Number(rejectingPayment.amount).toFixed(2)}</strong> from <strong>{rejectingPayment.userName}</strong>.
             </p>
 
             <form onSubmit={handleRejectPayment} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
                   Rejection Reason / Note <span className="text-red-500">*</span>
                 </label>
                 <textarea
@@ -633,15 +633,15 @@ export default function AdminPaymentsPage() {
                   value={rejectionReason}
                   onChange={(e) => setRejectionReason(e.target.value)}
                   placeholder="e.g. UTR not matched in bank statement / Incorrect payment amount"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
 
-              <div className="flex justify-end space-x-2 pt-2 border-t border-slate-100">
+              <div className="flex justify-end space-x-2 pt-2 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setRejectingPayment(null)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
+                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition"
                 >
                   Cancel
                 </button>
@@ -660,18 +660,18 @@ export default function AdminPaymentsPage() {
 
       {/* Record Manual Payment Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-slate-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h2 className="text-base font-bold text-slate-900">Record Customer Payment</h2>
-              <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
+            <div className="flex justify-between items-center pb-2 border-b border-stone-100">
+              <h2 className="text-base font-bold text-stone-900">Record Customer Payment</h2>
+              <button onClick={() => setShowModal(false)} className="text-stone-400 hover:text-stone-600">
                 <X className="w-5 h-5" />
               </button>
             </div>
             
             <form onSubmit={handleRecordPayment} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Select Customer</label>
+                <label className="block text-xs font-bold text-stone-700 uppercase mb-1">Select Customer</label>
                 <select
                   required
                   value={selectedUserId}
@@ -680,7 +680,7 @@ export default function AdminPaymentsPage() {
                     const found = employees.find((x) => String(x.id) === e.target.value);
                     if (found) setAmount(String(found.outstandingBalance || 0));
                   }}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <option value="">-- Choose Customer --</option>
                   {employees.map((emp) => (
@@ -693,7 +693,7 @@ export default function AdminPaymentsPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Amount (Rs.)</label>
+                  <label className="block text-xs font-bold text-stone-700 uppercase mb-1">Amount (Rs.)</label>
                   <input
                     type="number"
                     step="0.01"
@@ -702,29 +702,29 @@ export default function AdminPaymentsPage() {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="0.00"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Payment Date</label>
+                  <label className="block text-xs font-bold text-stone-700 uppercase mb-1">Payment Date</label>
                   <input
                     type="date"
                     required
                     value={paymentDate}
                     onChange={(e) => setPaymentDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Payment Method</label>
+                  <label className="block text-xs font-bold text-stone-700 uppercase mb-1">Payment Method</label>
                   <select
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="UPI">UPI / QR Code</option>
                     <option value="CASH">Cash</option>
@@ -735,36 +735,36 @@ export default function AdminPaymentsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Payment App</label>
+                  <label className="block text-xs font-bold text-stone-700 uppercase mb-1">Payment App</label>
                   <input
                     type="text"
                     value={paymentApp}
                     onChange={(e) => setPaymentApp(e.target.value)}
                     placeholder="e.g. GPay, PhonePe"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Transaction Ref / UTR #</label>
+                <label className="block text-xs font-bold text-stone-700 uppercase mb-1">Transaction Ref / UTR #</label>
                 <input
                   type="text"
                   value={transactionRef}
                   onChange={(e) => setTransactionRef(e.target.value)}
                   placeholder="e.g. 423589123456"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-mono font-bold focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Notes / Remarks</label>
+                <label className="block text-xs font-bold text-stone-700 uppercase mb-1">Notes / Remarks</label>
                 <input
                   type="text"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="e.g. Cleared monthly dues"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
@@ -774,25 +774,25 @@ export default function AdminPaymentsPage() {
                   id="markSuccess"
                   checked={markAsSuccess}
                   onChange={(e) => setMarkAsSuccess(e.target.checked)}
-                  className="rounded text-emerald-600 focus:ring-emerald-500"
+                  className="rounded text-orange-600 focus:ring-orange-500"
                 />
-                <label htmlFor="markSuccess" className="text-xs font-semibold text-slate-700">
+                <label htmlFor="markSuccess" className="text-xs font-semibold text-stone-700">
                   Mark as Verified & Settle Invoices Immediately
                 </label>
               </div>
 
-              <div className="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+              <div className="flex justify-end space-x-2 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
+                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {submitting ? 'Processing...' : 'Confirm & Save Payment'}
                 </button>

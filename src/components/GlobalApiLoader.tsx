@@ -46,7 +46,7 @@ export const GlobalApiLoader: React.FC = () => {
             animate={{ scaleX: 1, opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 z-[9999] origin-left shadow-sm shadow-emerald-500/50"
+            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 via-amber-400 to-orange-600 z-[9999] origin-left shadow-sm shadow-orange-500/50"
           />
         )}
       </AnimatePresence>
@@ -59,10 +59,10 @@ export const GlobalApiLoader: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="fixed bottom-6 right-6 z-[9998] bg-slate-950/90 text-white backdrop-blur-md px-5 py-3.5 rounded-2xl shadow-2xl border border-white/10 flex items-center space-x-3 pointer-events-none"
+            className="fixed bottom-6 right-6 z-[9998] bg-stone-950/90 text-white backdrop-blur-md px-5 py-3.5 rounded-2xl shadow-2xl border border-white/10 flex items-center space-x-3 pointer-events-none"
           >
             <div className="loader scale-75 origin-left"></div>
-            <span className="text-xs font-bold text-slate-100">{getActionText()}</span>
+            <span className="text-xs font-bold text-stone-100">{getActionText()}</span>
           </motion.div>
         )}
       </AnimatePresence>

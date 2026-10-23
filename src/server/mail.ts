@@ -61,10 +61,10 @@ const hello = (name: string) =>
 export function broadcastHtml(title: string, message: string, user: User): string {
   return (
     `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">` +
-    `<div style="background: linear-gradient(135deg, #059669, #0f766e); padding: 18px 20px; border-radius: 8px; color: #ffffff; text-align: center;">` +
+    `<div style="background: linear-gradient(135deg, #ea580c, #f59e0b); padding: 18px 20px; border-radius: 8px; color: #ffffff; text-align: center;">` +
     `<h2 style="margin: 0; font-size: 20px;">📢 Tiffin Service Announcement</h2></div>` +
     hello(user.fullName) +
-    `<div style="background: #f8fafc; border-left: 4px solid #059669; padding: 18px; border-radius: 6px; margin: 20px 0;">` +
+    `<div style="background: #f8fafc; border-left: 4px solid #ea580c; padding: 18px; border-radius: 6px; margin: 20px 0;">` +
     `<h3 style="margin: 0 0 10px 0; color: #0f172a; font-size: 16px;">${h(title)}</h3>` +
     `<p style="margin: 0; color: #334155; line-height: 1.6; white-space: pre-line;">${h(message)}</p></div>` +
     `<p style="font-size: 12px; color: #94a3b8; text-align: center;">Tiffin Management System &bull; Official Notification</p></div>`
@@ -76,7 +76,7 @@ export function sendRequestStatusEmail(user: User, request: TiffinRequest) {
   const color = approved ? '#059669' : '#dc2626';
   const text = approved ? 'APPROVED' : 'REJECTED';
   const html = wrap(
-    'linear-gradient(135deg, #059669, #0d9488)',
+    'linear-gradient(135deg, #ea580c, #f59e0b)',
     '🍱 Tiffin Service Update',
     hello(user.fullName) +
       `<p style="color: #475569;">Your Tiffin Request for <b>${fmtDate(request.serviceDate)}</b> has been updated.</p>` +
@@ -129,11 +129,11 @@ export function sendPaymentApprovalEmail(user: User, payment: Payment) {
 
 export function sendNewRequestAlertToAdmin(adminEmail: string, user: User, request: TiffinRequest) {
   const html = wrap(
-    'linear-gradient(135deg, #059669, #0d9488)',
+    'linear-gradient(135deg, #ea580c, #f59e0b)',
     '🔔 New Tiffin Order Received',
     hello('Admin') +
       `<p style="color: #475569;">A new tiffin request has been submitted by customer <b>${h(user.fullName)}</b>.</p>` +
-      `<div style="background: #f8fafc; border-left: 4px solid #059669; padding: 15px; border-radius: 6px; margin: 20px 0;">` +
+      `<div style="background: #f8fafc; border-left: 4px solid #ea580c; padding: 15px; border-radius: 6px; margin: 20px 0;">` +
       `<p style="margin: 0 0 6px 0;"><b>Customer Name:</b> ${h(user.fullName)}</p>` +
       `<p style="margin: 0 0 6px 0;"><b>Phone:</b> ${h(user.phone ?? 'N/A')}</p>` +
       `<p style="margin: 0 0 6px 0;"><b>Service Date:</b> ${fmtDate(request.serviceDate)}</p>` +

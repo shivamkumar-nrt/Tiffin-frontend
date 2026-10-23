@@ -219,11 +219,11 @@ export default function AdminRequestsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <ClipboardList className="w-5 h-5 text-emerald-600" />
+          <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
+            <ClipboardList className="w-5 h-5 text-orange-600" />
             <span>Tiffin Requests & Approvals</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-stone-500 mt-0.5">
             Review, filter, approve, or reject customer daily meal requests.
           </p>
         </div>
@@ -231,7 +231,7 @@ export default function AdminRequestsPage() {
         <div className="flex items-center space-x-2">
           <button
             onClick={resetFilters}
-            className="px-3 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1.5"
+            className="px-3 py-2 bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1.5"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset Filters</span>
@@ -240,29 +240,29 @@ export default function AdminRequestsPage() {
       </div>
 
       {/* Filter Bar & Quick Presets */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3.5">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm space-y-3.5">
         {/* Search & Main Dropdowns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Search Keyword</label>
+            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Search Keyword</label>
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
+              <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search user, combo, note..."
-                className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Customer / User</label>
+            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Customer / User</label>
             <select
               value={selectedUser}
               onChange={(e) => setSelectedUser(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
             >
               <option value="">All Customers</option>
               {employees.map((emp) => (
@@ -274,11 +274,11 @@ export default function AdminRequestsPage() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Status</label>
+            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Status</label>
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
             >
               <option value="">All Statuses</option>
               <option value="PENDING">PENDING (Action Required)</option>
@@ -290,35 +290,35 @@ export default function AdminRequestsPage() {
 
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">From Date</label>
+              <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">From Date</label>
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">To Date</label>
+              <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">To Date</label>
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
         </div>
 
         {/* Quick Date Range Preset Buttons */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100 text-xs">
-          <span className="text-[11px] font-bold text-slate-400 uppercase mr-1">Quick Date:</span>
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-stone-100 text-xs">
+          <span className="text-[11px] font-bold text-stone-400 uppercase mr-1">Quick Date:</span>
           {(['ALL', 'TODAY', 'YESTERDAY', 'WEEK', 'MONTH'] as const).map((preset) => (
             <button
               key={preset}
               type="button"
               onClick={() => setQuickDate(preset)}
-              className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 font-medium text-[11px] transition"
+              className="px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-orange-50 hover:text-orange-700 text-stone-600 font-medium text-[11px] transition"
             >
               {preset === 'ALL' ? 'All Dates' : preset === 'TODAY' ? 'Today' : preset === 'YESTERDAY' ? 'Yesterday' : preset === 'WEEK' ? 'Last 7 Days' : 'This Month'}
             </button>
@@ -327,10 +327,10 @@ export default function AdminRequestsPage() {
       </div>
 
       {/* Requests Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[700px] text-left text-xs">
-            <thead className="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
+            <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
               <tr>
                 <th className="py-3 px-4">Service Date</th>
                 <th className="py-3 px-4">Customer</th>
@@ -341,7 +341,7 @@ export default function AdminRequestsPage() {
                 <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100">
               {loading ? (
                 <tr>
                   <td colSpan={7} className="py-8 text-center">
@@ -350,34 +350,34 @@ export default function AdminRequestsPage() {
                 </tr>
               ) : filteredRequests.length > 0 ? (
                 filteredRequests.map((req) => (
-                  <tr key={req.id} className="hover:bg-slate-50/70 transition">
-                    <td className="py-3 px-4 font-bold text-slate-900">
+                  <tr key={req.id} className="hover:bg-stone-50/70 transition">
+                    <td className="py-3 px-4 font-bold text-stone-900">
                       {req.serviceDate ? format(parseISO(req.serviceDate), 'dd MMM yyyy') : ''}
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-semibold text-slate-800">{req.userName}</div>
-                      <div className="text-[10px] text-slate-500">{req.userEmail}</div>
+                      <div className="font-semibold text-stone-800">{req.userName}</div>
+                      <div className="text-[10px] text-stone-500">{req.userEmail}</div>
                     </td>
                     <td className="py-3 px-4">
                       <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
-                        req.tiffinType === 'FULL' ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
+                        req.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-amber-100 text-amber-800'
                       }`}>
                         {req.comboName ? req.comboName : req.tiffinType}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-600 max-w-xs truncate">
+                    <td className="py-3 px-4 text-stone-600 max-w-xs truncate">
                       {req.specialInstructions || '-'}
                     </td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        req.status === 'APPROVED' ? 'bg-emerald-100 text-emerald-800' :
+                        req.status === 'APPROVED' ? 'bg-green-100 text-green-800' :
                         req.status === 'PENDING' ? 'bg-amber-100 text-amber-800' :
-                        req.status === 'REJECTED' ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-600'
+                        req.status === 'REJECTED' ? 'bg-red-100 text-red-800' : 'bg-stone-100 text-stone-600'
                       }`}>
                         {req.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-[11px] text-slate-500">
+                    <td className="py-3 px-4 text-[11px] text-stone-500">
                       {req.reviewedBy ? (
                         <div>
                           <div>By: {req.reviewedBy}</div>
@@ -397,7 +397,7 @@ export default function AdminRequestsPage() {
                                 <button
                                   onClick={() => handleApprove(req)}
                                   disabled={actionLoading === req.id}
-                                  className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold transition flex items-center space-x-1 disabled:opacity-50 shadow-sm"
+                                  className="px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-[11px] font-bold transition flex items-center space-x-1 disabled:opacity-50 shadow-sm"
                                 >
                                   <Check className="w-3 h-3" />
                                   <span>Approve</span>
@@ -415,7 +415,7 @@ export default function AdminRequestsPage() {
                                 </button>
                               </>
                             ) : (
-                              <span className="text-[11px] text-slate-400 font-medium mr-1">Completed</span>
+                              <span className="text-[11px] text-stone-400 font-medium mr-1">Completed</span>
                             )}
                             {empPhone && (
                               <button
@@ -425,7 +425,7 @@ export default function AdminRequestsPage() {
                                     : whatsappTemplates.paymentReminder(req.userName || 'Customer', 120);
                                   openWhatsApp(empPhone, msg);
                                 }}
-                                className="p-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg transition"
+                                className="p-1 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 rounded-lg transition"
                                 title="Chat on WhatsApp"
                               >
                                 <MessageCircle className="w-3.5 h-3.5" />
@@ -445,7 +445,7 @@ export default function AdminRequestsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-slate-400">
+                  <td colSpan={7} className="text-center py-10 text-stone-400">
                     No requests found matching the current filters.
                   </td>
                 </tr>
@@ -467,19 +467,19 @@ export default function AdminRequestsPage() {
 
       {/* Reject Reason Dialog Modal */}
       {rejectingRequest && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-slate-200 animate-in fade-in zoom-in duration-150">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h2 className="text-sm font-bold text-slate-900 flex items-center space-x-2">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-stone-200 animate-in fade-in zoom-in duration-150">
+            <div className="flex justify-between items-center pb-2 border-b border-stone-100">
+              <h2 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
                 <XCircle className="w-4 h-4 text-red-600" />
                 <span>Reject Tiffin Request</span>
               </h2>
-              <button onClick={() => setRejectingRequest(null)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setRejectingRequest(null)} className="text-stone-400 hover:text-stone-600">
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl space-y-1">
+            <div className="text-xs text-stone-600 bg-stone-50 p-3 rounded-xl space-y-1">
               <div><span className="font-bold">Customer:</span> {rejectingRequest.userName} ({rejectingRequest.userEmail})</div>
               <div><span className="font-bold">Service Date:</span> {rejectingRequest.serviceDate}</div>
               <div><span className="font-bold">Meal Package:</span> {rejectingRequest.comboName || rejectingRequest.tiffinType}</div>
@@ -487,7 +487,7 @@ export default function AdminRequestsPage() {
 
             <form onSubmit={handleConfirmReject} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
                   Reason for Rejection (Optional)
                 </label>
                 <textarea
@@ -495,7 +495,7 @@ export default function AdminRequestsPage() {
                   value={rejectionReason}
                   onChange={(e) => setRejectionReason(e.target.value)}
                   placeholder="e.g. Kitchen batch full / Service unavailable for this area"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
 
@@ -503,7 +503,7 @@ export default function AdminRequestsPage() {
                 <button
                   type="button"
                   onClick={() => setRejectingRequest(null)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
+                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition"
                 >
                   Cancel
                 </button>
@@ -522,13 +522,13 @@ export default function AdminRequestsPage() {
 
       {/* Edit Modal */}
       {isEditModalOpen && editingRequest && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-slate-900">Edit Tiffin Request</h2>
+            <div className="px-6 py-4 border-b border-stone-100 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-stone-900">Edit Tiffin Request</h2>
               <button
                 onClick={() => setIsEditModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 transition"
+                className="text-stone-400 hover:text-stone-600 transition"
               >
                 ✕
               </button>
@@ -537,21 +537,21 @@ export default function AdminRequestsPage() {
             <form onSubmit={handleEditSubmit} className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Service Date *</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">Service Date *</label>
                   <input
                     type="date"
                     required
                     value={editForm.serviceDate}
                     onChange={(e) => setEditForm({ ...editForm, serviceDate: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">Status</label>
                   <select
                     value={editForm.status}
                     onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="PENDING">PENDING</option>
                     <option value="APPROVED">APPROVED</option>
@@ -562,11 +562,11 @@ export default function AdminRequestsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Tiffin Type</label>
+                <label className="block text-xs font-bold text-stone-700 mb-1">Tiffin Type</label>
                 <select
                   value={editForm.tiffinType}
                   onChange={(e) => setEditForm({ ...editForm, tiffinType: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <option value="FULL">FULL</option>
                   <option value="HALF">HALF</option>
@@ -574,27 +574,27 @@ export default function AdminRequestsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Special Instructions</label>
+                <label className="block text-xs font-bold text-stone-700 mb-1">Special Instructions</label>
                 <input
                   type="text"
                   value={editForm.specialInstructions}
                   onChange={(e) => setEditForm({ ...editForm, specialInstructions: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-slate-100">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsEditModalOpen(false)}
-                  className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold transition"
+                  className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-sm font-bold transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingEdit}
-                  className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold shadow-sm shadow-emerald-500/20 transition disabled:opacity-50"
+                  className="flex-1 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-sm font-bold shadow-sm shadow-orange-500/20 transition disabled:opacity-50"
                 >
                   {isSavingEdit ? 'Saving...' : 'Save Changes'}
                 </button>

@@ -92,7 +92,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             const getIcon = () => {
               switch (toast.type) {
                 case 'success':
-                  return <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />;
+                  return <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />;
                 case 'error':
                   return <AlertCircle className="w-5 h-5 text-rose-500 flex-shrink-0" />;
                 case 'warning':
@@ -105,13 +105,13 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             const getBorderAndBg = () => {
               switch (toast.type) {
                 case 'success':
-                  return 'bg-white border-emerald-200 text-slate-800 shadow-emerald-500/10';
+                  return 'bg-white border-green-200 text-stone-800 shadow-green-500/10';
                 case 'error':
-                  return 'bg-white border-rose-200 text-slate-800 shadow-rose-500/10';
+                  return 'bg-white border-rose-200 text-stone-800 shadow-rose-500/10';
                 case 'warning':
-                  return 'bg-white border-amber-200 text-slate-800 shadow-amber-500/10';
+                  return 'bg-white border-amber-200 text-stone-800 shadow-amber-500/10';
                 default:
-                  return 'bg-white border-blue-200 text-slate-800 shadow-blue-500/10';
+                  return 'bg-white border-blue-200 text-stone-800 shadow-blue-500/10';
               }
             };
 
@@ -125,12 +125,12 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               >
                 {getIcon()}
                 <div className="flex-1 min-w-0">
-                  {toast.title && <h5 className="text-xs font-bold text-slate-900">{toast.title}</h5>}
-                  <p className="text-xs text-slate-600 mt-0.5 leading-relaxed break-words">{toast.message}</p>
+                  {toast.title && <h5 className="text-xs font-bold text-stone-900">{toast.title}</h5>}
+                  <p className="text-xs text-stone-600 mt-0.5 leading-relaxed break-words">{toast.message}</p>
                 </div>
                 <button
                   onClick={() => removeToast(toast.id)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition -mr-1 -mt-1"
+                  className="p-1 rounded-lg text-stone-400 hover:text-stone-600 hover:bg-stone-100 transition -mr-1 -mt-1"
                 >
                   <X className="w-4 h-4" />
                 </button>

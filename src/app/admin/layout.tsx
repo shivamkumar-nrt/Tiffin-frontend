@@ -19,14 +19,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (loading || !user || !isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-stone-50">
         <Loader text="Loading Admin Portal..." />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-stone-50 flex flex-col">
       <Navbar />
       <div className="flex-1 flex w-full min-h-[calc(100vh-4rem)]">
         <Sidebar />

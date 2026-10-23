@@ -238,19 +238,19 @@ export default function AdminRecordsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <CalendarCheck className="w-5 h-5 text-emerald-600" />
+          <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
+            <CalendarCheck className="w-5 h-5 text-orange-600" />
             <span>Daily Tiffin Consumption Log</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-stone-500 mt-0.5">
             Immutable records of approved meals with frozen pricing and menu snapshots.
           </p>
         </div>
 
         <div className="flex items-center space-x-2">
-          <div className="px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs shadow-sm">
-            <span className="text-slate-500">Page Total: </span>
-            <span className="font-black text-emerald-600">Rs. {totalAmount.toFixed(2)}</span>
+          <div className="px-3.5 py-2 bg-white border border-stone-200 rounded-xl text-xs shadow-sm">
+            <span className="text-stone-500">Page Total: </span>
+            <span className="font-black text-orange-600">Rs. {totalAmount.toFixed(2)}</span>
           </div>
 
           <button
@@ -267,7 +267,7 @@ export default function AdminRecordsPage() {
               });
               setIsManualModalOpen(true);
             }}
-            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
+            className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
           >
             <CalendarCheck className="w-3.5 h-3.5" />
             <span>Add Log</span>
@@ -275,7 +275,7 @@ export default function AdminRecordsPage() {
 
           <button
             onClick={resetFilters}
-            className="px-3 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
+            className="px-3 py-2 bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset</span>
@@ -284,28 +284,28 @@ export default function AdminRecordsPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3.5">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm space-y-3.5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Search Record</label>
+            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Search Record</label>
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
+              <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search user, food..."
-                className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Customer</label>
+            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Customer</label>
             <select
               value={selectedUser}
               onChange={(e) => setSelectedUser(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
             >
               <option value="">All Customers</option>
               {employees.map((emp) => (
@@ -317,11 +317,11 @@ export default function AdminRecordsPage() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Settlement Status</label>
+            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Settlement Status</label>
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
             >
               <option value="">All Records</option>
               <option value="UNPAID">UNPAID (Pending Settlement)</option>
@@ -331,35 +331,35 @@ export default function AdminRecordsPage() {
 
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">From Date</label>
+              <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">From Date</label>
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">To Date</label>
+              <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">To Date</label>
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
           </div>
         </div>
 
         {/* Quick Date Presets */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100 text-xs">
-          <span className="text-[11px] font-bold text-slate-400 uppercase mr-1">Quick Date:</span>
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-stone-100 text-xs">
+          <span className="text-[11px] font-bold text-stone-400 uppercase mr-1">Quick Date:</span>
           {(['ALL', 'TODAY', 'YESTERDAY', 'WEEK', 'MONTH'] as const).map((preset) => (
             <button
               key={preset}
               type="button"
               onClick={() => setQuickDate(preset)}
-              className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 font-medium text-[11px] transition"
+              className="px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-orange-50 hover:text-orange-700 text-stone-600 font-medium text-[11px] transition"
             >
               {preset === 'ALL' ? 'All Dates' : preset === 'TODAY' ? 'Today' : preset === 'YESTERDAY' ? 'Yesterday' : preset === 'WEEK' ? 'Last 7 Days' : 'This Month'}
             </button>
@@ -368,10 +368,10 @@ export default function AdminRecordsPage() {
       </div>
 
       {/* Records Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[700px] text-left text-xs">
-            <thead className="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
+            <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
               <tr>
                 <th className="py-3 px-4">Service Date</th>
                 <th className="py-3 px-4">Customer</th>
@@ -382,7 +382,7 @@ export default function AdminRecordsPage() {
                 <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100">
               {loading ? (
                 <tr>
                   <td colSpan={7} className="py-8 text-center">
@@ -391,31 +391,31 @@ export default function AdminRecordsPage() {
                 </tr>
               ) : filteredRecords.length > 0 ? (
                 filteredRecords.map((rec) => (
-                  <tr key={rec.id} className="hover:bg-slate-50/70 transition">
-                    <td className="py-3 px-4 font-bold text-slate-900">
+                  <tr key={rec.id} className="hover:bg-stone-50/70 transition">
+                    <td className="py-3 px-4 font-bold text-stone-900">
                       {rec.serviceDate ? format(parseISO(rec.serviceDate), 'dd MMM yyyy') : ''}
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-semibold text-slate-800">{rec.userName}</div>
-                      <div className="text-[10px] text-slate-500">{rec.userEmail}</div>
+                      <div className="font-semibold text-stone-800">{rec.userName}</div>
+                      <div className="text-[10px] text-stone-500">{rec.userEmail}</div>
                     </td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                        rec.tiffinType === 'FULL' ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
+                        rec.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-amber-100 text-amber-800'
                       }`}>
                         {rec.tiffinType}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-600 max-w-sm">
+                    <td className="py-3 px-4 text-stone-600 max-w-sm">
                       {rec.menuSnapshot || 'Standard Daily Thali'}
                     </td>
-                    <td className="py-3 px-4 font-bold text-slate-900">
+                    <td className="py-3 px-4 font-bold text-stone-900">
                       Rs. {Number(rec.chargedAmount).toFixed(2)}
                     </td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                         rec.status === 'BILLED_PAID'
-                          ? 'bg-emerald-100 text-emerald-800'
+                          ? 'bg-orange-100 text-orange-800'
                           : 'bg-amber-100 text-amber-800'
                       }`}>
                         {rec.status === 'BILLED_PAID' ? 'BILLED & SETTLED' : 'UNPAID'}
@@ -433,7 +433,7 @@ export default function AdminRecordsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-slate-400">
+                  <td colSpan={7} className="text-center py-10 text-stone-400">
                     No consumption records found matching criteria.
                   </td>
                 </tr>
@@ -455,13 +455,13 @@ export default function AdminRecordsPage() {
 
       {/* Manual Entry Modal */}
       {isManualModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-slate-900">Add Manual Tiffin Log</h2>
+            <div className="px-6 py-4 border-b border-stone-100 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-stone-900">Add Manual Tiffin Log</h2>
               <button
                 onClick={() => setIsManualModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 transition"
+                className="text-stone-400 hover:text-stone-600 transition"
               >
                 ✕
               </button>
@@ -469,12 +469,12 @@ export default function AdminRecordsPage() {
             
             <form onSubmit={handleManualSubmit} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Select Customer *</label>
+                <label className="block text-xs font-bold text-stone-700 mb-1">Select Customer *</label>
                 <select
                   required
                   value={manualForm.userId}
                   onChange={(e) => setManualForm({ ...manualForm, userId: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <option value="">Select a customer</option>
                   {employees.map((emp) => (
@@ -485,21 +485,21 @@ export default function AdminRecordsPage() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Service Date *</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">Service Date *</label>
                   <input
                     type="date"
                     required
                     value={manualForm.serviceDate}
                     onChange={(e) => setManualForm({ ...manualForm, serviceDate: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Tiffin Package / Combo *</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">Tiffin Package / Combo *</label>
                   <select
                     required
                     onChange={(e) => handleComboChange(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="">Select a Package</option>
                     {combos.map((c) => (
@@ -514,7 +514,7 @@ export default function AdminRecordsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Charged Amount (Rs) *</label>
+                <label className="block text-xs font-bold text-stone-700 mb-1">Charged Amount (Rs) *</label>
                 <input
                   type="number"
                   step="0.01"
@@ -522,28 +522,28 @@ export default function AdminRecordsPage() {
                   value={manualForm.amount}
                   onChange={(e) => setManualForm({ ...manualForm, amount: e.target.value })}
                   placeholder="e.g., 60"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Menu/Notes Snapshot</label>
+                <label className="block text-xs font-bold text-stone-700 mb-1">Menu/Notes Snapshot</label>
                 <input
                   type="text"
                   value={manualForm.menuSnapshot}
                   onChange={(e) => setManualForm({ ...manualForm, menuSnapshot: e.target.value })}
                   placeholder="What was served?"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
               {isEditMode && (
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">Status</label>
                   <select
                     value={manualForm.status}
                     onChange={(e) => setManualForm({ ...manualForm, status: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="UNPAID">UNPAID</option>
                     <option value="BILLED_PAID">BILLED & SETTLED</option>
@@ -551,18 +551,18 @@ export default function AdminRecordsPage() {
                 </div>
               )}
 
-              <div className="pt-4 flex items-center justify-end space-x-3 border-t border-slate-100">
+              <div className="pt-4 flex items-center justify-end space-x-3 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsManualModalOpen(false)}
-                  className="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-50 transition"
+                  className="px-4 py-2 bg-white border border-stone-200 text-stone-600 rounded-xl text-sm font-bold hover:bg-stone-50 transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 transition disabled:opacity-50"
+                  className="px-4 py-2 bg-orange-600 text-white rounded-xl text-sm font-bold hover:bg-orange-700 transition disabled:opacity-50"
                 >
                   {isSubmitting ? 'Saving...' : 'Save Record'}
                 </button>

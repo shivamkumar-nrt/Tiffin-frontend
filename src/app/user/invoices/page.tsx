@@ -178,11 +178,11 @@ export default function UserInvoicesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
-            <FileText className="w-5 h-5 text-emerald-600" />
+          <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
+            <FileText className="w-5 h-5 text-orange-600" />
             <span>Invoices & Payment Settlements</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-stone-500 mt-0.5">
             Submit payment settlements, track approval status, and view official tax invoices.
           </p>
         </div>
@@ -191,15 +191,15 @@ export default function UserInvoicesPage() {
           <button
             onClick={loadData}
             disabled={loading}
-            className="p-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 transition"
+            className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
             title="Refresh Invoices"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-emerald-600' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-orange-600' : ''}`} />
           </button>
 
           <button
             onClick={() => setIsPaymentModalOpen(true)}
-            className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+            className="px-4 py-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
           >
             <Plus className="w-4 h-4" />
             <span>Submit Payment / UTR</span>
@@ -215,13 +215,13 @@ export default function UserInvoicesPage() {
       />
 
       {/* Tabs */}
-      <div className="flex items-center space-x-2 border-b border-slate-200 pb-2">
+      <div className="flex items-center space-x-2 border-b border-stone-200 pb-2">
         <button
           onClick={() => setActiveTab('INVOICES')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 ${
             activeTab === 'INVOICES'
-              ? 'bg-emerald-600 text-white shadow-sm'
-              : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+              ? 'bg-orange-600 text-white shadow-sm'
+              : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
           }`}
         >
           <FileText className="w-4 h-4" />
@@ -232,8 +232,8 @@ export default function UserInvoicesPage() {
           onClick={() => setActiveTab('PAYMENTS')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 ${
             activeTab === 'PAYMENTS'
-              ? 'bg-emerald-600 text-white shadow-sm'
-              : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+              ? 'bg-orange-600 text-white shadow-sm'
+              : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
           }`}
         >
           <CreditCard className="w-4 h-4" />
@@ -242,16 +242,16 @@ export default function UserInvoicesPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={activeTab === 'INVOICES' ? 'Search invoice number...' : 'Search payment #, UTR, app...'}
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           </div>
 
@@ -260,7 +260,7 @@ export default function UserInvoicesPage() {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
               placeholder="From Date"
             />
           </div>
@@ -270,7 +270,7 @@ export default function UserInvoicesPage() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
               placeholder="To Date"
             />
           </div>
@@ -280,13 +280,13 @@ export default function UserInvoicesPage() {
       {/* Content depending on Active Tab */}
       {activeTab === 'INVOICES' ? (
         /* Invoices List */
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
-            <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
+            <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
               Tax Invoices ({filteredInvoices.length})
             </h2>
-            <div className="text-xs text-slate-500">
-              Total Invoiced: <span className="font-bold text-emerald-600">Rs. {totalInvoiced.toFixed(2)}</span>
+            <div className="text-xs text-stone-500">
+              Total Invoiced: <span className="font-bold text-orange-600">Rs. {totalInvoiced.toFixed(2)}</span>
             </div>
           </div>
 
@@ -298,7 +298,7 @@ export default function UserInvoicesPage() {
             <>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[650px] text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
+                  <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
                     <tr>
                       <th className="py-3 px-4">Invoice #</th>
                       <th className="py-3 px-4">Billing Period</th>
@@ -308,35 +308,35 @@ export default function UserInvoicesPage() {
                       <th className="py-3 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-stone-100">
                     {paginatedInvoices.length > 0 ? (
                       paginatedInvoices.map((inv) => (
-                        <tr key={inv.id} className="hover:bg-slate-50/70 transition">
-                          <td className="py-3 px-4 font-bold text-slate-900">{inv.invoiceNumber}</td>
-                          <td className="py-3 px-4 text-slate-600">
+                        <tr key={inv.id} className="hover:bg-stone-50/70 transition">
+                          <td className="py-3 px-4 font-bold text-stone-900">{inv.invoiceNumber}</td>
+                          <td className="py-3 px-4 text-stone-600">
                             {inv.billingStartDate} to {inv.billingEndDate}
                           </td>
-                          <td className="py-3 px-4 text-slate-700 font-medium">
+                          <td className="py-3 px-4 text-stone-700 font-medium">
                             {inv.items?.length || 0} meals
                           </td>
-                          <td className="py-3 px-4 font-black text-emerald-700">
+                          <td className="py-3 px-4 font-black text-orange-700">
                             Rs. {Number(inv.paymentAmount).toFixed(2)}
                           </td>
-                          <td className="py-3 px-4 text-slate-500">
+                          <td className="py-3 px-4 text-stone-500">
                             {inv.generatedAt ? format(new Date(inv.generatedAt), 'dd MMM yyyy') : '-'}
                           </td>
                           <td className="py-3 px-4 text-right">
                             <div className="flex items-center justify-end space-x-1.5">
                               <button
                                 onClick={() => setSelectedInvoice(inv)}
-                                className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
+                                className="px-2.5 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg text-xs font-bold transition flex items-center space-x-1"
                               >
                                 <Eye className="w-3.5 h-3.5" />
                                 <span>View</span>
                               </button>
                               <button
                                 onClick={() => handleDownloadPdf(inv.id)}
-                                className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
+                                className="px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
                               >
                                 <Download className="w-3.5 h-3.5" />
                                 <span>PDF</span>
@@ -347,7 +347,7 @@ export default function UserInvoicesPage() {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={6} className="text-center py-12 text-slate-400">
+                        <td colSpan={6} className="text-center py-12 text-stone-400">
                           No invoices found matching criteria.
                         </td>
                       </tr>
@@ -357,7 +357,7 @@ export default function UserInvoicesPage() {
               </div>
 
               {filteredInvoices.length > 0 && (
-                <div className="p-4 border-t border-slate-100">
+                <div className="p-4 border-t border-stone-100">
                   <Pagination
                     totalItems={filteredInvoices.length}
                     page={page}
@@ -373,13 +373,13 @@ export default function UserInvoicesPage() {
         </div>
       ) : (
         /* Payments List */
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
-            <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
+            <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
               Payment Settlements ({filteredPayments.length})
             </h2>
-            <div className="text-xs text-slate-500">
-              Total Verified Paid: <span className="font-bold text-emerald-600">Rs. {totalPaid.toFixed(2)}</span>
+            <div className="text-xs text-stone-500">
+              Total Verified Paid: <span className="font-bold text-green-600">Rs. {totalPaid.toFixed(2)}</span>
             </div>
           </div>
 
@@ -391,7 +391,7 @@ export default function UserInvoicesPage() {
             <>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[700px] text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
+                  <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
                     <tr>
                       <th className="py-3 px-4">Payment #</th>
                       <th className="py-3 px-4">Date</th>
@@ -402,31 +402,31 @@ export default function UserInvoicesPage() {
                       <th className="py-3 px-4 text-right">Invoice</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-stone-100">
                     {paginatedPayments.length > 0 ? (
                       paginatedPayments.map((p) => (
-                        <tr key={p.id} className="hover:bg-slate-50/70 transition">
-                          <td className="py-3 px-4 font-bold text-slate-900">{p.paymentNumber}</td>
-                          <td className="py-3 px-4 text-slate-600">
+                        <tr key={p.id} className="hover:bg-stone-50/70 transition">
+                          <td className="py-3 px-4 font-bold text-stone-900">{p.paymentNumber}</td>
+                          <td className="py-3 px-4 text-stone-600">
                             {p.paymentDate ? p.paymentDate : format(new Date(p.createdAt), 'yyyy-MM-dd')}
                           </td>
-                          <td className="py-3 px-4 font-black text-emerald-700">
+                          <td className="py-3 px-4 font-black text-orange-700">
                             Rs. {Number(p.amount).toFixed(2)}
                           </td>
                           <td className="py-3 px-4">
-                            <div className="font-bold text-slate-800">
+                            <div className="font-bold text-stone-800">
                               {p.paymentApp || p.paymentMethod}
                             </div>
                             {p.transactionRef && (
-                              <div className="text-[10px] font-mono text-slate-500 flex items-center space-x-1">
-                                <Hash className="w-3 h-3 text-slate-400" />
+                              <div className="text-[10px] font-mono text-stone-500 flex items-center space-x-1">
+                                <Hash className="w-3 h-3 text-stone-400" />
                                 <span>{p.transactionRef}</span>
                               </div>
                             )}
                           </td>
                           <td className="py-3 px-4">
                             <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold inline-flex items-center space-x-1 ${
-                              p.status === 'SUCCESS' ? 'bg-emerald-100 text-emerald-800' :
+                              p.status === 'SUCCESS' ? 'bg-green-100 text-green-800' :
                               p.status === 'PENDING_VERIFICATION' ? 'bg-amber-100 text-amber-800' :
                               'bg-red-100 text-red-800'
                             }`}>
@@ -439,13 +439,13 @@ export default function UserInvoicesPage() {
                               </span>
                             </span>
                           </td>
-                          <td className="py-3 px-4 text-slate-600">
+                          <td className="py-3 px-4 text-stone-600">
                             {p.status === 'FAILED' && p.rejectionReason ? (
                               <span className="text-red-600 font-medium">Reason: {p.rejectionReason}</span>
                             ) : p.status === 'SUCCESS' && p.verifiedBy ? (
-                              <span className="text-slate-500 text-[11px]">Approved by Admin</span>
+                              <span className="text-stone-500 text-[11px]">Approved by Admin</span>
                             ) : (
-                              <span className="text-slate-400 text-[11px]">Awaiting Admin Approval</span>
+                              <span className="text-stone-400 text-[11px]">Awaiting Admin Approval</span>
                             )}
                           </td>
                           <td className="py-3 px-4 text-right">
@@ -457,20 +457,20 @@ export default function UserInvoicesPage() {
                                     if (inv.success) setSelectedInvoice(inv.data);
                                   } catch (e) {}
                                 }}
-                                className="px-2.5 py-1 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
+                                className="px-2.5 py-1 bg-stone-100 hover:bg-orange-50 hover:text-orange-700 text-stone-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
                               >
                                 <FileText className="w-3.5 h-3.5" />
                                 <span>View</span>
                               </button>
                             ) : (
-                              <span className="text-slate-400 text-[10px]">-</span>
+                              <span className="text-stone-400 text-[10px]">-</span>
                             )}
                           </td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={7} className="text-center py-12 text-slate-400">
+                        <td colSpan={7} className="text-center py-12 text-stone-400">
                           No payment settlements logged yet.
                         </td>
                       </tr>
@@ -480,7 +480,7 @@ export default function UserInvoicesPage() {
               </div>
 
               {filteredPayments.length > 0 && (
-                <div className="p-4 border-t border-slate-100">
+                <div className="p-4 border-t border-stone-100">
                   <Pagination
                     totalItems={filteredPayments.length}
                     page={page}

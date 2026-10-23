@@ -184,7 +184,7 @@ export const NotificationBell: React.FC = () => {
           setIsOpen(!isOpen);
           if (!isOpen) fetchNotifications();
         }}
-        className="relative p-2 text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl transition-all border border-transparent hover:border-emerald-200/60 focus:outline-none cursor-pointer"
+        className="relative p-2 text-stone-500 hover:text-orange-700 hover:bg-orange-50 rounded-xl transition-all border border-transparent hover:border-orange-200/60 focus:outline-none cursor-pointer"
         title="Notifications & Screen Alerts"
       >
         <Bell className="w-5 h-5" />
@@ -197,23 +197,23 @@ export const NotificationBell: React.FC = () => {
 
       {/* Dropdown Notification Center */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200/90 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+        <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-stone-200/90 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
           {/* Header */}
-          <div className="px-4 pb-3 border-b border-slate-100 flex items-center justify-between">
+          <div className="px-4 pb-3 border-b border-stone-100 flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">
+              <div className="w-7 h-7 rounded-lg bg-orange-100 flex items-center justify-center text-orange-700 font-bold">
                 <BellRing className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 text-xs">Notifications & Alerts</h3>
-                <p className="text-[10px] text-slate-400">Live announcements & updates</p>
+                <h3 className="font-bold text-stone-900 text-xs">Notifications & Alerts</h3>
+                <p className="text-[10px] text-stone-400">Live announcements & updates</p>
               </div>
             </div>
             <div className="flex items-center space-x-1.5">
               {unreadCount > 0 && (
                 <button
                   onClick={markAllAsRead}
-                  className="text-[10px] text-emerald-600 hover:text-emerald-800 font-bold px-2 py-0.5 rounded-md hover:bg-emerald-50 transition cursor-pointer"
+                  className="text-[10px] text-orange-600 hover:text-orange-800 font-bold px-2 py-0.5 rounded-md hover:bg-orange-50 transition cursor-pointer"
                   title="Mark all as read"
                 >
                   Mark all read
@@ -221,7 +221,7 @@ export const NotificationBell: React.FC = () => {
               )}
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1 text-slate-400 hover:text-slate-600 rounded-lg cursor-pointer"
+                className="p-1 text-stone-400 hover:text-stone-600 rounded-lg cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -229,11 +229,11 @@ export const NotificationBell: React.FC = () => {
           </div>
 
           {/* Quick Controls: Push Notification Status */}
-          <div className="p-3 mx-3 my-2 bg-gradient-to-r from-slate-50 to-emerald-50/50 rounded-xl border border-slate-200/70">
+          <div className="p-3 mx-3 my-2 bg-gradient-to-r from-stone-50 to-orange-50/50 rounded-xl border border-stone-200/70">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-bold text-slate-800">Phone Screen Alerts</span>
-                <p className="text-[10px] text-slate-500">
+                <span className="text-xs font-bold text-stone-800">Phone Screen Alerts</span>
+                <p className="text-[10px] text-stone-500">
                   {permission === 'granted'
                     ? '🟢 Active (Lock Screen Enabled)'
                     : '⚪ Inactive (Click to Enable)'}
@@ -242,7 +242,7 @@ export const NotificationBell: React.FC = () => {
               {permission === 'granted' ? (
                 <button
                   onClick={handleTestAlert}
-                  className="px-2.5 py-1 bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg text-[11px] font-bold transition flex items-center space-x-1 shadow-xs cursor-pointer"
+                  className="px-2.5 py-1 bg-white hover:bg-orange-50 text-orange-700 border border-orange-200 rounded-lg text-[11px] font-bold transition flex items-center space-x-1 shadow-xs cursor-pointer"
                 >
                   <Volume2 className="w-3 h-3" />
                   <span>Test Alert</span>
@@ -250,7 +250,7 @@ export const NotificationBell: React.FC = () => {
               ) : (
                 <button
                   onClick={handleTogglePush}
-                  className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold transition shadow-xs cursor-pointer"
+                  className="px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-[11px] font-bold transition shadow-xs cursor-pointer"
                 >
                   Enable
                 </button>
@@ -263,7 +263,7 @@ export const NotificationBell: React.FC = () => {
             {!isAdmin ? (
               <button
                 onClick={() => openWhatsApp('919876543210', whatsappTemplates.userHelp())}
-                className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm cursor-pointer"
+                className="w-full py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Contact Kitchen on WhatsApp</span>
@@ -271,19 +271,19 @@ export const NotificationBell: React.FC = () => {
             ) : (
               <a
                 href="/admin/notifications"
-                className="w-full py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 text-center"
+                className="w-full py-2 bg-orange-50 hover:bg-orange-100 text-orange-800 border border-orange-200 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 text-center"
               >
-                <Megaphone className="w-4 h-4 text-emerald-600" />
+                <Megaphone className="w-4 h-4 text-orange-600" />
                 <span>Open Broadcast Center</span>
               </a>
             )}
           </div>
 
           {/* Notification List */}
-          <div className="max-h-72 overflow-y-auto divide-y divide-slate-100 px-2">
+          <div className="max-h-72 overflow-y-auto divide-y divide-stone-100 px-2">
             {notifications.length === 0 ? (
-              <div className="py-8 text-center text-slate-400 text-xs">
-                <Megaphone className="w-8 h-8 mx-auto text-slate-300 mb-2" />
+              <div className="py-8 text-center text-stone-400 text-xs">
+                <Megaphone className="w-8 h-8 mx-auto text-stone-300 mb-2" />
                 <span>No announcements yet</span>
               </div>
             ) : (
@@ -294,24 +294,24 @@ export const NotificationBell: React.FC = () => {
                     key={item.id}
                     onClick={() => markAsRead(item.id)}
                     className={`p-3 rounded-xl transition flex items-start space-x-3 cursor-pointer ${
-                      isRead ? 'opacity-75 hover:bg-slate-50' : 'bg-emerald-50/40 hover:bg-emerald-50 border-l-2 border-emerald-500'
+                      isRead ? 'opacity-75 hover:bg-stone-50' : 'bg-orange-50/40 hover:bg-orange-50 border-l-2 border-orange-500'
                     }`}
                   >
                     <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
-                      isRead ? 'bg-slate-100 text-slate-600' : 'bg-emerald-100 text-emerald-700'
+                      isRead ? 'bg-stone-100 text-stone-600' : 'bg-orange-100 text-orange-700'
                     }`}>
                       <Megaphone className="w-3.5 h-3.5" />
                     </div>
                     <div className="flex-1 min-w-0 text-left">
                       <div className="flex items-center justify-between gap-1">
-                        <span className={`text-xs truncate ${isRead ? 'font-medium text-slate-700' : 'font-bold text-slate-900'}`}>
+                        <span className={`text-xs truncate ${isRead ? 'font-medium text-stone-700' : 'font-bold text-stone-900'}`}>
                           {item.title}
                         </span>
-                        <span className="text-[10px] text-slate-400 shrink-0">
+                        <span className="text-[10px] text-stone-400 shrink-0">
                           {formatNotificationTime(item.createdAt)}
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-600 mt-1 leading-snug line-clamp-3 whitespace-pre-line">
+                      <p className="text-[11px] text-stone-600 mt-1 leading-snug line-clamp-3 whitespace-pre-line">
                         {item.message}
                       </p>
                       {item.channels && (
@@ -319,7 +319,7 @@ export const NotificationBell: React.FC = () => {
                           {item.channels.split(',').map((ch, ci) => (
                             <span
                               key={ci}
-                              className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-medium uppercase"
+                              className="px-1.5 py-0.5 bg-stone-100 text-stone-500 rounded text-[9px] font-medium uppercase"
                             >
                               {ch}
                             </span>
@@ -334,11 +334,11 @@ export const NotificationBell: React.FC = () => {
           </div>
 
           {/* Footer */}
-          <div className="pt-2 px-4 border-t border-slate-100 text-[10px] text-slate-400 text-center flex items-center justify-between">
+          <div className="pt-2 px-4 border-t border-stone-100 text-[10px] text-stone-400 text-center flex items-center justify-between">
             <span>Push &bull; WhatsApp &bull; Email</span>
             <button
               onClick={fetchNotifications}
-              className="text-emerald-600 hover:underline cursor-pointer"
+              className="text-orange-600 hover:underline cursor-pointer"
             >
               Refresh
             </button>
