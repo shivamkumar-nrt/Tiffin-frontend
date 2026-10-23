@@ -189,7 +189,7 @@ export default function AdminNotificationsPage() {
 
         <button
           onClick={fetchInitialData}
-          className="px-3.5 py-2 bg-white hover:bg-stone-50 text-stone-700 border border-stone-200 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shadow-xs shrink-0 self-start sm:self-auto"
+          className="px-3.5 py-2 bg-ink-850 hover:bg-stone-50 text-stone-700 border border-stone-200 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shadow-xs shrink-0 self-start sm:self-auto"
         >
           <RefreshCw className="w-4 h-4 text-gold-600" />
           <span>Refresh History</span>
@@ -199,7 +199,7 @@ export default function AdminNotificationsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Broadcast Composer */}
         <div className="lg:col-span-2 space-y-6">
-          <form onSubmit={handleSendBroadcast} className="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm space-y-6">
+          <form onSubmit={handleSendBroadcast} className="bg-ink-850 rounded-2xl border border-stone-200 p-6 shadow-sm space-y-6">
             <h2 className="text-base font-bold text-stone-900 flex items-center space-x-2 border-b border-stone-100 pb-3">
               <Sparkles className="w-4 h-4 text-gold-600" />
               <span>Compose Multi-Channel Broadcast</span>
@@ -368,7 +368,7 @@ export default function AdminNotificationsPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 font-bold rounded-xl shadow-lg shadow-gold-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50 text-sm cursor-pointer"
+              className="w-full py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-ink-950 font-bold rounded-xl shadow-lg shadow-gold-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50 text-sm cursor-pointer"
             >
               <Send className="w-4 h-4" />
               <span>{submitting ? 'Dispatching Broadcast...' : 'Dispatch Broadcast to All Selected Channels'}</span>
@@ -377,7 +377,7 @@ export default function AdminNotificationsPage() {
 
           {/* Last Broadcast Dispatch Result & WhatsApp Box */}
           {lastBroadcast && (
-            <div className="bg-stone-900 text-white rounded-2xl p-5 shadow-xl border border-gold-500/40 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
+            <div className="bg-ink-950 text-white rounded-2xl p-5 shadow-xl border border-gold-500/40 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
               <div className="flex items-center justify-between border-b border-stone-800 pb-3">
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 rounded-lg bg-gold-500/20 text-gold-400 flex items-center justify-center font-bold">
@@ -390,7 +390,7 @@ export default function AdminNotificationsPage() {
                 </div>
                 <button
                   onClick={() => setLastBroadcast(null)}
-                  className="text-xs text-stone-400 hover:text-white px-2 py-1 bg-stone-800 rounded-lg cursor-pointer"
+                  className="text-xs text-stone-400 hover:text-white px-2 py-1 bg-ink-800 rounded-lg cursor-pointer"
                 >
                   Dismiss
                 </button>
@@ -398,21 +398,21 @@ export default function AdminNotificationsPage() {
 
               {/* Delivery Channels Status Badges */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <div className="p-2.5 bg-stone-800/80 rounded-xl border border-stone-700/60 flex items-center space-x-2">
+                <div className="p-2.5 bg-ink-800/80 rounded-xl border border-stone-700/60 flex items-center space-x-2">
                   <Mail className="w-4 h-4 text-sky-400 shrink-0" />
                   <div className="min-w-0">
                     <div className="text-[11px] font-bold text-stone-200">Email</div>
                     <div className="text-[10px] text-gold-400">Dispatched / Sent</div>
                   </div>
                 </div>
-                <div className="p-2.5 bg-stone-800/80 rounded-xl border border-stone-700/60 flex items-center space-x-2">
+                <div className="p-2.5 bg-ink-800/80 rounded-xl border border-stone-700/60 flex items-center space-x-2">
                   <Bell className="w-4 h-4 text-amber-400 shrink-0" />
                   <div className="min-w-0">
                     <div className="text-[11px] font-bold text-stone-200">In-App & Push</div>
                     <div className="text-[10px] text-gold-400">Live on Bell & Screen</div>
                   </div>
                 </div>
-                <div className="p-2.5 bg-stone-800/80 rounded-xl border border-stone-700/60 flex items-center space-x-2">
+                <div className="p-2.5 bg-ink-800/80 rounded-xl border border-stone-700/60 flex items-center space-x-2">
                   <MessageCircle className="w-4 h-4 text-gold-400 shrink-0" />
                   <div className="min-w-0">
                     <div className="text-[11px] font-bold text-stone-200">WhatsApp</div>
@@ -433,7 +433,7 @@ export default function AdminNotificationsPage() {
                   </div>
 
                   {lastBroadcast.whatsAppLinks.length === 1 ? (
-                    <div className="p-3 bg-gold-950/80 rounded-xl border border-gold-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div className="p-3 bg-ink-950/80 rounded-xl border border-gold-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
                       <div>
                         <div className="text-xs font-bold text-white">{lastBroadcast.whatsAppLinks[0].customerName}</div>
                         <div className="text-[11px] text-gold-400 font-mono">{lastBroadcast.whatsAppLinks[0].phone || 'No phone'}</div>
@@ -453,7 +453,7 @@ export default function AdminNotificationsPage() {
                       {lastBroadcast.whatsAppLinks.map((item, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center justify-between p-2.5 bg-stone-800/80 rounded-xl border border-stone-700 hover:bg-stone-800 transition"
+                          className="flex items-center justify-between p-2.5 bg-ink-800/80 rounded-xl border border-stone-700 hover:bg-ink-800 transition"
                         >
                           <div>
                             <div className="text-xs font-bold text-white">{item.customerName}</div>
@@ -481,7 +481,7 @@ export default function AdminNotificationsPage() {
         {/* Right 1 Col: Quick Presets & Status */}
         <div className="space-y-6">
           {/* Preset Templates */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm space-y-3">
+          <div className="bg-ink-850 rounded-2xl border border-stone-200 p-5 shadow-sm space-y-3">
             <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2 border-b border-stone-100 pb-2">
               <Sparkles className="w-4 h-4 text-gold-600" />
               <span>Quick Preset Templates</span>
@@ -512,7 +512,7 @@ export default function AdminNotificationsPage() {
           </div>
 
           {/* System Delivery Summary */}
-          <div className="bg-gradient-to-br from-stone-900 to-gold-950 text-white rounded-2xl p-5 shadow-sm space-y-3">
+          <div className="bg-gradient-to-br from-ink-850 to-gold-100 border border-gold-500/25 text-white rounded-2xl p-5 shadow-sm space-y-3">
             <div className="flex items-center space-x-2 text-gold-400 font-bold text-xs">
               <ShieldCheck className="w-4 h-4" />
               <span>Active Delivery Hub</span>
@@ -536,7 +536,7 @@ export default function AdminNotificationsPage() {
       </div>
 
       {/* Broadcast History Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-stone-100 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Clock className="w-5 h-5 text-gold-600" />

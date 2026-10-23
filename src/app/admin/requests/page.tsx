@@ -231,7 +231,7 @@ export default function AdminRequestsPage() {
         <div className="flex items-center space-x-2">
           <button
             onClick={resetFilters}
-            className="px-3 py-2 bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1.5"
+            className="px-3 py-2 bg-ink-850 border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1.5"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset Filters</span>
@@ -240,7 +240,7 @@ export default function AdminRequestsPage() {
       </div>
 
       {/* Filter Bar & Quick Presets */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm space-y-3.5">
+      <div className="bg-ink-850 p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm space-y-3.5">
         {/* Search & Main Dropdowns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
@@ -327,7 +327,7 @@ export default function AdminRequestsPage() {
       </div>
 
       {/* Requests Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[700px] text-left text-xs">
             <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
@@ -397,7 +397,7 @@ export default function AdminRequestsPage() {
                                 <button
                                   onClick={() => handleApprove(req)}
                                   disabled={actionLoading === req.id}
-                                  className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-[11px] font-bold transition flex items-center space-x-1 disabled:opacity-50 shadow-sm"
+                                  className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-lg text-[11px] font-bold transition flex items-center space-x-1 disabled:opacity-50 shadow-sm"
                                 >
                                   <Check className="w-3 h-3" />
                                   <span>Approve</span>
@@ -467,8 +467,8 @@ export default function AdminRequestsPage() {
 
       {/* Reject Reason Dialog Modal */}
       {rejectingRequest && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-stone-200 animate-in fade-in zoom-in duration-150">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-ink-850 rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-stone-200 animate-in fade-in zoom-in duration-150">
             <div className="flex justify-between items-center pb-2 border-b border-stone-100">
               <h2 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
                 <XCircle className="w-4 h-4 text-red-600" />
@@ -522,8 +522,8 @@ export default function AdminRequestsPage() {
 
       {/* Edit Modal */}
       {isEditModalOpen && editingRequest && (
-        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-ink-850 rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
             <div className="px-6 py-4 border-b border-stone-100 flex items-center justify-between">
               <h2 className="text-lg font-bold text-stone-900">Edit Tiffin Request</h2>
               <button
@@ -594,7 +594,7 @@ export default function AdminRequestsPage() {
                 <button
                   type="submit"
                   disabled={isSavingEdit}
-                  className="flex-1 py-2.5 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-sm font-bold shadow-sm shadow-gold-500/20 transition disabled:opacity-50"
+                  className="flex-1 py-2.5 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-sm font-bold shadow-sm shadow-gold-500/20 transition disabled:opacity-50"
                 >
                   {isSavingEdit ? 'Saving...' : 'Save Changes'}
                 </button>

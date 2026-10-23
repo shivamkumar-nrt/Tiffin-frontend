@@ -248,7 +248,7 @@ export default function AdminRecordsPage() {
         </div>
 
         <div className="flex items-center space-x-2">
-          <div className="px-3.5 py-2 bg-white border border-stone-200 rounded-xl text-xs shadow-sm">
+          <div className="px-3.5 py-2 bg-ink-850 border border-stone-200 rounded-xl text-xs shadow-sm">
             <span className="text-stone-500">Page Total: </span>
             <span className="font-black text-gold-600">Rs. {totalAmount.toFixed(2)}</span>
           </div>
@@ -267,7 +267,7 @@ export default function AdminRecordsPage() {
               });
               setIsManualModalOpen(true);
             }}
-            className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
+            className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
           >
             <CalendarCheck className="w-3.5 h-3.5" />
             <span>Add Log</span>
@@ -275,7 +275,7 @@ export default function AdminRecordsPage() {
 
           <button
             onClick={resetFilters}
-            className="px-3 py-2 bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
+            className="px-3 py-2 bg-ink-850 border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset</span>
@@ -284,7 +284,7 @@ export default function AdminRecordsPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm space-y-3.5">
+      <div className="bg-ink-850 p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm space-y-3.5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
             <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Search Record</label>
@@ -368,7 +368,7 @@ export default function AdminRecordsPage() {
       </div>
 
       {/* Records Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[700px] text-left text-xs">
             <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
@@ -455,8 +455,8 @@ export default function AdminRecordsPage() {
 
       {/* Manual Entry Modal */}
       {isManualModalOpen && (
-        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-ink-850 rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
             <div className="px-6 py-4 border-b border-stone-100 flex items-center justify-between">
               <h2 className="text-lg font-bold text-stone-900">Add Manual Tiffin Log</h2>
               <button
@@ -555,14 +555,14 @@ export default function AdminRecordsPage() {
                 <button
                   type="button"
                   onClick={() => setIsManualModalOpen(false)}
-                  className="px-4 py-2 bg-white border border-stone-200 text-stone-600 rounded-xl text-sm font-bold hover:bg-stone-50 transition"
+                  className="px-4 py-2 bg-ink-850 border border-stone-200 text-stone-600 rounded-xl text-sm font-bold hover:bg-stone-50 transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-4 py-2 bg-gold-500 text-gold-900 rounded-xl text-sm font-bold hover:bg-gold-700 transition disabled:opacity-50"
+                  className="px-4 py-2 bg-gold-500 text-ink-950 rounded-xl text-sm font-bold hover:bg-gold-700 transition disabled:opacity-50"
                 >
                   {isSubmitting ? 'Saving...' : 'Save Record'}
                 </button>

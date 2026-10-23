@@ -54,7 +54,7 @@ export const Sidebar: React.FC = () => {
     <>
       {/* Desktop Persistent Docked Sidebar (Edge-to-Edge) */}
       <aside
-        className={`hidden md:flex flex-col justify-between bg-white/70 backdrop-blur-xl border-r border-gold-200/70 transition-all duration-300 ease-in-out shrink-0 sticky top-16 h-[calc(100vh-4rem)] z-30 ${
+        className={`hidden md:flex flex-col justify-between bg-ink-900/70 backdrop-blur-xl border-r border-gold-200/70 transition-all duration-300 ease-in-out shrink-0 sticky top-16 h-[calc(100vh-4rem)] z-30 ${
           isCollapsed ? 'w-20 p-2.5' : 'w-64 p-4'
         }`}
       >
@@ -102,9 +102,9 @@ export const Sidebar: React.FC = () => {
 
                   {/* Floating Tooltip in Collapsed Mode */}
                   {isCollapsed && (
-                    <div className="absolute left-full ml-3 px-3 py-1.5 bg-stone-900 text-white text-xs font-semibold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 whitespace-nowrap">
+                    <div className="absolute left-full ml-3 px-3 py-1.5 bg-ink-950 text-white text-xs font-semibold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 whitespace-nowrap">
                       {item.name}
-                      <div className="absolute top-1/2 -left-1 -translate-y-1/2 border-4 border-transparent border-r-stone-900" />
+                      <div className="absolute top-1/2 -left-1 -translate-y-1/2 border-4 border-transparent border-r-ink-950" />
                     </div>
                   )}
                 </Link>
@@ -138,12 +138,12 @@ export const Sidebar: React.FC = () => {
         <div className="fixed inset-0 z-50 md:hidden flex">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-stone-900/60 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
             onClick={closeMobile}
           />
 
           {/* Slide-in Drawer */}
-          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white shadow-2xl z-50 animate-in slide-in-from-left duration-200">
+          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-ink-850 shadow-2xl z-50 animate-in slide-in-from-left duration-200">
             <div className="p-4 border-b border-stone-200 flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 rounded-lg bg-gold-600 flex items-center justify-center text-white font-bold">

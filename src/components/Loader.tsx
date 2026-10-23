@@ -10,8 +10,8 @@ interface LoaderProps {
 export const Loader: React.FC<LoaderProps> = ({ text = 'Loading data...', fullScreen = false }) => {
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 z-50 bg-stone-950/40 backdrop-blur-sm flex flex-col items-center justify-center p-4">
-        <div className="bg-white rounded-3xl p-8 shadow-2xl border border-stone-100 flex flex-col items-center space-y-4 max-w-xs text-center animate-in fade-in zoom-in duration-200">
+      <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex flex-col items-center justify-center p-4">
+        <div className="bg-ink-850 rounded-3xl p-8 shadow-2xl border border-stone-100 flex flex-col items-center space-y-4 max-w-xs text-center animate-in fade-in zoom-in duration-200">
           <div className="loader"></div>
           <p className="text-xs font-bold text-stone-700">{text}</p>
         </div>

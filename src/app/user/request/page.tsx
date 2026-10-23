@@ -82,7 +82,7 @@ export default function UserRequestPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Service Date Box */}
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-ink-850 p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <label className="block text-xs font-bold text-stone-700 uppercase">
               1. Select Delivery Date
@@ -105,7 +105,7 @@ export default function UserRequestPage() {
           </label>
 
           {loading ? (
-            <div className="py-16 bg-white rounded-2xl border border-stone-200">
+            <div className="py-16 bg-ink-850 rounded-2xl border border-stone-200">
               <Loader text="Loading available Thalis and Combos..." />
             </div>
           ) : combos.length > 0 ? (
@@ -119,7 +119,7 @@ export default function UserRequestPage() {
                     className={`p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between ${
                       isSelected
                         ? 'border-gold-600 bg-gold-50/50 shadow-md ring-2 ring-gold-500/20'
-                        : 'border-stone-200 hover:border-stone-300 bg-white'
+                        : 'border-stone-200 hover:border-stone-300 bg-ink-850'
                     }`}
                   >
                     <div className="space-y-2">
@@ -158,7 +158,7 @@ export default function UserRequestPage() {
 
                     <div className="mt-4 pt-3 border-t border-stone-100">
                       <div className={`text-center py-1.5 rounded-xl text-xs font-bold transition ${
-                        isSelected ? 'bg-gold-500 text-gold-900' : 'bg-stone-100 text-stone-600'
+                        isSelected ? 'bg-gold-500 text-ink-950' : 'bg-stone-100 text-stone-600'
                       }`}>
                         {isSelected ? '✓ Selected' : 'Select Package'}
                       </div>
@@ -168,14 +168,14 @@ export default function UserRequestPage() {
               })}
             </div>
           ) : (
-            <div className="bg-white p-8 rounded-2xl border border-stone-200 text-center text-stone-400 text-xs">
+            <div className="bg-ink-850 p-8 rounded-2xl border border-stone-200 text-center text-stone-400 text-xs">
               No active meal packages available. Please contact administrator.
             </div>
           )}
         </div>
 
         {/* Special Instructions */}
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm space-y-2">
+        <div className="bg-ink-850 p-5 rounded-2xl border border-stone-200 shadow-sm space-y-2">
           <label className="block text-xs font-bold text-stone-700 uppercase">
             3. Dietary Notes / Delivery Instructions (Optional)
           </label>
@@ -191,7 +191,7 @@ export default function UserRequestPage() {
         <button
           type="submit"
           disabled={submitting || !selectedCombo}
-          className="w-full py-4 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 font-bold rounded-2xl text-sm shadow-md shadow-gold-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
+          className="w-full py-4 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-ink-950 font-bold rounded-2xl text-sm shadow-md shadow-gold-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
         >
           <span>{submitting ? 'Placing Order...' : `Confirm Order - ${selectedCombo?.name || ''} (Rs. ${Number(selectedCombo?.price || 0).toFixed(2)})`}</span>
           <ArrowRight className="w-4 h-4" />

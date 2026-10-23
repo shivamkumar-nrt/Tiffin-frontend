@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 41, 37, 36;
-  --cream: #fffaf0;
-  --saffron: #f97316;
-  --turmeric: #f59e0b;
-  --chili: #dc2626;
+  color-scheme: dark;
+  --foreground-rgb: 251, 246, 234;
+  --ink: #0a0805;
+  --gold: #e9ae12;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   /* Fallback shown until (or if) the three.js golden backdrop is available */
-  background: linear-gradient(135deg, #fffaf0 0%, #fff1c9 55%, #ffe29a 100%) fixed;
+  background: radial-gradient(1200px 600px at 85% -10%, rgba(233, 174, 18, 0.16), transparent 60%), radial-gradient(900px 500px at -10% 110%, rgba(184, 128, 26, 0.14), transparent 60%), #0a0805;
+  background-attachment: fixed;
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
 }
 
@@ -23,8 +23,8 @@ h1, h2, h3, .font-display {
 }
 
 ::selection {
-  background: #ffe38a;
-  color: #66420e;
+  background: #e9ae12;
+  color: #0a0805;
 }
 
 /* Custom Animated Bar Loader Requested by User */
@@ -33,7 +33,7 @@ h1, h2, h3, .font-display {
   width: 120px;
   height: 22px;
   border-radius: 20px;
-  color: #c98a06; /* Gold */
+  color: #f0c24a; /* Gold */
   border: 2px solid;
   position: relative;
   display: inline-block;
@@ -61,12 +61,12 @@ h1, h2, h3, .font-display {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #fff6d9;
+  background: #14100a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #f1cf68;
+  background: #5a4510;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #e0ae1a;
+  background: #e9ae12;
 }

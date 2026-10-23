@@ -142,12 +142,12 @@ export default function AdminMenuPage() {
           <button
             onClick={loadItems}
             disabled={loading}
-            className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
+            className="p-2 bg-ink-850 border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
             title="Refresh Dishes"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-gold-600' : ''}`} />
           </button>
-          <div className="px-4 py-2 bg-white border border-stone-200 rounded-xl text-xs shadow-sm font-semibold text-stone-700">
+          <div className="px-4 py-2 bg-ink-850 border border-stone-200 rounded-xl text-xs shadow-sm font-semibold text-stone-700">
             Total Dishes: <span className="text-gold-600 font-bold">{items.length}</span>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function AdminMenuPage() {
       {/* Main Grid: Add Dish Form (Left) & Dish List (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Add Food Item Form */}
-        <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+        <div className="bg-ink-850 p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
           <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">Add New Food Item</h2>
 
           <form onSubmit={handleAddItem} className="space-y-3">
@@ -170,7 +170,7 @@ export default function AdminMenuPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Shahi Paneer, Dal Tadka, Tawa Roti"
-                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-white"
+                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-ink-700"
               />
             </div>
 
@@ -203,7 +203,7 @@ export default function AdminMenuPage() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="e.g. Fresh home style preparation with mild spices"
                 rows={2}
-                className="w-full px-3.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-white"
+                className="w-full px-3.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-ink-700"
               />
             </div>
 
@@ -234,7 +234,7 @@ export default function AdminMenuPage() {
             <button
               type="submit"
               disabled={saving}
-              className="w-full mt-3 py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 font-bold rounded-xl text-xs shadow-md shadow-gold-500/20 flex items-center justify-center space-x-1.5 transition disabled:opacity-50"
+              className="w-full mt-3 py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-ink-950 font-bold rounded-xl text-xs shadow-md shadow-gold-500/20 flex items-center justify-center space-x-1.5 transition disabled:opacity-50"
             >
               <Plus className="w-4 h-4" />
               <span>{saving ? 'Adding Dish...' : 'Add Dish to Menu'}</span>
@@ -243,7 +243,7 @@ export default function AdminMenuPage() {
         </div>
 
         {/* Dish Catalog Grid (2 cols) */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4 flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4 flex flex-col justify-between">
           <div>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-stone-100">
               <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
@@ -374,8 +374,8 @@ export default function AdminMenuPage() {
 
       {/* Delete Confirmation Modal */}
       {deletingItem && (
-        <div className="fixed inset-0 z-50 bg-stone-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-stone-100 space-y-4 animate-in fade-in zoom-in duration-150">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-ink-850 rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-stone-100 space-y-4 animate-in fade-in zoom-in duration-150">
             <div className="flex items-center justify-between">
               <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
                 <Trash2 className="w-5 h-5" />

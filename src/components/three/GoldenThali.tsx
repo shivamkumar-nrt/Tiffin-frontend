@@ -24,7 +24,7 @@ export default function GoldenThali({ className = '' }: { className?: string }) 
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.92;
+    renderer.toneMappingExposure = 1.1;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(renderer.domElement);
     renderer.domElement.style.cssText = 'width:100%;height:100%;display:block';
@@ -33,7 +33,7 @@ export default function GoldenThali({ className = '' }: { className?: string }) 
     const pmrem = new THREE.PMREMGenerator(renderer);
     const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.environment = envTex;
-    scene.environmentIntensity = 0.55;
+    scene.environmentIntensity = 0.85;
 
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
     camera.position.set(0, 6.4, 9.8);
@@ -43,7 +43,10 @@ export default function GoldenThali({ className = '' }: { className?: string }) 
     const key = new THREE.DirectionalLight(0xfff0c2, 1.5);
     key.position.set(4, 7, 5);
     scene.add(key);
-    const warm = new THREE.PointLight(0xffc24d, 12, 14);
+    const rimLight = new THREE.PointLight(0xffd36b, 14, 18);
+    rimLight.position.set(3.5, 2.5, -3.5);
+    scene.add(rimLight);
+    const warm = new THREE.PointLight(0xffc24d, 14, 14);
     warm.position.set(-3, 3, 2);
     scene.add(warm);
 

@@ -65,7 +65,7 @@ export const UPI_ACCOUNTS: UpiAccount[] = [
     bank: 'CRED / YES Bank',
     upiId: '6201763368@yescred',
     badge: 'Instant',
-    color: 'bg-stone-900',
+    color: 'bg-ink-950',
     textColor: 'text-stone-900',
   },
 ];
@@ -197,11 +197,11 @@ export default function UpiPaymentCard({
   };
 
   return (
-    <div className={`bg-white rounded-2xl ${isModal ? 'p-0' : 'border-2 border-gold-500/30 shadow-lg p-5 sm:p-6'} space-y-5`}>
+    <div className={`bg-ink-850 rounded-2xl ${isModal ? 'p-0' : 'border-2 border-gold-500/30 shadow-lg p-5 sm:p-6'} space-y-5`}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-100">
         <div className="flex items-center space-x-3">
-          <div className="p-2.5 bg-gold-500 text-gold-900 rounded-2xl shadow-md shadow-gold-600/20">
+          <div className="p-2.5 bg-gold-500 text-ink-950 rounded-2xl shadow-md shadow-gold-600/20">
             <QrCode className="w-6 h-6" />
           </div>
           <div>
@@ -299,13 +299,13 @@ export default function UpiPaymentCard({
           <div className="w-full space-y-1.5">
             <div className="text-[11px] font-semibold text-stone-500">Selected UPI ID:</div>
             <div className="flex items-center justify-center space-x-2">
-              <span className="font-mono font-black text-stone-900 text-xs sm:text-sm bg-white px-3 py-1.5 rounded-xl border border-gold-300 shadow-sm truncate">
+              <span className="font-mono font-black text-stone-900 text-xs sm:text-sm bg-ink-850 px-3 py-1.5 rounded-xl border border-gold-300 shadow-sm truncate">
                 {selectedUpi.upiId}
               </span>
               <button
                 type="button"
                 onClick={handleCopyUpi}
-                className="p-1.5 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold transition shadow-sm flex items-center space-x-1 shrink-0"
+                className="p-1.5 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold transition shadow-sm flex items-center space-x-1 shrink-0"
                 title="Copy UPI ID"
               >
                 <Copy className="w-3.5 h-3.5" />
@@ -318,7 +318,7 @@ export default function UpiPaymentCard({
           <div className="w-full pt-1 block sm:hidden">
             <a
               href={upiPayUri}
-              className="w-full py-2 bg-gold-500 text-gold-900 font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 shadow-sm"
+              className="w-full py-2 bg-gold-500 text-ink-950 font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 shadow-sm"
             >
               <Smartphone className="w-3.5 h-3.5" />
               <span>Tap to Open in UPI App</span>
@@ -400,8 +400,8 @@ export default function UpiPaymentCard({
                       onClick={() => handleSelectSenderApp(app)}
                       className={`px-2.5 py-1 rounded-xl border text-[11px] font-bold transition flex items-center space-x-1 ${
                         isSelected
-                          ? 'border-gold-600 bg-gold-500 text-gold-900 shadow-sm'
-                          : 'border-stone-200 bg-white hover:bg-stone-50 text-stone-700'
+                          ? 'border-gold-600 bg-gold-500 text-ink-950 shadow-sm'
+                          : 'border-stone-200 bg-ink-850 hover:bg-stone-50 text-stone-700'
                       }`}
                     >
                       <span>{app}</span>
@@ -469,7 +469,7 @@ export default function UpiPaymentCard({
               <button
                 type="submit"
                 disabled={submitting}
-                className="flex-1 py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-md shadow-gold-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
+                className="flex-1 py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-md shadow-gold-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-2"
               >
                 <span>{submitting ? 'Submitting Payment...' : 'Submit Payment & UTR Proof'}</span>
               </button>

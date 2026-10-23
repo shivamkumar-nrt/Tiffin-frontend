@@ -197,7 +197,7 @@ export const NotificationBell: React.FC = () => {
 
       {/* Dropdown Notification Center */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-stone-200/90 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+        <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-ink-850 rounded-2xl shadow-2xl border border-stone-200/90 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
           {/* Header */}
           <div className="px-4 pb-3 border-b border-stone-100 flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -242,7 +242,7 @@ export const NotificationBell: React.FC = () => {
               {permission === 'granted' ? (
                 <button
                   onClick={handleTestAlert}
-                  className="px-2.5 py-1 bg-white hover:bg-gold-50 text-gold-700 border border-gold-200 rounded-lg text-[11px] font-bold transition flex items-center space-x-1 shadow-xs cursor-pointer"
+                  className="px-2.5 py-1 bg-ink-850 hover:bg-gold-50 text-gold-700 border border-gold-200 rounded-lg text-[11px] font-bold transition flex items-center space-x-1 shadow-xs cursor-pointer"
                 >
                   <Volume2 className="w-3 h-3" />
                   <span>Test Alert</span>
@@ -250,7 +250,7 @@ export const NotificationBell: React.FC = () => {
               ) : (
                 <button
                   onClick={handleTogglePush}
-                  className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-[11px] font-bold transition shadow-xs cursor-pointer"
+                  className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-lg text-[11px] font-bold transition shadow-xs cursor-pointer"
                 >
                   Enable
                 </button>
@@ -263,7 +263,7 @@ export const NotificationBell: React.FC = () => {
             {!isAdmin ? (
               <button
                 onClick={() => openWhatsApp('919876543210', whatsappTemplates.userHelp())}
-                className="w-full py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm cursor-pointer"
+                className="w-full py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Contact Kitchen on WhatsApp</span>

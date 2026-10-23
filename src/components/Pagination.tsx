@@ -61,7 +61,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="px-4 py-3 bg-white border-t border-stone-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
+    <div className="px-4 py-3 bg-ink-850 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
       {/* Items count & Page Size Selector */}
       <div className="flex items-center space-x-3 text-stone-500">
         <div>
@@ -125,7 +125,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 onClick={() => onPageChange(p as number)}
                 className={`w-7 h-7 rounded-lg text-xs font-bold transition ${
                   isCurrent
-                    ? 'bg-gold-500 text-gold-900 shadow-sm shadow-gold-500/30'
+                    ? 'bg-gold-500 text-ink-950 shadow-sm shadow-gold-500/30'
                     : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >

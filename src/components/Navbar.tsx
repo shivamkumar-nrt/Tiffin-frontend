@@ -13,13 +13,14 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import NotificationBell from '@/components/NotificationBell';
+import ExportMenu from '@/components/ExportMenu';
 
 export const Navbar: React.FC = () => {
   const { user, logout, isAdmin } = useAuth();
   const { isCollapsed, toggleCollapse, toggleMobile } = useSidebar();
 
   return (
-    <header className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b border-gold-200/70 shadow-xs w-full">
+    <header className="sticky top-0 z-40 bg-ink-900/70 backdrop-blur-xl border-b border-gold-200/70 shadow-xs w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Brand & Mobile Hamburger & Collapse Button */}
@@ -78,6 +79,8 @@ export const Navbar: React.FC = () => {
                   <span className="text-gold-950 font-bold">Rs. {Number(user.outstandingBalance || 0).toFixed(2)}</span>
                 </div>
               )}
+
+              <ExportMenu />
 
               {/* Notification Center Bell */}
               <NotificationBell />

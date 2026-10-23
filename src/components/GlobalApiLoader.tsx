@@ -59,7 +59,7 @@ export const GlobalApiLoader: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="fixed bottom-6 right-6 z-[9998] bg-stone-950/90 text-white backdrop-blur-md px-5 py-3.5 rounded-2xl shadow-2xl border border-white/10 flex items-center space-x-3 pointer-events-none"
+            className="fixed bottom-6 right-6 z-[9998] bg-black/90 text-white backdrop-blur-md px-5 py-3.5 rounded-2xl shadow-2xl border border-white/10 flex items-center space-x-3 pointer-events-none"
           >
             <div className="loader scale-75 origin-left"></div>
             <span className="text-xs font-bold text-stone-100">{getActionText()}</span>

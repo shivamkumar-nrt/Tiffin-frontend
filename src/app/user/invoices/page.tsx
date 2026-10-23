@@ -151,13 +151,13 @@ export default function UserInvoicesPage() {
     <div className="space-y-6">
       {/* Monthly Settlement Banner (25th - 30th) */}
       {isReminderPeriod && (
-        <div className="bg-gradient-to-r from-amber-500 via-gold-500 to-amber-600 rounded-2xl p-4 text-white shadow-lg shadow-gold-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="bg-gradient-to-r from-amber-500 via-gold-500 to-amber-600 rounded-2xl p-4 text-ink-950 shadow-lg shadow-gold-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-white/20 rounded-xl">
-              <Bell className="w-5 h-5 text-white animate-bounce" />
+              <Bell className="w-5 h-5 text-ink-950 animate-bounce" />
             </div>
             <div>
-              <div className="text-xs font-black uppercase tracking-wider text-gold-100">
+              <div className="text-xs font-black uppercase tracking-wider text-ink-950/70">
                 Monthly Billing Settlement Window (25th - 30th)
               </div>
               <p className="text-xs font-semibold mt-0.5">
@@ -167,7 +167,7 @@ export default function UserInvoicesPage() {
           </div>
           <button
             onClick={() => setIsPaymentModalOpen(true)}
-            className="px-4 py-2 bg-white hover:bg-gold-50 text-gold-700 rounded-xl text-xs font-bold transition shadow-sm shrink-0 flex items-center justify-center space-x-1.5"
+            className="px-4 py-2 bg-ink-950 hover:bg-ink-800 text-gold-700 rounded-xl text-xs font-bold transition shadow-sm shrink-0 flex items-center justify-center space-x-1.5"
           >
             <QrCode className="w-4 h-4 text-gold-600" />
             <span>Open Settlement Modal</span>
@@ -191,7 +191,7 @@ export default function UserInvoicesPage() {
           <button
             onClick={loadData}
             disabled={loading}
-            className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
+            className="p-2 bg-ink-850 border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
             title="Refresh Invoices"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-gold-600' : ''}`} />
@@ -199,7 +199,7 @@ export default function UserInvoicesPage() {
 
           <button
             onClick={() => setIsPaymentModalOpen(true)}
-            className="px-4 py-2 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+            className="px-4 py-2 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
           >
             <Plus className="w-4 h-4" />
             <span>Submit Payment / UTR</span>
@@ -220,8 +220,8 @@ export default function UserInvoicesPage() {
           onClick={() => setActiveTab('INVOICES')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 ${
             activeTab === 'INVOICES'
-              ? 'bg-gold-500 text-gold-900 shadow-sm'
-              : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+              ? 'bg-gold-500 text-ink-950 shadow-sm'
+              : 'bg-ink-850 text-stone-600 hover:bg-stone-100 border border-stone-200'
           }`}
         >
           <FileText className="w-4 h-4" />
@@ -232,8 +232,8 @@ export default function UserInvoicesPage() {
           onClick={() => setActiveTab('PAYMENTS')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 ${
             activeTab === 'PAYMENTS'
-              ? 'bg-gold-500 text-gold-900 shadow-sm'
-              : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+              ? 'bg-gold-500 text-ink-950 shadow-sm'
+              : 'bg-ink-850 text-stone-600 hover:bg-stone-100 border border-stone-200'
           }`}
         >
           <CreditCard className="w-4 h-4" />
@@ -242,7 +242,7 @@ export default function UserInvoicesPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
@@ -280,7 +280,7 @@ export default function UserInvoicesPage() {
       {/* Content depending on Active Tab */}
       {activeTab === 'INVOICES' ? (
         /* Invoices List */
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+        <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
             <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
               Tax Invoices ({filteredInvoices.length})
@@ -336,7 +336,7 @@ export default function UserInvoicesPage() {
                               </button>
                               <button
                                 onClick={() => handleDownloadPdf(inv.id)}
-                                className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
+                                className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
                               >
                                 <Download className="w-3.5 h-3.5" />
                                 <span>PDF</span>
@@ -373,7 +373,7 @@ export default function UserInvoicesPage() {
         </div>
       ) : (
         /* Payments List */
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+        <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
             <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
               Payment Settlements ({filteredPayments.length})

@@ -56,7 +56,7 @@ export const PushNotificationManager: React.FC = () => {
   }
 
   return (
-    <div className="bg-gradient-to-r from-gold-100 via-white to-gold-100 text-stone-800 px-4 py-3 border-b border-gold-300/60 shadow-sm">
+    <div className="bg-gradient-to-r from-gold-100 via-ink-900 to-gold-100 text-stone-800 px-4 py-3 border-b border-gold-300/60 shadow-sm">
       <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
         <div className="flex items-center space-x-3 text-center sm:text-left">
           <div className="w-8 h-8 rounded-full bg-gold-200/70 border border-gold-300 flex items-center justify-center shrink-0 text-gold-700">
@@ -71,7 +71,7 @@ export const PushNotificationManager: React.FC = () => {
         <div className="flex items-center space-x-2 shrink-0">
           <button
             onClick={handleEnable}
-            className="px-3.5 py-1.5 bg-gradient-to-r from-gold-500 to-gold-400 hover:brightness-105 active:scale-95 text-gold-900 font-bold rounded-lg shadow-sm transition flex items-center space-x-1.5 cursor-pointer"
+            className="px-3.5 py-1.5 bg-gradient-to-r from-gold-500 to-gold-400 hover:brightness-105 active:scale-95 text-ink-950 font-bold rounded-lg shadow-sm transition flex items-center space-x-1.5 cursor-pointer"
           >
             <Bell className="w-3.5 h-3.5" />
             <span>Enable Alerts (Free)</span>

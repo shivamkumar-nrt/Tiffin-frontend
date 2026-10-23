@@ -96,7 +96,7 @@ export default function UserRecordsPage() {
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setSortAsc(!sortAsc)}
-            className="px-3 py-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-700 text-xs font-bold transition flex items-center space-x-1.5 shadow-xs cursor-pointer"
+            className="px-3 py-2 bg-ink-850 border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-700 text-xs font-bold transition flex items-center space-x-1.5 shadow-xs cursor-pointer"
             title="Toggle Date Order"
           >
             {sortAsc ? <ArrowUp className="w-3.5 h-3.5 text-gold-600" /> : <ArrowDown className="w-3.5 h-3.5 text-blue-600" />}
@@ -105,12 +105,12 @@ export default function UserRecordsPage() {
           <button
             onClick={loadRecords}
             disabled={loading}
-            className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition cursor-pointer"
+            className="p-2 bg-ink-850 border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition cursor-pointer"
             title="Refresh History"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-gold-600' : ''}`} />
           </button>
-          <div className="px-4 py-2 bg-white border border-stone-200 rounded-xl text-xs shadow-sm">
+          <div className="px-4 py-2 bg-ink-850 border border-stone-200 rounded-xl text-xs shadow-sm">
             <span className="text-stone-500">Filtered Total: </span>
             <span className="font-bold text-gold-600">Rs. {totalCharged.toFixed(2)}</span>
           </div>
@@ -118,7 +118,7 @@ export default function UserRecordsPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4 space-y-3">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-4 space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
@@ -175,7 +175,7 @@ export default function UserRecordsPage() {
       </div>
 
       {/* Consumption Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         {loading ? (
           <div className="py-16">
             <Loader text="Loading your consumption history..." />

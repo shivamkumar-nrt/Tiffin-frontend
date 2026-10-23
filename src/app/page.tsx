@@ -13,7 +13,7 @@ import {
 import Loader from '@/components/Loader';
 import { GoldenThali } from '@/components/three';
 
-const glass = 'bg-white/70 backdrop-blur-xl border border-gold-200/80 shadow-xl shadow-gold-500/10';
+const glass = 'bg-ink-900/60 backdrop-blur-xl border border-gold-500/25 shadow-xl shadow-black/40';
 
 export default function PublicHomePage() {
   const { user, isAdmin } = useAuth();
@@ -38,13 +38,13 @@ export default function PublicHomePage() {
   const filteredCombos = combos.filter((c) => activeTab === 'ALL' || c.tiffinType === activeTab);
 
   return (
-    <div className="min-h-screen text-stone-800 selection:bg-gold-300 selection:text-gold-900 overflow-x-hidden">
+    <div className="min-h-screen text-stone-800 selection:bg-gold-300 selection:text-ink-950 overflow-x-hidden">
       {/* Navbar */}
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="sticky top-0 z-50 bg-white/65 backdrop-blur-2xl border-b border-gold-200/70 shadow-sm shadow-gold-500/10"
+        className="sticky top-0 z-50 bg-ink-900/65 backdrop-blur-2xl border-b border-gold-200/70 shadow-sm shadow-gold-500/10"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3 group">
@@ -72,7 +72,7 @@ export default function PublicHomePage() {
             {user ? (
               <Link
                 href={isAdmin ? '/admin' : '/user'}
-                className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-gold-400 text-gold-900 rounded-xl text-sm font-extrabold shadow-lg shadow-gold-500/30 flex items-center space-x-2 transition transform hover:scale-105 border border-white/50"
+                className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 rounded-xl text-sm font-extrabold shadow-lg shadow-gold-500/30 flex items-center space-x-2 transition transform hover:scale-105 border border-white/50"
               >
                 <span>Portal ({user.fullName.split(' ')[0]})</span>
                 <ArrowRight className="w-4 h-4" />
@@ -82,7 +82,7 @@ export default function PublicHomePage() {
                 <Link href="/login" className="px-4 py-2 text-sm font-bold text-stone-600 hover:text-gold-800 transition">Sign In</Link>
                 <Link
                   href="/login"
-                  className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-gold-400 text-gold-900 rounded-xl text-sm font-extrabold shadow-lg shadow-gold-500/30 flex items-center space-x-2 transition transform hover:scale-105 border border-white/50"
+                  className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 rounded-xl text-sm font-extrabold shadow-lg shadow-gold-500/30 flex items-center space-x-2 transition transform hover:scale-105 border border-white/50"
                 >
                   <span>Order Now</span>
                   <ArrowRight className="w-4 h-4" />
@@ -97,7 +97,7 @@ export default function PublicHomePage() {
         </div>
 
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gold-200/70 bg-white/90 backdrop-blur-xl px-4 py-4 space-y-3 text-sm font-bold text-stone-700">
+          <div className="md:hidden border-t border-gold-200/70 bg-ink-900/90 backdrop-blur-xl px-4 py-4 space-y-3 text-sm font-bold text-stone-700">
             <a href="#combos" onClick={() => setMobileMenuOpen(false)} className="block">Menu</a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="block">Gallery</a>
             <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} className="block">Why Us</a>
@@ -139,7 +139,7 @@ export default function PublicHomePage() {
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                 <Link
                   href="/login"
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-400 text-gold-900 rounded-full text-base font-extrabold shadow-[0_12px_30px_-8px_rgba(233,174,18,0.7)] flex items-center justify-center space-x-2.5 transition-all transform hover:-translate-y-1 border border-white/60"
+                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 rounded-full text-base font-extrabold shadow-[0_12px_30px_-8px_rgba(233,174,18,0.7)] flex items-center justify-center space-x-2.5 transition-all transform hover:-translate-y-1 border border-white/60"
                 >
                   <Utensils className="w-5 h-5" />
                   <span>Start Your Subscription</span>
@@ -217,7 +217,7 @@ export default function PublicHomePage() {
                   onClick={() => setActiveTab(tab)}
                   className={`px-5 sm:px-6 py-2.5 rounded-xl text-sm font-extrabold transition-all ${
                     activeTab === tab
-                      ? 'bg-gradient-to-r from-gold-500 to-gold-400 text-gold-900 shadow-md shadow-gold-500/40'
+                      ? 'bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 shadow-md shadow-gold-500/40'
                       : 'text-stone-500 hover:text-gold-800'
                   }`}
                 >
@@ -243,9 +243,9 @@ export default function PublicHomePage() {
                     exit={{ opacity: 0, scale: 0.95 }}
                     whileHover={{ y: -8 }}
                     transition={{ duration: 0.3 }}
-                    className="group w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm rounded-[2rem] bg-gradient-to-b from-gold-300 via-gold-200 to-white p-[2px] shadow-xl shadow-gold-500/15 hover:shadow-2xl hover:shadow-gold-500/30 transition-all"
+                    className="group w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm rounded-[2rem] bg-gradient-to-b from-gold-300 via-gold-200 to-ink-900 p-[2px] shadow-xl shadow-gold-500/15 hover:shadow-2xl hover:shadow-gold-500/30 transition-all"
                   >
-                    <div className="bg-white/90 backdrop-blur rounded-[calc(2rem-2px)] p-6 sm:p-7 h-full flex flex-col justify-between relative overflow-hidden">
+                    <div className="bg-ink-900/90 backdrop-blur rounded-[calc(2rem-2px)] p-6 sm:p-7 h-full flex flex-col justify-between relative overflow-hidden">
                       <div className="absolute -top-20 -right-20 w-44 h-44 bg-gold-300/40 rounded-full blur-3xl group-hover:bg-gold-300/60 transition-colors duration-500" />
                       <div className="space-y-5 relative z-10">
                         <div className="text-center space-y-3">
@@ -275,7 +275,7 @@ export default function PublicHomePage() {
                       </div>
                       <Link
                         href="/login"
-                        className="mt-7 relative z-10 w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-400 text-gold-900 rounded-2xl text-sm font-extrabold flex items-center justify-center space-x-2 transition-all shadow-lg shadow-gold-500/30 hover:shadow-xl hover:brightness-105"
+                        className="mt-7 relative z-10 w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 rounded-2xl text-sm font-extrabold flex items-center justify-center space-x-2 transition-all shadow-lg shadow-gold-500/30 hover:shadow-xl hover:brightness-105"
                       >
                         <span>Order This Thali</span>
                         <ArrowRight className="w-4 h-4" />
@@ -337,16 +337,16 @@ export default function PublicHomePage() {
 
       {/* CTA */}
       <section className="relative z-10 py-20 overflow-hidden bg-gradient-to-r from-gold-400 via-gold-300 to-amber-300">
-        <div className="absolute -top-24 -left-16 w-72 h-72 rounded-full bg-white/40 blur-3xl" />
+        <div className="absolute -top-24 -left-16 w-72 h-72 rounded-full bg-ink-900/40 blur-3xl" />
         <div className="absolute -bottom-24 -right-10 w-80 h-80 rounded-full bg-gold-500/30 blur-3xl" />
         <div className="max-w-5xl mx-auto px-4 text-center space-y-7 relative z-10">
-          <h2 className="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-gold-900">Craving Good Food?</h2>
-          <p className="text-lg sm:text-xl text-gold-900/80 max-w-2xl mx-auto font-bold">
+          <h2 className="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-ink-950">Craving Good Food?</h2>
+          <p className="text-lg sm:text-xl text-ink-950/80 max-w-2xl mx-auto font-bold">
             Join 500+ others and upgrade your daily meals today.
           </p>
           <Link
             href="/login"
-            className="inline-flex px-10 py-4 bg-white text-gold-900 rounded-full text-lg font-extrabold shadow-2xl shadow-gold-700/30 transition transform hover:scale-105 items-center space-x-3"
+            className="inline-flex px-10 py-4 bg-ink-850 text-gold-900 rounded-full text-lg font-extrabold shadow-2xl shadow-gold-700/30 transition transform hover:scale-105 items-center space-x-3"
           >
             <span>Order Your First Tiffin</span>
             <ArrowRight className="w-5 h-5" />
@@ -355,7 +355,7 @@ export default function PublicHomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 bg-white/70 backdrop-blur-xl text-stone-600 text-xs py-12 border-t border-gold-200">
+      <footer className="relative z-10 bg-ink-900/70 backdrop-blur-xl text-stone-600 text-xs py-12 border-t border-gold-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-9">
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-gold-900 font-display font-extrabold text-lg">

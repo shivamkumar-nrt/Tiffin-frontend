@@ -23,8 +23,8 @@ export const InvoiceModal: React.FC<InvoiceModalProps> = ({ invoice, onClose }) 
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full overflow-hidden border border-stone-200 max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-ink-850 rounded-2xl shadow-2xl max-w-3xl w-full overflow-hidden border border-stone-200 max-h-[90vh] flex flex-col">
         {/* Modal Top Actions */}
         <div className="px-4 sm:px-6 py-3.5 bg-stone-50 border-b border-stone-200 flex flex-wrap justify-between items-center gap-2 print:hidden flex-shrink-0">
           <div className="flex items-center space-x-2 text-stone-800 font-bold text-xs sm:text-sm truncate">
@@ -34,14 +34,14 @@ export const InvoiceModal: React.FC<InvoiceModalProps> = ({ invoice, onClose }) 
           <div className="flex items-center space-x-1.5 sm:space-x-2">
             <button
               onClick={handleDownloadPdf}
-              className="flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-semibold shadow-sm transition"
+              className="flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-lg text-xs font-semibold shadow-sm transition"
             >
               <Download className="w-3.5 h-3.5" />
               <span>PDF</span>
             </button>
             <button
               onClick={handlePrint}
-              className="hidden xs:flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 bg-white border border-stone-200 hover:bg-stone-100 text-stone-700 rounded-lg text-xs font-semibold shadow-sm transition"
+              className="hidden xs:flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 bg-ink-850 border border-stone-200 hover:bg-stone-100 text-stone-700 rounded-lg text-xs font-semibold shadow-sm transition"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print</span>

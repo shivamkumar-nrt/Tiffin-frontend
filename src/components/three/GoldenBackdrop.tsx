@@ -64,20 +64,23 @@ export default function GoldenBackdrop() {
                     + sin(length(p - vec2(1.4, 0.7)) * 3.2 - t * 5.0) * 0.4;
             w = w * 0.42 + 0.5;
 
-            vec3 cream = vec3(1.000, 0.985, 0.930);
-            vec3 pale  = vec3(1.000, 0.929, 0.690);
-            vec3 gold  = vec3(0.985, 0.800, 0.320);
+            vec3 base = vec3(0.039, 0.031, 0.020);
+            vec3 deep = vec3(0.150, 0.100, 0.028);
+            vec3 gold = vec3(0.780, 0.540, 0.090);
 
-            vec3 col = mix(cream, pale, smoothstep(0.20, 0.75, w));
-            col = mix(col, gold, smoothstep(0.62, 1.0, w) * 0.42 * (0.45 + 0.55 * uv.y));
+            vec3 col = mix(base, deep, smoothstep(0.20, 0.78, w));
+            col += gold * smoothstep(0.68, 1.0, w) * 0.20 * (0.35 + 0.65 * uv.y);
 
             // slow diagonal sheen
             float band = 1.0 - abs(sin((uv.x * 0.9 - uv.y * 0.7) * 3.14159 + t * 6.0));
-            col += smoothstep(0.55, 1.0, band) * 0.045;
+            col += vec3(0.9, 0.65, 0.15) * smoothstep(0.6, 1.0, band) * 0.035;
 
             // soft glow following the pointer
             float d = distance(uv, uMouse);
-            col += vec3(1.0, 0.86, 0.42) * 0.16 * exp(-d * d * 9.0);
+            col += vec3(0.95, 0.68, 0.14) * 0.15 * exp(-d * d * 9.0);
+
+            // vignette
+            col *= 1.0 - 0.35 * pow(distance(uv, vec2(0.5)), 2.0);
 
             gl_FragColor = vec4(col, 1.0);
           }
@@ -126,7 +129,7 @@ export default function GoldenBackdrop() {
         void main() {
           float d = length(gl_PointCoord - 0.5);
           float a = smoothstep(0.5, 0.0, d);
-          gl_FragColor = vec4(vec3(1.0, 0.78, 0.28), a * (0.25 + 0.45 * vTw));
+          gl_FragColor = vec4(vec3(1.0, 0.76, 0.22), a * (0.3 + 0.6 * vTw));
         }
       `,
     });

@@ -241,7 +241,7 @@ export default function AdminPaymentsPage() {
   return (
     <div className="space-y-6">
       {/* Monthly Settlement Reminder Widget (25th - 30th) */}
-      <div className="bg-gradient-to-r from-gold-800 via-amber-800 to-stone-900 rounded-2xl p-4 sm:p-5 text-white shadow-lg border border-gold-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-gold-100 via-gold-50 to-ink-850 rounded-2xl p-4 sm:p-5 text-stone-800 shadow-lg border border-gold-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start space-x-3">
           <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-xl shrink-0">
             <Bell className="w-6 h-6 text-gold-300 animate-pulse" />
@@ -249,11 +249,11 @@ export default function AdminPaymentsPage() {
           <div>
             <div className="flex items-center space-x-2">
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                isReminderWindow ? 'bg-amber-400 text-amber-950' : 'bg-gold-500/30 text-gold-200'
+                isReminderWindow ? 'bg-amber-400 text-ink-950' : 'bg-gold-500/30 text-gold-800'
               }`}>
                 {isReminderWindow ? '⚡ 25th-30th Reminder Active' : 'Monthly Reminder Schedule'}
               </span>
-              <span className="text-xs text-gold-200">
+              <span className="text-xs text-gold-800">
                 {reminderStatus?.daysLeftInMonth ? `${reminderStatus.daysLeftInMonth} days remaining in month` : 'Auto-triggers on 25th-31st'}
               </span>
             </div>
@@ -292,7 +292,7 @@ export default function AdminPaymentsPage() {
           <button
             onClick={() => loadData(currentPage, pageSize)}
             disabled={loading}
-            className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
+            className="p-2 bg-ink-850 border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
             title="Refresh"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-gold-600' : ''}`} />
@@ -304,7 +304,7 @@ export default function AdminPaymentsPage() {
               setAmount('');
               setShowModal(true);
             }}
-            className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+            className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
           >
             <Plus className="w-4 h-4" />
             <span>Record Manual Payment</span>
@@ -313,7 +313,7 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Customer Balances Grid */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4 sm:p-5">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-4 sm:p-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-stone-100">
           <div>
             <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
@@ -359,7 +359,7 @@ export default function AdminPaymentsPage() {
                 <button
                   type="button"
                   onClick={() => handleSelectUserForPayment(emp)}
-                  className="w-full py-1.5 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition shadow-sm"
+                  className="w-full py-1.5 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-lg text-xs font-bold transition shadow-sm"
                 >
                   Settle / Pay
                 </button>
@@ -370,7 +370,7 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Filter Bar for Payments Table */}
-      <div className="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="bg-ink-850 p-4 rounded-2xl border border-stone-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div>
           <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Search Payment</label>
           <div className="relative">
@@ -433,7 +433,7 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Payment History Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
           <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">
             Payment & Settlement Transactions Log
@@ -509,7 +509,7 @@ export default function AdminPaymentsPage() {
                             <div className="flex items-center space-x-1.5">
                               <button
                                 onClick={() => handleVerifyPayment(p.id)}
-                                className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
+                                className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
                                 title="Approve and settle customer dues"
                               >
                                 <Check className="w-3.5 h-3.5" />
@@ -606,8 +606,8 @@ export default function AdminPaymentsPage() {
 
       {/* Rejection Modal */}
       {rejectingPayment && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-stone-200 animate-in fade-in zoom-in duration-150">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-ink-850 rounded-2xl shadow-2xl max-w-md w-full p-5 space-y-4 border border-stone-200 animate-in fade-in zoom-in duration-150">
             <div className="flex justify-between items-center pb-2 border-b border-stone-100">
               <h2 className="text-base font-bold text-red-600 flex items-center space-x-2">
                 <AlertCircle className="w-5 h-5" />
@@ -660,8 +660,8 @@ export default function AdminPaymentsPage() {
 
       {/* Record Manual Payment Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-ink-850 rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
             <div className="flex justify-between items-center pb-2 border-b border-stone-100">
               <h2 className="text-base font-bold text-stone-900">Record Customer Payment</h2>
               <button onClick={() => setShowModal(false)} className="text-stone-400 hover:text-stone-600">
@@ -792,7 +792,7 @@ export default function AdminPaymentsPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {submitting ? 'Processing...' : 'Confirm & Save Payment'}
                 </button>

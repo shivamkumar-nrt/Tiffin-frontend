@@ -172,7 +172,7 @@ export default function AdminCombosPage() {
 
         <button
           onClick={openCreateModal}
-          className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition self-start sm:self-auto"
+          className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Create New Combo / Thali</span>
@@ -180,7 +180,7 @@ export default function AdminCombosPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="bg-ink-850 p-4 rounded-2xl border border-stone-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="relative">
           <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
           <input
@@ -205,7 +205,7 @@ export default function AdminCombosPage() {
               }}
               className={`flex-1 py-2 rounded-xl text-xs font-bold transition ${
                 typeFilter === tab
-                  ? 'bg-gold-500 text-gold-900 shadow-sm'
+                  ? 'bg-gold-500 text-ink-950 shadow-sm'
                   : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
               }`}
             >
@@ -217,7 +217,7 @@ export default function AdminCombosPage() {
 
       {/* Combos Grid */}
       {loading ? (
-        <div className="py-12 text-center bg-white rounded-2xl border border-stone-200">
+        <div className="py-12 text-center bg-ink-850 rounded-2xl border border-stone-200">
           <Loader text="Loading meal packages..." />
         </div>
       ) : paginatedCombos.length > 0 ? (
@@ -226,7 +226,7 @@ export default function AdminCombosPage() {
             {paginatedCombos.map((combo) => (
               <div
                 key={combo.id}
-                className="bg-white rounded-2xl border border-stone-200/90 shadow-sm p-5 flex flex-col justify-between hover:border-gold-300 hover:shadow-md transition"
+                className="bg-ink-850 rounded-2xl border border-stone-200/90 shadow-sm p-5 flex flex-col justify-between hover:border-gold-300 hover:shadow-md transition"
               >
                 <div className="space-y-3">
                   {/* Title & Price Header */}
@@ -298,7 +298,7 @@ export default function AdminCombosPage() {
           </div>
 
           {/* Pagination */}
-          <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
+          <div className="bg-ink-850 rounded-2xl border border-stone-200 overflow-hidden">
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
@@ -314,7 +314,7 @@ export default function AdminCombosPage() {
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-12 text-center text-stone-400">
+        <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-12 text-center text-stone-400">
           <PackageCheck className="w-12 h-12 text-stone-300 mx-auto mb-3" />
           <h3 className="text-sm font-bold text-stone-700">No Combos or Thalis Found</h3>
           <p className="text-xs text-stone-500 mt-1">Click &apos;Create New Combo / Thali&apos; to add your first package.</p>
@@ -323,8 +323,8 @@ export default function AdminCombosPage() {
 
       {/* Create / Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-ink-850 rounded-2xl shadow-2xl max-w-xl w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
             <div className="flex justify-between items-center pb-2 border-b border-stone-100">
               <h2 className="text-base font-bold text-stone-900">
                 {editingId ? 'Edit Combo / Thali Package' : 'Create New Combo / Thali Package'}
@@ -463,7 +463,7 @@ export default function AdminCombosPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {submitting ? 'Saving...' : editingId ? 'Update Combo' : 'Create Combo'}
                 </button>

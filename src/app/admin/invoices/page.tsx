@@ -136,7 +136,7 @@ export default function AdminInvoicesPage() {
 
         <button
           onClick={resetFilters}
-          className="px-3 py-2 bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1 self-start sm:self-auto"
+          className="px-3 py-2 bg-ink-850 border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1 self-start sm:self-auto"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset Filters</span>
@@ -144,7 +144,7 @@ export default function AdminInvoicesPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm space-y-3.5">
+      <div className="bg-ink-850 p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm space-y-3.5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
             <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Search Invoice</label>
@@ -214,7 +214,7 @@ export default function AdminInvoicesPage() {
       </div>
 
       {/* Invoices Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[700px] text-left text-xs">
             <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
@@ -268,7 +268,7 @@ export default function AdminInvoicesPage() {
                         </button>
                         <button
                           onClick={() => handleDownloadPdf(inv.id)}
-                          className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
+                          className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
                         >
                           <Download className="w-3.5 h-3.5" />
                           <span>PDF</span>

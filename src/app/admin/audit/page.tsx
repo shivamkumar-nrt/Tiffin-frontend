@@ -92,19 +92,19 @@ export default function AdminAuditPage() {
           <button
             onClick={loadLogs}
             disabled={loading}
-            className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
+            className="p-2 bg-ink-850 border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
             title="Refresh Logs"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-gold-600' : ''}`} />
           </button>
-          <div className="px-4 py-2 bg-white border border-stone-200 rounded-xl text-xs shadow-sm font-semibold text-stone-700">
+          <div className="px-4 py-2 bg-ink-850 border border-stone-200 rounded-xl text-xs shadow-sm font-semibold text-stone-700">
             Total Logs: <span className="text-gold-600 font-bold">{logs.length}</span>
           </div>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
@@ -146,7 +146,7 @@ export default function AdminAuditPage() {
       </div>
 
       {/* Audit Log List */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
         {loading ? (
           <div className="py-16">
             <Loader text="Loading audit trail..." />

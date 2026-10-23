@@ -105,13 +105,13 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             const getBorderAndBg = () => {
               switch (toast.type) {
                 case 'success':
-                  return 'bg-white border-green-200 text-stone-800 shadow-green-500/10';
+                  return 'bg-ink-850 border-green-200 text-stone-800 shadow-green-500/10';
                 case 'error':
-                  return 'bg-white border-rose-200 text-stone-800 shadow-rose-500/10';
+                  return 'bg-ink-850 border-rose-200 text-stone-800 shadow-rose-500/10';
                 case 'warning':
-                  return 'bg-white border-amber-200 text-stone-800 shadow-amber-500/10';
+                  return 'bg-ink-850 border-amber-200 text-stone-800 shadow-amber-500/10';
                 default:
-                  return 'bg-white border-blue-200 text-stone-800 shadow-blue-500/10';
+                  return 'bg-ink-850 border-blue-200 text-stone-800 shadow-blue-500/10';
               }
             };
 

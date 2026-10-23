@@ -127,25 +127,25 @@ export default function UserDashboardPage() {
 
       {/* Monthly Payment Settlement Reminder Banner (25th - 30th/31st of month) */}
       {isReminderPeriod && hasDues && (
-        <div className="bg-gradient-to-r from-amber-500 via-gold-500 to-amber-600 rounded-2xl p-4 sm:p-5 text-white shadow-lg shadow-gold-500/20 border border-amber-300 animate-in fade-in slide-in-from-top-3 duration-200">
+        <div className="bg-gradient-to-r from-amber-500 via-gold-500 to-amber-600 rounded-2xl p-4 sm:p-5 text-ink-950 shadow-lg shadow-gold-500/20 border border-amber-300 animate-in fade-in slide-in-from-top-3 duration-200">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-start space-x-3">
               <div className="p-2.5 bg-white/20 backdrop-blur-md rounded-xl shrink-0">
-                <Bell className="w-6 h-6 text-white animate-bounce" />
+                <Bell className="w-6 h-6 text-ink-950 animate-bounce" />
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-white text-gold-700 tracking-wider">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-ink-950 text-gold-700 tracking-wider">
                     Monthly Settlement Alert (25th - 30th)
                   </span>
-                  <span className="text-xs text-gold-100">
+                  <span className="text-xs text-ink-950/70">
                     {reminderStatus?.daysLeftInMonth ? `${reminderStatus.daysLeftInMonth} days left in month` : 'Month-end settlement'}
                   </span>
                 </div>
                 <h3 className="text-base sm:text-lg font-black mt-1">
                   You have an outstanding balance of Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
                 </h3>
-                <p className="text-xs text-gold-100 mt-0.5">
+                <p className="text-xs text-ink-950/75 mt-0.5">
                   Scan the UPI QR code below with any UPI App (GPay, PhonePe, Paytm) and submit your UTR number for admin verification.
                 </p>
               </div>
@@ -153,7 +153,7 @@ export default function UserDashboardPage() {
 
             <button
               onClick={() => setIsPaymentModalOpen(true)}
-              className="px-5 py-2.5 bg-white hover:bg-gold-50 text-gold-700 rounded-xl text-xs font-black shadow-md hover:shadow-lg transition shrink-0 flex items-center justify-center space-x-2"
+              className="px-5 py-2.5 bg-ink-850 hover:bg-gold-50 text-gold-700 rounded-xl text-xs font-black shadow-md hover:shadow-lg transition shrink-0 flex items-center justify-center space-x-2"
             >
               <QrCode className="w-4 h-4 text-gold-600" />
               <span>Open Full Payment Screen</span>
@@ -163,25 +163,25 @@ export default function UserDashboardPage() {
       )}
 
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-gold-300 via-gold-200 to-amber-200 border border-white/70 rounded-2xl p-6 text-gold-900 shadow-lg shadow-gold-500/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="bg-gradient-to-r from-gold-300 via-gold-400 to-amber-500 border border-white/70 rounded-2xl p-6 text-ink-950 shadow-lg shadow-gold-500/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black tracking-tight">Welcome to Tiffin Portal</h1>
-          <p className="text-gold-800/80 text-xs mt-1">
+          <p className="text-ink-950/70 text-xs mt-1">
             Order your daily fresh home-style meals, track meal history, and view invoices.
           </p>
         </div>
 
         {/* Due Balance Card on Banner */}
         <div className="flex items-center space-x-3">
-          <div className="bg-white/60 backdrop-blur-md border border-white/70 px-5 py-3 rounded-xl text-right">
-            <div className="text-[10px] uppercase font-bold text-gold-700">Current Outstanding Due</div>
-            <div className="text-2xl font-black text-gold-900">
+          <div className="bg-ink-950/10 backdrop-blur-md border border-ink-950/20 px-5 py-3 rounded-xl text-right">
+            <div className="text-[10px] uppercase font-bold text-ink-950/70">Current Outstanding Due</div>
+            <div className="text-2xl font-black text-ink-950">
               Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
             </div>
             {hasDues && (
               <button
                 onClick={() => setIsPaymentModalOpen(true)}
-                className="mt-1.5 px-3 py-1 bg-white text-gold-800 hover:bg-gold-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
+                className="mt-1.5 px-3 py-1 bg-ink-950 text-gold-700 hover:bg-ink-800 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
               >
                 <CreditCard className="w-3 h-3" />
                 <span>Pay via UPI QR</span>
@@ -191,7 +191,7 @@ export default function UserDashboardPage() {
           <button
             onClick={loadData}
             disabled={loading}
-            className="p-3 bg-white/60 hover:bg-white border border-white/70 rounded-xl text-gold-800 transition cursor-pointer"
+            className="p-3 bg-ink-950/10 hover:bg-ink-950/20 border border-ink-950/20 rounded-xl text-ink-950 transition cursor-pointer"
             title="Refresh Dashboard"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -201,7 +201,7 @@ export default function UserDashboardPage() {
 
       {/* Latest Kitchen Announcements / Broadcast Notice Board */}
       {announcements.length > 0 && (
-        <div className="bg-white rounded-2xl border border-gold-100 shadow-sm p-4 sm:p-5 space-y-3">
+        <div className="bg-ink-850 rounded-2xl border border-gold-100 shadow-sm p-4 sm:p-5 space-y-3">
           <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
             <div className="flex items-center space-x-2">
               <div className="w-7 h-7 rounded-lg bg-gold-100 text-gold-700 flex items-center justify-center font-bold">
@@ -250,7 +250,7 @@ export default function UserDashboardPage() {
       {/* Main Grid: Today's Menu & Quick Request */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Today's Delicious Menu */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
+        <div className="lg:col-span-2 bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
           <div className="flex justify-between items-center pb-3 border-b border-stone-100">
             <div className="flex items-center space-x-2">
               <ChefHat className="w-5 h-5 text-gold-600" />
@@ -309,7 +309,7 @@ export default function UserDashboardPage() {
         </div>
 
         {/* Quick Order Widget from Dynamic Combos */}
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
+        <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
           <div className="flex items-center space-x-2 pb-3 border-b border-stone-100">
             <PlusCircle className="w-5 h-5 text-gold-600" />
             <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wider">Quick Order Tiffin</h2>
@@ -374,7 +374,7 @@ export default function UserDashboardPage() {
               <button
                 type="submit"
                 disabled={submitting || !selectedCombo}
-                className="w-full mt-2 py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 font-bold rounded-xl text-xs shadow-md shadow-gold-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-1.5"
+                className="w-full mt-2 py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-ink-950 font-bold rounded-xl text-xs shadow-md shadow-gold-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-1.5"
               >
                 <span>{submitting ? 'Submitting...' : `Order ${selectedCombo?.name || ''}`}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -389,7 +389,7 @@ export default function UserDashboardPage() {
       </div>
 
       {/* Recent Requests Tracker */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
           <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">My Recent Tiffin Requests</h2>
           <Link href="/user/records" className="text-xs text-gold-600 font-bold hover:underline">

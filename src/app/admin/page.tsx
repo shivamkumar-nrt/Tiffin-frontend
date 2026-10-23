@@ -93,24 +93,24 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-gold-300 via-gold-200 to-amber-200 border border-white/70 rounded-2xl p-6 text-gold-900 shadow-lg shadow-gold-500/20">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-gold-300 via-gold-400 to-amber-500 border border-white/70 rounded-2xl p-6 text-ink-950 shadow-lg shadow-gold-500/20">
         <div>
           <h1 className="text-2xl font-black tracking-tight">Admin Overview</h1>
-          <p className="text-gold-800/80 text-xs mt-1">
+          <p className="text-ink-950/70 text-xs mt-1">
             Monitor pending approvals, daily consumption, outstanding balances & payments.
           </p>
         </div>
         <div className="flex items-center space-x-2">
           <Link
             href="/admin/requests"
-            className="px-4 py-2 bg-white/70 hover:bg-white backdrop-blur-md border border-gold-300/60 rounded-xl text-xs font-bold text-gold-900 transition flex items-center space-x-1.5"
+            className="px-4 py-2 bg-ink-900/70 hover:bg-ink-700 backdrop-blur-md border border-gold-300/60 rounded-xl text-xs font-bold text-gold-900 transition flex items-center space-x-1.5"
           >
             <ClipboardList className="w-4 h-4" />
             <span>Manage Requests</span>
           </Link>
           <Link
             href="/admin/combos"
-            className="px-4 py-2 bg-white text-gold-700 hover:bg-gold-50 rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1.5"
+            className="px-4 py-2 bg-ink-850 text-gold-700 hover:bg-gold-50 rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1.5"
           >
             <PackageCheck className="w-4 h-4" />
             <span>Combos & Thalis</span>
@@ -121,7 +121,7 @@ export default function AdminDashboardPage() {
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Pending Requests */}
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+        <div className="bg-ink-850 p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
           <div className="flex justify-between items-start">
             <div>
               <div className="text-xs font-bold text-stone-400 uppercase tracking-wider">Pending Approvals</div>
@@ -139,7 +139,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Today's Tiffins */}
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+        <div className="bg-ink-850 p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
           <div className="flex justify-between items-start">
             <div>
               <div className="text-xs font-bold text-stone-400 uppercase tracking-wider">Today's Tiffins</div>
@@ -157,7 +157,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Total Outstanding Dues */}
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+        <div className="bg-ink-850 p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
           <div className="flex justify-between items-start">
             <div>
               <div className="text-xs font-bold text-stone-400 uppercase tracking-wider">Total Due Balance</div>
@@ -175,7 +175,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Revenue Collected */}
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+        <div className="bg-ink-850 p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
           <div className="flex justify-between items-start">
             <div>
               <div className="text-xs font-bold text-stone-400 uppercase tracking-wider">Settled Payments</div>
@@ -196,7 +196,7 @@ export default function AdminDashboardPage() {
       {/* Main Grid: Pending Action Table & Combos / Thalis Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Pending Requests Column (2 cols) */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+        <div className="lg:col-span-2 bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
             <div className="flex items-center space-x-2">
               <Clock className="w-4 h-4 text-amber-500" />
@@ -235,7 +235,7 @@ export default function AdminDashboardPage() {
                       <button
                         onClick={() => handleApprove(req.id)}
                         disabled={actionLoading === req.id}
-                        className="px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition flex items-center space-x-1 disabled:opacity-50"
+                        className="px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-lg text-xs font-bold transition flex items-center space-x-1 disabled:opacity-50"
                       >
                         <CheckCircle className="w-3.5 h-3.5" />
                         <span>Approve</span>
@@ -263,7 +263,7 @@ export default function AdminDashboardPage() {
 
         {/* Right Column: Active Combos & Thalis */}
         <div className="space-y-6">
-          <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-5">
+          <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm p-5">
             <div className="flex justify-between items-center pb-3 border-b border-stone-100">
               <div className="flex items-center space-x-2">
                 <PackageCheck className="w-4 h-4 text-gold-600" />

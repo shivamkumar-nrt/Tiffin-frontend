@@ -160,7 +160,7 @@ export default function AdminUsersPage() {
 
         <button
           onClick={() => setShowModal(true)}
-          className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition self-start sm:self-auto"
+          className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Add New User</span>
@@ -168,7 +168,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="bg-ink-850 p-4 rounded-2xl border border-stone-200 shadow-sm grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="relative">
           <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-3" />
           <input
@@ -206,7 +206,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Users Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+      <div className="bg-ink-850 rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[700px] text-left text-xs">
             <thead className="bg-stone-50 text-stone-700 uppercase font-bold text-[10px] border-b border-stone-200">
@@ -314,8 +314,8 @@ export default function AdminUsersPage() {
 
       {/* Add User Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-ink-850 rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
             <div className="flex justify-between items-center pb-2 border-b border-stone-100">
               <h2 className="text-base font-bold text-stone-900">Add New User Account</h2>
               <button onClick={() => setShowModal(false)} className="text-stone-400 hover:text-stone-600">
@@ -394,7 +394,7 @@ export default function AdminUsersPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {submitting ? 'Creating...' : 'Create User'}
                 </button>
@@ -406,8 +406,8 @@ export default function AdminUsersPage() {
 
       {/* Reset Password Modal */}
       {resetModalUser && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-ink-850 rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 space-y-4 border border-stone-200 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
             <div className="flex justify-between items-center pb-2 border-b border-stone-100">
               <h2 className="text-base font-bold text-stone-900 flex items-center space-x-2">
                 <KeyRound className="w-5 h-5 text-gold-600" />
@@ -450,7 +450,7 @@ export default function AdminUsersPage() {
                 <button
                   type="submit"
                   disabled={resetting}
-                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-ink-950 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {resetting ? 'Updating...' : 'Set Password'}
                 </button>
