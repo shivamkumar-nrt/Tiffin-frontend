@@ -23,6 +23,7 @@ import Link from 'next/link';
 import { useToast } from '@/context/ToastContext';
 import Loader from '@/components/Loader';
 import ThaliShowcase from '@/components/ThaliShowcase';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export const LoginView: React.FC = () => {
   const { login } = useAuth();
@@ -103,6 +104,7 @@ export const LoginView: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-40 overflow-hidden grid grid-cols-1 grid-rows-[auto_minmax(0,1fr)] lg:grid-rows-1 lg:grid-cols-12">
+      <ThemeToggle className="absolute top-3 right-3 z-50" />
       {/* Fullscreen Animated Bar Loader on API call */}
       {loading && (
         <Loader

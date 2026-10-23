@@ -4,9 +4,9 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
- * Full-viewport animated light-golden background:
- * a flowing shader gradient (cream -> pale gold -> gold) plus drifting gold dust.
- * Sits behind the app (fixed, pointer-events: none) and pauses when the tab is hidden.
+ * Full-viewport animated golden background (light and dark variants, cross-fading when the theme
+ * toggles): a flowing shader gradient plus drifting gold dust.
+ * Fixed behind the app, pointer-events: none, pauses when the tab is hidden.
  */
 export default function GoldenBackdrop() {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -32,10 +32,12 @@ export default function GoldenBackdrop() {
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
+    const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
     const uniforms = {
       uTime: { value: 0 },
       uRes: { value: new THREE.Vector2(1, 1) },
       uMouse: { value: new THREE.Vector2(0.7, 0.8) },
+      uDark: { value: isDark() ? 1 : 0 },
     };
 
     // ---- flowing gradient
@@ -52,6 +54,7 @@ export default function GoldenBackdrop() {
           uniform float uTime;
           uniform vec2 uRes;
           uniform vec2 uMouse;
+          uniform float uDark;
 
           void main() {
             vec2 uv = gl_FragCoord.xy / uRes;
@@ -64,25 +67,29 @@ export default function GoldenBackdrop() {
                     + sin(length(p - vec2(1.4, 0.7)) * 3.2 - t * 5.0) * 0.4;
             w = w * 0.42 + 0.5;
 
+            float band = 1.0 - abs(sin((uv.x * 0.9 - uv.y * 0.7) * 3.14159 + t * 6.0));
+            float d = distance(uv, uMouse);
+
+            // light: cream -> pale gold -> gold
+            vec3 cream = vec3(1.000, 0.985, 0.930);
+            vec3 pale  = vec3(1.000, 0.929, 0.690);
+            vec3 gold  = vec3(0.985, 0.800, 0.320);
+            vec3 colL = mix(cream, pale, smoothstep(0.20, 0.75, w));
+            colL = mix(colL, gold, smoothstep(0.62, 1.0, w) * 0.42 * (0.45 + 0.55 * uv.y));
+            colL += smoothstep(0.55, 1.0, band) * 0.045;
+            colL += vec3(1.0, 0.86, 0.42) * 0.16 * exp(-d * d * 9.0);
+
+            // dark: near-black -> deep bronze with glowing gold crests
             vec3 base = vec3(0.039, 0.031, 0.020);
             vec3 deep = vec3(0.150, 0.100, 0.028);
-            vec3 gold = vec3(0.780, 0.540, 0.090);
+            vec3 gld  = vec3(0.780, 0.540, 0.090);
+            vec3 colD = mix(base, deep, smoothstep(0.20, 0.78, w));
+            colD += gld * smoothstep(0.68, 1.0, w) * 0.20 * (0.35 + 0.65 * uv.y);
+            colD += vec3(0.9, 0.65, 0.15) * smoothstep(0.6, 1.0, band) * 0.035;
+            colD += vec3(0.95, 0.68, 0.14) * 0.15 * exp(-d * d * 9.0);
+            colD *= 1.0 - 0.35 * pow(distance(uv, vec2(0.5)), 2.0);
 
-            vec3 col = mix(base, deep, smoothstep(0.20, 0.78, w));
-            col += gold * smoothstep(0.68, 1.0, w) * 0.20 * (0.35 + 0.65 * uv.y);
-
-            // slow diagonal sheen
-            float band = 1.0 - abs(sin((uv.x * 0.9 - uv.y * 0.7) * 3.14159 + t * 6.0));
-            col += vec3(0.9, 0.65, 0.15) * smoothstep(0.6, 1.0, band) * 0.035;
-
-            // soft glow following the pointer
-            float d = distance(uv, uMouse);
-            col += vec3(0.95, 0.68, 0.14) * 0.15 * exp(-d * d * 9.0);
-
-            // vignette
-            col *= 1.0 - 0.35 * pow(distance(uv, vec2(0.5)), 2.0);
-
-            gl_FragColor = vec4(col, 1.0);
+            gl_FragColor = vec4(mix(colL, colD, uDark), 1.0);
           }
         `,
       }),
@@ -106,10 +113,9 @@ export default function GoldenBackdrop() {
     dustGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     dustGeo.setAttribute('aSeed', new THREE.BufferAttribute(seed, 3));
     const dustMat = new THREE.ShaderMaterial({
-      uniforms: { uTime: uniforms.uTime, uDpr: { value: dpr } },
+      uniforms: { uTime: uniforms.uTime, uDpr: { value: dpr }, uDark: uniforms.uDark },
       transparent: true,
       depthTest: false,
-      blending: THREE.AdditiveBlending,
       vertexShader: /* glsl */ `
         attribute vec3 aSeed;
         uniform float uTime;
@@ -125,11 +131,16 @@ export default function GoldenBackdrop() {
       `,
       fragmentShader: /* glsl */ `
         precision mediump float;
+        uniform float uDark;
         varying float vTw;
         void main() {
           float d = length(gl_PointCoord - 0.5);
           float a = smoothstep(0.5, 0.0, d);
-          gl_FragColor = vec4(vec3(1.0, 0.76, 0.22), a * (0.3 + 0.6 * vTw));
+          vec3 colL = vec3(0.92, 0.62, 0.08);
+          vec3 colD = vec3(1.0, 0.76, 0.22);
+          float alphaL = a * (0.18 + 0.34 * vTw);
+          float alphaD = a * (0.30 + 0.60 * vTw);
+          gl_FragColor = vec4(mix(colL, colD, uDark), mix(alphaL, alphaD, uDark));
         }
       `,
     });
@@ -153,11 +164,19 @@ export default function GoldenBackdrop() {
     };
     window.addEventListener('pointermove', onMove, { passive: true });
 
+    // cross-fade when the theme toggles
+    let darkTarget = uniforms.uDark.value;
+    const mo = new MutationObserver(() => {
+      darkTarget = isDark() ? 1 : 0;
+    });
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     const clock = new THREE.Clock();
     let running = true;
     const frame = () => {
       if (!reduceMotion) uniforms.uTime.value += Math.min(clock.getDelta(), 0.05);
       uniforms.uMouse.value.lerp(target, 0.04);
+      uniforms.uDark.value += (darkTarget - uniforms.uDark.value) * 0.12;
       renderer.render(scene, camera);
     };
     renderer.setAnimationLoop(() => {
@@ -175,6 +194,7 @@ export default function GoldenBackdrop() {
       renderer.setAnimationLoop(null);
       document.removeEventListener('visibilitychange', onVis);
       window.removeEventListener('pointermove', onMove);
+      mo.disconnect();
       ro.disconnect();
       bg.geometry.dispose();
       (bg.material as THREE.Material).dispose();

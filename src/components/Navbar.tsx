@@ -14,6 +14,7 @@ import {
 import Link from 'next/link';
 import NotificationBell from '@/components/NotificationBell';
 import ExportMenu from '@/components/ExportMenu';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export const Navbar: React.FC = () => {
   const { user, logout, isAdmin } = useAuth();
@@ -80,6 +81,7 @@ export const Navbar: React.FC = () => {
                 </div>
               )}
 
+              <ThemeToggle />
               <ExportMenu />
 
               {/* Notification Center Bell */}

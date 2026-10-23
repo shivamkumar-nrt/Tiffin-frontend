@@ -181,7 +181,7 @@ export default function UserDashboardPage() {
             {hasDues && (
               <button
                 onClick={() => setIsPaymentModalOpen(true)}
-                className="mt-1.5 px-3 py-1 bg-ink-950 text-gold-700 hover:bg-ink-800 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
+                className="mt-1.5 px-3 py-1 bg-ink-950 text-gold-300 hover:bg-ink-800 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
               >
                 <CreditCard className="w-3 h-3" />
                 <span>Pay via UPI QR</span>

@@ -241,7 +241,7 @@ export default function AdminPaymentsPage() {
   return (
     <div className="space-y-6">
       {/* Monthly Settlement Reminder Widget (25th - 30th) */}
-      <div className="bg-gradient-to-r from-gold-100 via-gold-50 to-ink-850 rounded-2xl p-4 sm:p-5 text-stone-800 shadow-lg border border-gold-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div data-theme="dark" className="bg-gradient-to-r from-gold-100 via-gold-50 to-ink-850 rounded-2xl p-4 sm:p-5 text-white shadow-lg border border-gold-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start space-x-3">
           <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-xl shrink-0">
             <Bell className="w-6 h-6 text-gold-300 animate-pulse" />
@@ -260,7 +260,7 @@ export default function AdminPaymentsPage() {
             <h3 className="text-sm sm:text-base font-bold text-white mt-1">
               Total Outstanding Balance: Rs. {totalOutstanding.toFixed(2)} ({employees.filter(e => e.outstandingBalance > 0).length} customers due)
             </h3>
-            <p className="text-xs text-stone-300 mt-0.5">
+            <p className="text-xs text-stone-600 mt-0.5">
               Automatic cron scheduler triggers payment reminders daily at 9:00 AM between the 25th and 30th of every month.
             </p>
           </div>

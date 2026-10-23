@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Loader from '@/components/Loader';
 import ThaliShowcase from '@/components/ThaliShowcase';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const glass = 'bg-ink-900/60 backdrop-blur-xl border border-gold-500/25 shadow-xl shadow-black/40';
 
@@ -69,6 +70,7 @@ export default function PublicHomePage() {
           </div>
 
           <div className="hidden sm:flex items-center space-x-4">
+            <ThemeToggle />
             {user ? (
               <Link
                 href={isAdmin ? '/admin' : '/user'}
@@ -91,6 +93,7 @@ export default function PublicHomePage() {
             )}
           </div>
 
+          <ThemeToggle className="sm:hidden ml-auto mr-2" />
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 text-stone-700">
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>

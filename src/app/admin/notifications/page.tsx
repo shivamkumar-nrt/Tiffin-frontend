@@ -377,7 +377,7 @@ export default function AdminNotificationsPage() {
 
           {/* Last Broadcast Dispatch Result & WhatsApp Box */}
           {lastBroadcast && (
-            <div className="bg-ink-950 text-white rounded-2xl p-5 shadow-xl border border-gold-500/40 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
+            <div data-theme="dark" className="bg-ink-950 text-white rounded-2xl p-5 shadow-xl border border-gold-500/40 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
               <div className="flex items-center justify-between border-b border-stone-800 pb-3">
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 rounded-lg bg-gold-500/20 text-gold-400 flex items-center justify-center font-bold">
@@ -512,12 +512,12 @@ export default function AdminNotificationsPage() {
           </div>
 
           {/* System Delivery Summary */}
-          <div className="bg-gradient-to-br from-ink-850 to-gold-100 border border-gold-500/25 text-white rounded-2xl p-5 shadow-sm space-y-3">
+          <div data-theme="dark" className="bg-gradient-to-br from-ink-850 to-gold-100 border border-gold-500/25 text-white rounded-2xl p-5 shadow-sm space-y-3">
             <div className="flex items-center space-x-2 text-gold-400 font-bold text-xs">
               <ShieldCheck className="w-4 h-4" />
               <span>Active Delivery Hub</span>
             </div>
-            <ul className="space-y-2 text-xs text-stone-300">
+            <ul className="space-y-2 text-xs text-stone-600">
               <li className="flex items-center space-x-2">
                 <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
                 <span><b>HTML Emails:</b> Formatted with brand header & user personalization</span>

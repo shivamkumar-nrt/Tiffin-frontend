@@ -22,7 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${body.variable} ${display.variable}`}>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={`${body.variable} ${display.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('tiffin_theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light')}catch(e){}",
+          }}
+        />
+      </head>
       <body className="min-h-screen text-stone-900 antialiased">
         <ToastProvider>
           <AuthProvider>

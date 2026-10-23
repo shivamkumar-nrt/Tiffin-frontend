@@ -167,7 +167,7 @@ export default function UserInvoicesPage() {
           </div>
           <button
             onClick={() => setIsPaymentModalOpen(true)}
-            className="px-4 py-2 bg-ink-950 hover:bg-ink-800 text-gold-700 rounded-xl text-xs font-bold transition shadow-sm shrink-0 flex items-center justify-center space-x-1.5"
+            className="px-4 py-2 bg-ink-950 hover:bg-ink-800 text-gold-300 rounded-xl text-xs font-bold transition shadow-sm shrink-0 flex items-center justify-center space-x-1.5"
           >
             <QrCode className="w-4 h-4 text-gold-600" />
             <span>Open Settlement Modal</span>
