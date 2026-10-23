@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import {
   isNotificationSupported,
   getNotificationPermission,
@@ -11,6 +12,7 @@ import {
 import { Bell, BellRing, CheckCircle, X } from 'lucide-react';
 
 export const PushNotificationManager: React.FC = () => {
+  const pathname = usePathname();
   const [supported, setSupported] = useState(false);
   const [permission, setPermission] = useState<NotificationPermission>('default');
   const [bannerDismissed, setBannerDismissed] = useState(true);
@@ -51,7 +53,8 @@ export const PushNotificationManager: React.FC = () => {
     localStorage.setItem('tiffin_push_banner_dismissed', 'true');
   };
 
-  if (!supported || permission === 'granted' || bannerDismissed) {
+  const onAuthScreen = pathname === '/login' || pathname === '/register';
+  if (!supported || permission === 'granted' || bannerDismissed || onAuthScreen) {
     return null;
   }
 

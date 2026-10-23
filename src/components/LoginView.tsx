@@ -102,7 +102,7 @@ export const LoginView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 relative">
+    <div className="fixed inset-0 z-40 overflow-hidden grid grid-cols-1 grid-rows-[auto_minmax(0,1fr)] lg:grid-rows-1 lg:grid-cols-12">
       {/* Fullscreen Animated Bar Loader on API call */}
       {loading && (
         <Loader
@@ -111,7 +111,7 @@ export const LoginView: React.FC = () => {
         />
       )}
       {/* Left Hero Showcase (Full showcase on LG, compact top banner on mobile) */}
-      <div className="lg:col-span-7 bg-gradient-to-br from-gold-200/80 via-ink-900/50 to-gold-100/80 backdrop-blur-sm p-5 sm:p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden text-stone-800">
+      <div className="lg:col-span-7 bg-gradient-to-br from-gold-200/80 via-ink-900/50 to-gold-100/80 backdrop-blur-sm p-4 sm:p-6 lg:p-10 flex flex-col justify-between relative overflow-hidden min-h-0 text-stone-800">
         {/* Ambient Glows */}
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-gold-300/50 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-300/40 rounded-full blur-3xl pointer-events-none"></div>
@@ -137,7 +137,7 @@ export const LoginView: React.FC = () => {
         </div>
 
         {/* Center Showcase Content (Hidden on small mobile, visible on lg) */}
-        <div className="relative z-10 my-6 lg:my-10 space-y-4 lg:space-y-6 max-w-xl hidden lg:block">
+        <div className="relative z-10 my-2 lg:my-3 space-y-3 lg:space-y-4 max-w-xl hidden lg:flex lg:flex-col flex-1 min-h-0">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-ink-900/70 border border-gold-200 text-gold-700 text-xs font-bold backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Pure, Fresh & Home-Style Meals</span>
@@ -154,10 +154,10 @@ export const LoginView: React.FC = () => {
             Order healthy Full & Half Thalis, explore special custom combos, track daily food consumption records, and view automatic tax invoices.
           </p>
 
-          <div className="h-64 -mx-6 -my-2"><ThaliShowcase compact /></div>
+          <div className="flex-1 min-h-[11rem] max-h-80 -mx-6"><ThaliShowcase compact /></div>
 
           {/* Value Proposition Cards */}
-          <div className="space-y-3 pt-2">
+          <div className="space-y-3 pt-1 [@media(max-height:860px)]:hidden">
             <div className="flex items-start space-x-3.5 p-3.5 rounded-2xl bg-ink-900/70 border border-gold-200 backdrop-blur-md shadow-sm">
               <div className="w-9 h-9 rounded-xl bg-gold-100 flex items-center justify-center text-gold-700 flex-shrink-0 mt-0.5">
                 <ChefHat className="w-5 h-5" />
@@ -195,8 +195,8 @@ export const LoginView: React.FC = () => {
       </div>
 
       {/* Right Auth Card Panel */}
-      <div className="lg:col-span-5 bg-ink-900/60 backdrop-blur-md p-4 sm:p-8 lg:p-12 flex flex-col justify-center border-l border-gold-200/70">
-        <div className="max-w-md w-full mx-auto space-y-5 sm:space-y-6">
+      <div className="lg:col-span-5 bg-ink-900/60 backdrop-blur-md p-4 sm:p-6 lg:p-8 flex flex-col justify-center border-l border-gold-200/70 overflow-y-auto min-h-0">
+        <div className="max-w-md w-full mx-auto space-y-4 sm:space-y-5">
           {/* Header Title */}
           <div>
             <h3 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight">
