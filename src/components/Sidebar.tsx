@@ -54,7 +54,7 @@ export const Sidebar: React.FC = () => {
     <>
       {/* Desktop Persistent Docked Sidebar (Edge-to-Edge) */}
       <aside
-        className={`hidden md:flex flex-col justify-between bg-white border-r border-stone-200/80 transition-all duration-300 ease-in-out shrink-0 sticky top-16 h-[calc(100vh-4rem)] z-30 ${
+        className={`hidden md:flex flex-col justify-between bg-white/70 backdrop-blur-xl border-r border-gold-200/70 transition-all duration-300 ease-in-out shrink-0 sticky top-16 h-[calc(100vh-4rem)] z-30 ${
           isCollapsed ? 'w-20 p-2.5' : 'w-64 p-4'
         }`}
       >
@@ -89,13 +89,13 @@ export const Sidebar: React.FC = () => {
                     isCollapsed ? 'justify-center p-3' : 'space-x-3 px-3.5 py-2.5'
                   } ${
                     isActive
-                      ? 'bg-orange-50 text-orange-800 font-bold shadow-sm border border-orange-200/80'
+                      ? 'bg-gold-50 text-gold-800 font-bold shadow-sm border border-gold-200/80'
                       : 'text-stone-600 hover:bg-stone-50 hover:text-stone-900 border border-transparent'
                   }`}
                 >
                   <Icon
                     className={`shrink-0 w-5 h-5 transition-transform group-hover:scale-110 ${
-                      isActive ? 'text-orange-600' : 'text-stone-400 group-hover:text-stone-600'
+                      isActive ? 'text-gold-600' : 'text-stone-400 group-hover:text-stone-600'
                     }`}
                   />
                   {!isCollapsed && <span className="truncate">{item.name}</span>}
@@ -116,16 +116,16 @@ export const Sidebar: React.FC = () => {
         {/* Footer Card */}
         <div className="pt-3 border-t border-stone-100">
           {!isCollapsed ? (
-            <div className="p-3 bg-gradient-to-br from-stone-50 to-orange-50/40 rounded-xl border border-stone-200/60 text-xs text-stone-500">
+            <div className="p-3 bg-gradient-to-br from-stone-50 to-gold-50/40 rounded-xl border border-stone-200/60 text-xs text-stone-500">
               <div className="flex items-center space-x-2 text-stone-800 font-bold mb-1">
-                <ShieldCheck className="w-4 h-4 text-orange-600" />
+                <ShieldCheck className="w-4 h-4 text-gold-600" />
                 <span>Tiffin System v1.0</span>
               </div>
               <p className="text-[11px] text-stone-400 leading-tight">Secure meal tracking & instant UPI settlements.</p>
             </div>
           ) : (
             <div className="flex justify-center" title="Tiffin System v1.0">
-              <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-700">
+              <div className="w-8 h-8 rounded-lg bg-gold-50 border border-gold-200 flex items-center justify-center text-gold-700">
                 <ShieldCheck className="w-4 h-4" />
               </div>
             </div>
@@ -146,7 +146,7 @@ export const Sidebar: React.FC = () => {
           <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white shadow-2xl z-50 animate-in slide-in-from-left duration-200">
             <div className="p-4 border-b border-stone-200 flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 rounded-lg bg-orange-600 flex items-center justify-center text-white font-bold">
+                <div className="w-8 h-8 rounded-lg bg-gold-600 flex items-center justify-center text-white font-bold">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <span className="font-bold text-stone-900 text-sm">
@@ -175,11 +175,11 @@ export const Sidebar: React.FC = () => {
                     onClick={closeMobile}
                     className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all ${
                       isActive
-                        ? 'bg-orange-50 text-orange-800 font-bold border border-orange-200'
+                        ? 'bg-gold-50 text-gold-800 font-bold border border-gold-200'
                         : 'text-stone-600 hover:bg-stone-50 hover:text-stone-900'
                     }`}
                   >
-                    <Icon className={`w-5 h-5 ${isActive ? 'text-orange-600' : 'text-stone-400'}`} />
+                    <Icon className={`w-5 h-5 ${isActive ? 'text-gold-600' : 'text-stone-400'}`} />
                     <span>{item.name}</span>
                   </Link>
                 );

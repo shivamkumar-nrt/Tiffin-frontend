@@ -127,7 +127,7 @@ export default function UserDashboardPage() {
 
       {/* Monthly Payment Settlement Reminder Banner (25th - 30th/31st of month) */}
       {isReminderPeriod && hasDues && (
-        <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl p-4 sm:p-5 text-white shadow-lg shadow-orange-500/20 border border-amber-300 animate-in fade-in slide-in-from-top-3 duration-200">
+        <div className="bg-gradient-to-r from-amber-500 via-gold-500 to-amber-600 rounded-2xl p-4 sm:p-5 text-white shadow-lg shadow-gold-500/20 border border-amber-300 animate-in fade-in slide-in-from-top-3 duration-200">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-start space-x-3">
               <div className="p-2.5 bg-white/20 backdrop-blur-md rounded-xl shrink-0">
@@ -135,17 +135,17 @@ export default function UserDashboardPage() {
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-white text-orange-700 tracking-wider">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-white text-gold-700 tracking-wider">
                     Monthly Settlement Alert (25th - 30th)
                   </span>
-                  <span className="text-xs text-orange-100">
+                  <span className="text-xs text-gold-100">
                     {reminderStatus?.daysLeftInMonth ? `${reminderStatus.daysLeftInMonth} days left in month` : 'Month-end settlement'}
                   </span>
                 </div>
                 <h3 className="text-base sm:text-lg font-black mt-1">
                   You have an outstanding balance of Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
                 </h3>
-                <p className="text-xs text-orange-100 mt-0.5">
+                <p className="text-xs text-gold-100 mt-0.5">
                   Scan the UPI QR code below with any UPI App (GPay, PhonePe, Paytm) and submit your UTR number for admin verification.
                 </p>
               </div>
@@ -153,9 +153,9 @@ export default function UserDashboardPage() {
 
             <button
               onClick={() => setIsPaymentModalOpen(true)}
-              className="px-5 py-2.5 bg-white hover:bg-orange-50 text-orange-700 rounded-xl text-xs font-black shadow-md hover:shadow-lg transition shrink-0 flex items-center justify-center space-x-2"
+              className="px-5 py-2.5 bg-white hover:bg-gold-50 text-gold-700 rounded-xl text-xs font-black shadow-md hover:shadow-lg transition shrink-0 flex items-center justify-center space-x-2"
             >
-              <QrCode className="w-4 h-4 text-orange-600" />
+              <QrCode className="w-4 h-4 text-gold-600" />
               <span>Open Full Payment Screen</span>
             </button>
           </div>
@@ -163,25 +163,25 @@ export default function UserDashboardPage() {
       )}
 
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 rounded-2xl p-6 text-white shadow-lg shadow-orange-500/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="bg-gradient-to-r from-gold-300 via-gold-200 to-amber-200 border border-white/70 rounded-2xl p-6 text-gold-900 shadow-lg shadow-gold-500/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black tracking-tight">Welcome to Tiffin Portal</h1>
-          <p className="text-orange-100 text-xs mt-1">
+          <p className="text-gold-800/80 text-xs mt-1">
             Order your daily fresh home-style meals, track meal history, and view invoices.
           </p>
         </div>
 
         {/* Due Balance Card on Banner */}
         <div className="flex items-center space-x-3">
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-3 rounded-xl text-right">
-            <div className="text-[10px] uppercase font-bold text-orange-200">Current Outstanding Due</div>
-            <div className="text-2xl font-black text-white">
+          <div className="bg-white/60 backdrop-blur-md border border-white/70 px-5 py-3 rounded-xl text-right">
+            <div className="text-[10px] uppercase font-bold text-gold-700">Current Outstanding Due</div>
+            <div className="text-2xl font-black text-gold-900">
               Rs. {Number(stats?.outstandingBalance || 0).toFixed(2)}
             </div>
             {hasDues && (
               <button
                 onClick={() => setIsPaymentModalOpen(true)}
-                className="mt-1.5 px-3 py-1 bg-white text-orange-800 hover:bg-orange-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
+                className="mt-1.5 px-3 py-1 bg-white text-gold-800 hover:bg-gold-50 rounded-lg text-[10px] font-bold transition shadow-sm inline-flex items-center space-x-1 cursor-pointer"
               >
                 <CreditCard className="w-3 h-3" />
                 <span>Pay via UPI QR</span>
@@ -191,7 +191,7 @@ export default function UserDashboardPage() {
           <button
             onClick={loadData}
             disabled={loading}
-            className="p-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white transition cursor-pointer"
+            className="p-3 bg-white/60 hover:bg-white border border-white/70 rounded-xl text-gold-800 transition cursor-pointer"
             title="Refresh Dashboard"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -201,10 +201,10 @@ export default function UserDashboardPage() {
 
       {/* Latest Kitchen Announcements / Broadcast Notice Board */}
       {announcements.length > 0 && (
-        <div className="bg-white rounded-2xl border border-orange-100 shadow-sm p-4 sm:p-5 space-y-3">
+        <div className="bg-white rounded-2xl border border-gold-100 shadow-sm p-4 sm:p-5 space-y-3">
           <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
             <div className="flex items-center space-x-2">
-              <div className="w-7 h-7 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center font-bold">
+              <div className="w-7 h-7 rounded-lg bg-gold-100 text-gold-700 flex items-center justify-center font-bold">
                 <Megaphone className="w-4 h-4" />
               </div>
               <div>
@@ -212,7 +212,7 @@ export default function UserDashboardPage() {
                 <p className="text-[11px] text-stone-400">Direct updates from kitchen administrator</p>
               </div>
             </div>
-            <span className="px-2 py-0.5 bg-orange-50 text-orange-700 rounded-full text-[10px] font-bold">
+            <span className="px-2 py-0.5 bg-gold-50 text-gold-700 rounded-full text-[10px] font-bold">
               {announcements.length} Update{announcements.length > 1 ? 's' : ''}
             </span>
           </div>
@@ -221,7 +221,7 @@ export default function UserDashboardPage() {
             {announcements.slice(0, 2).map((notice, nIdx) => (
               <div
                 key={nIdx}
-                className="p-3.5 bg-gradient-to-br from-stone-50 to-orange-50/30 rounded-xl border border-stone-200/80 hover:border-orange-300 transition space-y-1.5"
+                className="p-3.5 bg-gradient-to-br from-stone-50 to-gold-50/30 rounded-xl border border-stone-200/80 hover:border-gold-300 transition space-y-1.5"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-bold text-stone-900 truncate">
@@ -253,7 +253,7 @@ export default function UserDashboardPage() {
         <div className="lg:col-span-2 bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
           <div className="flex justify-between items-center pb-3 border-b border-stone-100">
             <div className="flex items-center space-x-2">
-              <ChefHat className="w-5 h-5 text-orange-600" />
+              <ChefHat className="w-5 h-5 text-gold-600" />
               <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wider">
                 Today&apos;s Special Meal Menu ({format(new Date(), 'dd MMMM yyyy')})
               </h2>
@@ -311,7 +311,7 @@ export default function UserDashboardPage() {
         {/* Quick Order Widget from Dynamic Combos */}
         <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-4">
           <div className="flex items-center space-x-2 pb-3 border-b border-stone-100">
-            <PlusCircle className="w-5 h-5 text-orange-600" />
+            <PlusCircle className="w-5 h-5 text-gold-600" />
             <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wider">Quick Order Tiffin</h2>
           </div>
 
@@ -324,7 +324,7 @@ export default function UserDashboardPage() {
                   required
                   value={requestDate}
                   onChange={(e) => setRequestDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
                 />
               </div>
 
@@ -339,7 +339,7 @@ export default function UserDashboardPage() {
                         onClick={() => setSelectedCombo(combo)}
                         className={`p-2.5 rounded-xl border cursor-pointer flex items-center justify-between text-xs transition ${
                           isSel
-                            ? 'border-orange-600 bg-orange-50 text-orange-950 font-semibold shadow-sm ring-1 ring-orange-500'
+                            ? 'border-gold-600 bg-gold-50 text-gold-950 font-semibold shadow-sm ring-1 ring-gold-500'
                             : 'border-stone-200 hover:bg-stone-50 text-stone-700'
                         }`}
                       >
@@ -349,7 +349,7 @@ export default function UserDashboardPage() {
                             {combo.includedItems?.length || 0} items included
                           </div>
                         </div>
-                        <div className="text-right font-black text-orange-600">
+                        <div className="text-right font-black text-gold-600">
                           Rs. {Number(combo.price).toFixed(2)}
                         </div>
                       </div>
@@ -367,14 +367,14 @@ export default function UserDashboardPage() {
                   value={specialInstructions}
                   onChange={(e) => setSpecialInstructions(e.target.value)}
                   placeholder="e.g. Less oil / Extra salad"
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={submitting || !selectedCombo}
-                className="w-full mt-2 py-3 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-xl text-xs shadow-md shadow-orange-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-1.5"
+                className="w-full mt-2 py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 font-bold rounded-xl text-xs shadow-md shadow-gold-500/20 transition disabled:opacity-50 flex items-center justify-center space-x-1.5"
               >
                 <span>{submitting ? 'Submitting...' : `Order ${selectedCombo?.name || ''}`}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -392,7 +392,7 @@ export default function UserDashboardPage() {
       <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
           <h2 className="text-sm font-bold text-stone-800 uppercase tracking-wider">My Recent Tiffin Requests</h2>
-          <Link href="/user/records" className="text-xs text-orange-600 font-bold hover:underline">
+          <Link href="/user/records" className="text-xs text-gold-600 font-bold hover:underline">
             View All Records &rarr;
           </Link>
         </div>
@@ -414,7 +414,7 @@ export default function UserDashboardPage() {
                   <tr key={req.id} className="hover:bg-stone-50/70 transition">
                     <td className="py-3 px-4 font-bold text-stone-900">{req.serviceDate}</td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-800">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-gold-100 text-gold-800">
                         {req.comboName ? req.comboName : req.tiffinType}
                       </span>
                     </td>

@@ -151,13 +151,13 @@ export default function UserInvoicesPage() {
     <div className="space-y-6">
       {/* Monthly Settlement Banner (25th - 30th) */}
       {isReminderPeriod && (
-        <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl p-4 text-white shadow-lg shadow-orange-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="bg-gradient-to-r from-amber-500 via-gold-500 to-amber-600 rounded-2xl p-4 text-white shadow-lg shadow-gold-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-white/20 rounded-xl">
               <Bell className="w-5 h-5 text-white animate-bounce" />
             </div>
             <div>
-              <div className="text-xs font-black uppercase tracking-wider text-orange-100">
+              <div className="text-xs font-black uppercase tracking-wider text-gold-100">
                 Monthly Billing Settlement Window (25th - 30th)
               </div>
               <p className="text-xs font-semibold mt-0.5">
@@ -167,9 +167,9 @@ export default function UserInvoicesPage() {
           </div>
           <button
             onClick={() => setIsPaymentModalOpen(true)}
-            className="px-4 py-2 bg-white hover:bg-orange-50 text-orange-700 rounded-xl text-xs font-bold transition shadow-sm shrink-0 flex items-center justify-center space-x-1.5"
+            className="px-4 py-2 bg-white hover:bg-gold-50 text-gold-700 rounded-xl text-xs font-bold transition shadow-sm shrink-0 flex items-center justify-center space-x-1.5"
           >
-            <QrCode className="w-4 h-4 text-orange-600" />
+            <QrCode className="w-4 h-4 text-gold-600" />
             <span>Open Settlement Modal</span>
           </button>
         </div>
@@ -179,7 +179,7 @@ export default function UserInvoicesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
-            <FileText className="w-5 h-5 text-orange-600" />
+            <FileText className="w-5 h-5 text-gold-600" />
             <span>Invoices & Payment Settlements</span>
           </h1>
           <p className="text-xs text-stone-500 mt-0.5">
@@ -194,12 +194,12 @@ export default function UserInvoicesPage() {
             className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
             title="Refresh Invoices"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-orange-600' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-gold-600' : ''}`} />
           </button>
 
           <button
             onClick={() => setIsPaymentModalOpen(true)}
-            className="px-4 py-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+            className="px-4 py-2 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
           >
             <Plus className="w-4 h-4" />
             <span>Submit Payment / UTR</span>
@@ -220,7 +220,7 @@ export default function UserInvoicesPage() {
           onClick={() => setActiveTab('INVOICES')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 ${
             activeTab === 'INVOICES'
-              ? 'bg-orange-600 text-white shadow-sm'
+              ? 'bg-gold-500 text-gold-900 shadow-sm'
               : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
           }`}
         >
@@ -232,7 +232,7 @@ export default function UserInvoicesPage() {
           onClick={() => setActiveTab('PAYMENTS')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 ${
             activeTab === 'PAYMENTS'
-              ? 'bg-orange-600 text-white shadow-sm'
+              ? 'bg-gold-500 text-gold-900 shadow-sm'
               : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
           }`}
         >
@@ -251,7 +251,7 @@ export default function UserInvoicesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={activeTab === 'INVOICES' ? 'Search invoice number...' : 'Search payment #, UTR, app...'}
-              className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
             />
           </div>
 
@@ -260,7 +260,7 @@ export default function UserInvoicesPage() {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
               placeholder="From Date"
             />
           </div>
@@ -270,7 +270,7 @@ export default function UserInvoicesPage() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
               placeholder="To Date"
             />
           </div>
@@ -286,7 +286,7 @@ export default function UserInvoicesPage() {
               Tax Invoices ({filteredInvoices.length})
             </h2>
             <div className="text-xs text-stone-500">
-              Total Invoiced: <span className="font-bold text-orange-600">Rs. {totalInvoiced.toFixed(2)}</span>
+              Total Invoiced: <span className="font-bold text-gold-600">Rs. {totalInvoiced.toFixed(2)}</span>
             </div>
           </div>
 
@@ -319,7 +319,7 @@ export default function UserInvoicesPage() {
                           <td className="py-3 px-4 text-stone-700 font-medium">
                             {inv.items?.length || 0} meals
                           </td>
-                          <td className="py-3 px-4 font-black text-orange-700">
+                          <td className="py-3 px-4 font-black text-gold-700">
                             Rs. {Number(inv.paymentAmount).toFixed(2)}
                           </td>
                           <td className="py-3 px-4 text-stone-500">
@@ -336,7 +336,7 @@ export default function UserInvoicesPage() {
                               </button>
                               <button
                                 onClick={() => handleDownloadPdf(inv.id)}
-                                className="px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
+                                className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
                               >
                                 <Download className="w-3.5 h-3.5" />
                                 <span>PDF</span>
@@ -410,7 +410,7 @@ export default function UserInvoicesPage() {
                           <td className="py-3 px-4 text-stone-600">
                             {p.paymentDate ? p.paymentDate : format(new Date(p.createdAt), 'yyyy-MM-dd')}
                           </td>
-                          <td className="py-3 px-4 font-black text-orange-700">
+                          <td className="py-3 px-4 font-black text-gold-700">
                             Rs. {Number(p.amount).toFixed(2)}
                           </td>
                           <td className="py-3 px-4">
@@ -457,7 +457,7 @@ export default function UserInvoicesPage() {
                                     if (inv.success) setSelectedInvoice(inv.data);
                                   } catch (e) {}
                                 }}
-                                className="px-2.5 py-1 bg-stone-100 hover:bg-orange-50 hover:text-orange-700 text-stone-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
+                                className="px-2.5 py-1 bg-stone-100 hover:bg-gold-50 hover:text-gold-700 text-stone-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
                               >
                                 <FileText className="w-3.5 h-3.5" />
                                 <span>View</span>

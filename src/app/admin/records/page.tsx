@@ -239,7 +239,7 @@ export default function AdminRecordsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
-            <CalendarCheck className="w-5 h-5 text-orange-600" />
+            <CalendarCheck className="w-5 h-5 text-gold-600" />
             <span>Daily Tiffin Consumption Log</span>
           </h1>
           <p className="text-xs text-stone-500 mt-0.5">
@@ -250,7 +250,7 @@ export default function AdminRecordsPage() {
         <div className="flex items-center space-x-2">
           <div className="px-3.5 py-2 bg-white border border-stone-200 rounded-xl text-xs shadow-sm">
             <span className="text-stone-500">Page Total: </span>
-            <span className="font-black text-orange-600">Rs. {totalAmount.toFixed(2)}</span>
+            <span className="font-black text-gold-600">Rs. {totalAmount.toFixed(2)}</span>
           </div>
 
           <button
@@ -267,7 +267,7 @@ export default function AdminRecordsPage() {
               });
               setIsManualModalOpen(true);
             }}
-            className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
+            className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-semibold shadow-sm transition flex items-center space-x-1"
           >
             <CalendarCheck className="w-3.5 h-3.5" />
             <span>Add Log</span>
@@ -295,7 +295,7 @@ export default function AdminRecordsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search user, food..."
-                className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
               />
             </div>
           </div>
@@ -305,7 +305,7 @@ export default function AdminRecordsPage() {
             <select
               value={selectedUser}
               onChange={(e) => setSelectedUser(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
             >
               <option value="">All Customers</option>
               {employees.map((emp) => (
@@ -321,7 +321,7 @@ export default function AdminRecordsPage() {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 font-semibold"
             >
               <option value="">All Records</option>
               <option value="UNPAID">UNPAID (Pending Settlement)</option>
@@ -336,7 +336,7 @@ export default function AdminRecordsPage() {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
               />
             </div>
             <div>
@@ -345,7 +345,7 @@ export default function AdminRecordsPage() {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
               />
             </div>
           </div>
@@ -359,7 +359,7 @@ export default function AdminRecordsPage() {
               key={preset}
               type="button"
               onClick={() => setQuickDate(preset)}
-              className="px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-orange-50 hover:text-orange-700 text-stone-600 font-medium text-[11px] transition"
+              className="px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-gold-50 hover:text-gold-700 text-stone-600 font-medium text-[11px] transition"
             >
               {preset === 'ALL' ? 'All Dates' : preset === 'TODAY' ? 'Today' : preset === 'YESTERDAY' ? 'Yesterday' : preset === 'WEEK' ? 'Last 7 Days' : 'This Month'}
             </button>
@@ -401,7 +401,7 @@ export default function AdminRecordsPage() {
                     </td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                        rec.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-amber-100 text-amber-800'
+                        rec.tiffinType === 'FULL' ? 'bg-gold-100 text-gold-800' : 'bg-amber-100 text-amber-800'
                       }`}>
                         {rec.tiffinType}
                       </span>
@@ -415,7 +415,7 @@ export default function AdminRecordsPage() {
                     <td className="py-3 px-4">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                         rec.status === 'BILLED_PAID'
-                          ? 'bg-orange-100 text-orange-800'
+                          ? 'bg-gold-100 text-gold-800'
                           : 'bg-amber-100 text-amber-800'
                       }`}>
                         {rec.status === 'BILLED_PAID' ? 'BILLED & SETTLED' : 'UNPAID'}
@@ -474,7 +474,7 @@ export default function AdminRecordsPage() {
                   required
                   value={manualForm.userId}
                   onChange={(e) => setManualForm({ ...manualForm, userId: e.target.value })}
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
                 >
                   <option value="">Select a customer</option>
                   {employees.map((emp) => (
@@ -491,7 +491,7 @@ export default function AdminRecordsPage() {
                     required
                     value={manualForm.serviceDate}
                     onChange={(e) => setManualForm({ ...manualForm, serviceDate: e.target.value })}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
                   />
                 </div>
                 <div>
@@ -499,7 +499,7 @@ export default function AdminRecordsPage() {
                   <select
                     required
                     onChange={(e) => handleComboChange(e.target.value)}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
                   >
                     <option value="">Select a Package</option>
                     {combos.map((c) => (
@@ -522,7 +522,7 @@ export default function AdminRecordsPage() {
                   value={manualForm.amount}
                   onChange={(e) => setManualForm({ ...manualForm, amount: e.target.value })}
                   placeholder="e.g., 60"
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
                 />
               </div>
 
@@ -533,7 +533,7 @@ export default function AdminRecordsPage() {
                   value={manualForm.menuSnapshot}
                   onChange={(e) => setManualForm({ ...manualForm, menuSnapshot: e.target.value })}
                   placeholder="What was served?"
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
                 />
               </div>
 
@@ -543,7 +543,7 @@ export default function AdminRecordsPage() {
                   <select
                     value={manualForm.status}
                     onChange={(e) => setManualForm({ ...manualForm, status: e.target.value })}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
                   >
                     <option value="UNPAID">UNPAID</option>
                     <option value="BILLED_PAID">BILLED & SETTLED</option>
@@ -562,7 +562,7 @@ export default function AdminRecordsPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-4 py-2 bg-orange-600 text-white rounded-xl text-sm font-bold hover:bg-orange-700 transition disabled:opacity-50"
+                  className="px-4 py-2 bg-gold-500 text-gold-900 rounded-xl text-sm font-bold hover:bg-gold-700 transition disabled:opacity-50"
                 >
                   {isSubmitting ? 'Saving...' : 'Save Record'}
                 </button>

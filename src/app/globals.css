@@ -4,7 +4,7 @@
 
 :root {
   --foreground-rgb: 41, 37, 36;
-  --cream: #fffaf2;
+  --cream: #fffaf0;
   --saffron: #f97316;
   --turmeric: #f59e0b;
   --chili: #dc2626;
@@ -12,11 +12,8 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: var(--cream);
-  background-image:
-    radial-gradient(900px 420px at 100% -10%, rgba(251, 146, 60, 0.14), transparent 60%),
-    radial-gradient(700px 380px at -10% 110%, rgba(245, 158, 11, 0.12), transparent 60%);
-  background-attachment: fixed;
+  /* Fallback shown until (or if) the three.js golden backdrop is available */
+  background: linear-gradient(135deg, #fffaf0 0%, #fff1c9 55%, #ffe29a 100%) fixed;
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
 }
 
@@ -26,8 +23,8 @@ h1, h2, h3, .font-display {
 }
 
 ::selection {
-  background: #fed7aa;
-  color: #7c2d12;
+  background: #ffe38a;
+  color: #66420e;
 }
 
 /* Custom Animated Bar Loader Requested by User */
@@ -36,7 +33,7 @@ h1, h2, h3, .font-display {
   width: 120px;
   height: 22px;
   border-radius: 20px;
-  color: #ea580c; /* Saffron */
+  color: #c98a06; /* Gold */
   border: 2px solid;
   position: relative;
   display: inline-block;
@@ -64,12 +61,12 @@ h1, h2, h3, .font-display {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #fff1e0;
+  background: #fff6d9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #fdba74;
+  background: #f1cf68;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #fb923c;
+  background: #e0ae1a;
 }

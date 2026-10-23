@@ -56,29 +56,29 @@ export const PushNotificationManager: React.FC = () => {
   }
 
   return (
-    <div className="bg-gradient-to-r from-orange-900 via-stone-900 to-amber-950 text-white px-4 py-3 border-b border-orange-500/30 shadow-md">
+    <div className="bg-gradient-to-r from-gold-100 via-white to-gold-100 text-stone-800 px-4 py-3 border-b border-gold-300/60 shadow-sm">
       <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
         <div className="flex items-center space-x-3 text-center sm:text-left">
-          <div className="w-8 h-8 rounded-full bg-orange-500/20 border border-orange-400/40 flex items-center justify-center shrink-0 text-orange-400">
+          <div className="w-8 h-8 rounded-full bg-gold-200/70 border border-gold-300 flex items-center justify-center shrink-0 text-gold-700">
             <BellRing className="w-4 h-4 animate-bounce" />
           </div>
           <div>
-            <span className="font-bold text-orange-300">Enable Instant Mobile & Screen Alerts</span>
-            <p className="text-stone-300 text-[11px]">Get lock-screen notifications for Tiffin approvals, daily lunch delivery, and monthly UPI bills.</p>
+            <span className="font-bold text-gold-800">Enable Instant Mobile & Screen Alerts</span>
+            <p className="text-stone-600 text-[11px]">Get lock-screen notifications for Tiffin approvals, daily lunch delivery, and monthly UPI bills.</p>
           </div>
         </div>
 
         <div className="flex items-center space-x-2 shrink-0">
           <button
             onClick={handleEnable}
-            className="px-3.5 py-1.5 bg-orange-600 hover:bg-orange-500 active:scale-95 text-white font-bold rounded-lg shadow-sm transition flex items-center space-x-1.5 cursor-pointer"
+            className="px-3.5 py-1.5 bg-gradient-to-r from-gold-500 to-gold-400 hover:brightness-105 active:scale-95 text-gold-900 font-bold rounded-lg shadow-sm transition flex items-center space-x-1.5 cursor-pointer"
           >
             <Bell className="w-3.5 h-3.5" />
             <span>Enable Alerts (Free)</span>
           </button>
           <button
             onClick={handleDismiss}
-            className="p-1 text-stone-400 hover:text-white rounded-lg transition"
+            className="p-1 text-stone-400 hover:text-stone-700 rounded-lg transition"
             title="Dismiss"
           >
             <X className="w-4 h-4" />

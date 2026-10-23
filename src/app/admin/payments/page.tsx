@@ -241,19 +241,19 @@ export default function AdminPaymentsPage() {
   return (
     <div className="space-y-6">
       {/* Monthly Settlement Reminder Widget (25th - 30th) */}
-      <div className="bg-gradient-to-r from-orange-800 via-amber-800 to-stone-900 rounded-2xl p-4 sm:p-5 text-white shadow-lg border border-orange-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-gold-800 via-amber-800 to-stone-900 rounded-2xl p-4 sm:p-5 text-white shadow-lg border border-gold-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start space-x-3">
           <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-xl shrink-0">
-            <Bell className="w-6 h-6 text-orange-300 animate-pulse" />
+            <Bell className="w-6 h-6 text-gold-300 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                isReminderWindow ? 'bg-amber-400 text-amber-950' : 'bg-orange-500/30 text-orange-200'
+                isReminderWindow ? 'bg-amber-400 text-amber-950' : 'bg-gold-500/30 text-gold-200'
               }`}>
                 {isReminderWindow ? '⚡ 25th-30th Reminder Active' : 'Monthly Reminder Schedule'}
               </span>
-              <span className="text-xs text-orange-200">
+              <span className="text-xs text-gold-200">
                 {reminderStatus?.daysLeftInMonth ? `${reminderStatus.daysLeftInMonth} days remaining in month` : 'Auto-triggers on 25th-31st'}
               </span>
             </div>
@@ -269,7 +269,7 @@ export default function AdminPaymentsPage() {
         <button
           onClick={handleSendBulkReminders}
           disabled={sendingReminders}
-          className="px-4 py-2.5 bg-orange-500 hover:bg-orange-400 text-stone-950 rounded-xl text-xs font-black shadow-md transition shrink-0 flex items-center justify-center space-x-2 disabled:opacity-50"
+          className="px-4 py-2.5 bg-gold-500 hover:bg-gold-400 text-stone-950 rounded-xl text-xs font-black shadow-md transition shrink-0 flex items-center justify-center space-x-2 disabled:opacity-50"
         >
           <Send className={`w-4 h-4 ${sendingReminders ? 'animate-spin' : ''}`} />
           <span>{sendingReminders ? 'Sending...' : 'Send Reminders Now'}</span>
@@ -280,7 +280,7 @@ export default function AdminPaymentsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
-            <CreditCard className="w-5 h-5 text-orange-600" />
+            <CreditCard className="w-5 h-5 text-gold-600" />
             <span>Balances, Customer Payments & Settlement</span>
           </h1>
           <p className="text-xs text-stone-500 mt-0.5">
@@ -295,7 +295,7 @@ export default function AdminPaymentsPage() {
             className="p-2 bg-white border border-stone-200 rounded-xl hover:bg-stone-50 text-stone-600 transition"
             title="Refresh"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-orange-600' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-gold-600' : ''}`} />
           </button>
 
           <button
@@ -304,7 +304,7 @@ export default function AdminPaymentsPage() {
               setAmount('');
               setShowModal(true);
             }}
-            className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
+            className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm flex items-center space-x-1.5 transition"
           >
             <Plus className="w-4 h-4" />
             <span>Record Manual Payment</span>
@@ -342,7 +342,7 @@ export default function AdminPaymentsPage() {
                     <div className="text-[10px] text-stone-500 truncate max-w-[160px]">{emp.email}</div>
                   </div>
                   <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                    emp.outstandingBalance > 0 ? 'bg-red-100 text-red-800' : 'bg-orange-100 text-orange-800'
+                    emp.outstandingBalance > 0 ? 'bg-red-100 text-red-800' : 'bg-gold-100 text-gold-800'
                   }`}>
                     {emp.outstandingBalance > 0 ? 'DUE' : 'CLEAR'}
                   </span>
@@ -359,7 +359,7 @@ export default function AdminPaymentsPage() {
                 <button
                   type="button"
                   onClick={() => handleSelectUserForPayment(emp)}
-                  className="w-full py-1.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition shadow-sm"
+                  className="w-full py-1.5 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition shadow-sm"
                 >
                   Settle / Pay
                 </button>
@@ -380,7 +380,7 @@ export default function AdminPaymentsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search user, ref #, app..."
-              className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
             />
           </div>
         </div>
@@ -390,7 +390,7 @@ export default function AdminPaymentsPage() {
           <select
             value={selectedUser}
             onChange={(e) => setSelectedUser(e.target.value)}
-            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
           >
             <option value="">All Customers</option>
             {employees.map((emp) => (
@@ -406,7 +406,7 @@ export default function AdminPaymentsPage() {
           <select
             value={selectedMethod}
             onChange={(e) => setSelectedMethod(e.target.value)}
-            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
+            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 font-semibold"
           >
             <option value="">All Methods</option>
             <option value="UPI">UPI / GPay / PhonePe</option>
@@ -422,7 +422,7 @@ export default function AdminPaymentsPage() {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold"
+            className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 font-semibold"
           >
             <option value="">All Statuses</option>
             <option value="PENDING_VERIFICATION">⏳ PENDING VERIFICATION (Awaiting Approval)</option>
@@ -478,7 +478,7 @@ export default function AdminPaymentsPage() {
                       <div className="font-semibold text-stone-800">{p.userName}</div>
                       <div className="text-[10px] text-stone-500">{p.userEmail}</div>
                     </td>
-                    <td className="py-3 px-4 font-black text-orange-700">
+                    <td className="py-3 px-4 font-black text-gold-700">
                       Rs. {Number(p.amount).toFixed(2)}
                     </td>
                     <td className="py-3 px-4">
@@ -509,7 +509,7 @@ export default function AdminPaymentsPage() {
                             <div className="flex items-center space-x-1.5">
                               <button
                                 onClick={() => handleVerifyPayment(p.id)}
-                                className="px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
+                                className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition shadow-sm flex items-center space-x-1"
                                 title="Approve and settle customer dues"
                               >
                                 <Check className="w-3.5 h-3.5" />
@@ -529,7 +529,7 @@ export default function AdminPaymentsPage() {
                               {empPhone && (
                                 <button
                                   onClick={() => openWhatsApp(empPhone, whatsappTemplates.paymentReminder(p.userName || 'Customer', p.amount))}
-                                  className="p-1 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 rounded-lg transition"
+                                  className="p-1 bg-gold-50 hover:bg-gold-100 text-gold-700 border border-gold-200 rounded-lg transition"
                                   title="Chat / Send Reminder on WhatsApp"
                                 >
                                   <MessageCircle className="w-3.5 h-3.5" />
@@ -549,7 +549,7 @@ export default function AdminPaymentsPage() {
                               {empPhone && (
                                 <button
                                   onClick={() => openWhatsApp(empPhone, whatsappTemplates.paymentVerified(p.userName || 'Customer', p.amount, p.transactionRef))}
-                                  className="p-1 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 rounded-lg transition"
+                                  className="p-1 bg-gold-50 hover:bg-gold-100 text-gold-700 border border-gold-200 rounded-lg transition"
                                   title="Send Approval Receipt on WhatsApp"
                                 >
                                   <MessageCircle className="w-3.5 h-3.5" />
@@ -571,7 +571,7 @@ export default function AdminPaymentsPage() {
                       {p.invoiceId ? (
                         <button
                           onClick={() => handleViewInvoice(p.invoiceId!)}
-                          className="px-2.5 py-1 bg-stone-100 hover:bg-orange-50 hover:text-orange-700 text-stone-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
+                          className="px-2.5 py-1 bg-stone-100 hover:bg-gold-50 hover:text-gold-700 text-stone-700 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1"
                         >
                           <FileText className="w-3.5 h-3.5" />
                           <span>Invoice</span>
@@ -680,7 +680,7 @@ export default function AdminPaymentsPage() {
                     const found = employees.find((x) => String(x.id) === e.target.value);
                     if (found) setAmount(String(found.outstandingBalance || 0));
                   }}
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
                 >
                   <option value="">-- Choose Customer --</option>
                   {employees.map((emp) => (
@@ -702,7 +702,7 @@ export default function AdminPaymentsPage() {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="0.00"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-gold-500"
                   />
                 </div>
 
@@ -713,7 +713,7 @@ export default function AdminPaymentsPage() {
                     required
                     value={paymentDate}
                     onChange={(e) => setPaymentDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-gold-500"
                   />
                 </div>
               </div>
@@ -724,7 +724,7 @@ export default function AdminPaymentsPage() {
                   <select
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
                   >
                     <option value="UPI">UPI / QR Code</option>
                     <option value="CASH">Cash</option>
@@ -741,7 +741,7 @@ export default function AdminPaymentsPage() {
                     value={paymentApp}
                     onChange={(e) => setPaymentApp(e.target.value)}
                     placeholder="e.g. GPay, PhonePe"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
                   />
                 </div>
               </div>
@@ -753,7 +753,7 @@ export default function AdminPaymentsPage() {
                   value={transactionRef}
                   onChange={(e) => setTransactionRef(e.target.value)}
                   placeholder="e.g. 423589123456"
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-mono font-bold focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-mono font-bold focus:outline-none focus:ring-2 focus:ring-gold-500"
                 />
               </div>
 
@@ -764,7 +764,7 @@ export default function AdminPaymentsPage() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="e.g. Cleared monthly dues"
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
                 />
               </div>
 
@@ -774,7 +774,7 @@ export default function AdminPaymentsPage() {
                   id="markSuccess"
                   checked={markAsSuccess}
                   onChange={(e) => setMarkAsSuccess(e.target.checked)}
-                  className="rounded text-orange-600 focus:ring-orange-500"
+                  className="rounded text-gold-600 focus:ring-gold-500"
                 />
                 <label htmlFor="markSuccess" className="text-xs font-semibold text-stone-700">
                   Mark as Verified & Settle Invoices Immediately
@@ -792,7 +792,7 @@ export default function AdminPaymentsPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="px-4 py-2 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-xl text-xs font-bold shadow-sm transition disabled:opacity-50"
                 >
                   {submitting ? 'Processing...' : 'Confirm & Save Payment'}
                 </button>

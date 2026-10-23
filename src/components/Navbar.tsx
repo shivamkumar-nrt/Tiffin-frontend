@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
   const { isCollapsed, toggleCollapse, toggleMobile } = useSidebar();
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-xs w-full">
+    <header className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b border-gold-200/70 shadow-xs w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Brand & Mobile Hamburger & Collapse Button */}
@@ -40,24 +40,24 @@ export const Navbar: React.FC = () => {
                 <button
                   type="button"
                   onClick={toggleCollapse}
-                  className="hidden md:flex p-2 rounded-xl text-stone-500 hover:text-orange-700 hover:bg-orange-50 transition-colors focus:outline-none"
+                  className="hidden md:flex p-2 rounded-xl text-stone-500 hover:text-gold-700 hover:bg-gold-50 transition-colors focus:outline-none"
                   title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
                 >
                   {isCollapsed ? (
-                    <PanelLeftOpen className="w-5 h-5 text-stone-600 hover:text-orange-600" />
+                    <PanelLeftOpen className="w-5 h-5 text-stone-600 hover:text-gold-600" />
                   ) : (
-                    <PanelLeftClose className="w-5 h-5 text-stone-600 hover:text-orange-600" />
+                    <PanelLeftClose className="w-5 h-5 text-stone-600 hover:text-gold-600" />
                   )}
                 </button>
               </>
             )}
 
             <Link href={isAdmin ? '/admin' : '/user'} className="flex items-center space-x-2.5 group">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-gold-500 to-gold-300 flex items-center justify-center text-white shadow-md shadow-gold-500/20 group-hover:scale-105 transition-transform">
                 <Utensils className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-gold-600 to-amber-600 bg-clip-text text-transparent">
                   Tiffin<span className="text-stone-800">System</span>
                 </span>
                 <span className="block text-[9px] sm:text-[10px] tracking-wider uppercase font-semibold text-stone-400">
@@ -72,10 +72,10 @@ export const Navbar: React.FC = () => {
             <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Outstanding Balance Pill for User */}
               {!isAdmin && (
-                <div className="flex items-center space-x-1 sm:space-x-1.5 px-3 py-1.5 bg-orange-50 border border-orange-200/80 rounded-full text-xs font-semibold text-orange-800 shadow-xs">
-                  <CreditCard className="w-3.5 h-3.5 text-orange-600" />
-                  <span className="hidden xs:inline text-orange-700">Due:</span>
-                  <span className="text-orange-950 font-bold">Rs. {Number(user.outstandingBalance || 0).toFixed(2)}</span>
+                <div className="flex items-center space-x-1 sm:space-x-1.5 px-3 py-1.5 bg-gold-50 border border-gold-200/80 rounded-full text-xs font-semibold text-gold-800 shadow-xs">
+                  <CreditCard className="w-3.5 h-3.5 text-gold-600" />
+                  <span className="hidden xs:inline text-gold-700">Due:</span>
+                  <span className="text-gold-950 font-bold">Rs. {Number(user.outstandingBalance || 0).toFixed(2)}</span>
                 </div>
               )}
 
@@ -84,7 +84,7 @@ export const Navbar: React.FC = () => {
 
               {/* User Profile Tag */}
               <div className="flex items-center space-x-2.5 pl-2 sm:pl-3 border-l border-stone-200">
-                <div className="w-8 h-8 rounded-full bg-orange-100/70 border border-orange-200 flex items-center justify-center text-orange-800 font-bold text-xs shadow-xs">
+                <div className="w-8 h-8 rounded-full bg-gold-100/70 border border-gold-200 flex items-center justify-center text-gold-800 font-bold text-xs shadow-xs">
                   {user.fullName ? user.fullName.charAt(0).toUpperCase() : 'U'}
                 </div>
                 <div className="hidden lg:block text-left">

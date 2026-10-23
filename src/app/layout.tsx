@@ -5,6 +5,7 @@ import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
 import { SidebarProvider } from '@/context/SidebarContext';
 import GlobalApiLoader from '@/components/GlobalApiLoader';
+import { GoldenBackdrop } from '@/components/three';
 import PushNotificationManager from '@/components/PushNotificationManager';
 
 const body = Nunito({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
@@ -26,6 +27,7 @@ export default function RootLayout({
         <ToastProvider>
           <AuthProvider>
             <SidebarProvider>
+              <GoldenBackdrop />
               <PushNotificationManager />
               <GlobalApiLoader />
               {children}

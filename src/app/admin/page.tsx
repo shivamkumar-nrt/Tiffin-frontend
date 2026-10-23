@@ -93,24 +93,24 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 rounded-2xl p-6 text-white shadow-lg shadow-orange-500/10">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-gold-300 via-gold-200 to-amber-200 border border-white/70 rounded-2xl p-6 text-gold-900 shadow-lg shadow-gold-500/20">
         <div>
           <h1 className="text-2xl font-black tracking-tight">Admin Overview</h1>
-          <p className="text-orange-100 text-xs mt-1">
+          <p className="text-gold-800/80 text-xs mt-1">
             Monitor pending approvals, daily consumption, outstanding balances & payments.
           </p>
         </div>
         <div className="flex items-center space-x-2">
           <Link
             href="/admin/requests"
-            className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-xl text-xs font-bold text-white transition flex items-center space-x-1.5"
+            className="px-4 py-2 bg-white/70 hover:bg-white backdrop-blur-md border border-gold-300/60 rounded-xl text-xs font-bold text-gold-900 transition flex items-center space-x-1.5"
           >
             <ClipboardList className="w-4 h-4" />
             <span>Manage Requests</span>
           </Link>
           <Link
             href="/admin/combos"
-            className="px-4 py-2 bg-white text-orange-700 hover:bg-orange-50 rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1.5"
+            className="px-4 py-2 bg-white text-gold-700 hover:bg-gold-50 rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1.5"
           >
             <PackageCheck className="w-4 h-4" />
             <span>Combos & Thalis</span>
@@ -147,7 +147,7 @@ export default function AdminDashboardPage() {
                 {stats?.totalTiffinsToday || 0}
               </div>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+            <div className="w-10 h-10 rounded-xl bg-gold-50 text-gold-600 flex items-center justify-center font-bold">
               <Utensils className="w-5 h-5" />
             </div>
           </div>
@@ -179,15 +179,15 @@ export default function AdminDashboardPage() {
           <div className="flex justify-between items-start">
             <div>
               <div className="text-xs font-bold text-stone-400 uppercase tracking-wider">Settled Payments</div>
-              <div className="text-2xl font-black text-orange-600 mt-1">
+              <div className="text-2xl font-black text-gold-600 mt-1">
                 Rs. {Number(stats?.totalRevenueCollected || 0).toFixed(2)}
               </div>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+            <div className="w-10 h-10 rounded-xl bg-gold-50 text-gold-600 flex items-center justify-center font-bold">
               <TrendingUp className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4 text-[11px] text-orange-600 font-medium">
+          <div className="mt-4 text-[11px] text-gold-600 font-medium">
             Total verified & invoiced collections
           </div>
         </div>
@@ -202,7 +202,7 @@ export default function AdminDashboardPage() {
               <Clock className="w-4 h-4 text-amber-500" />
               <h2 className="text-sm font-bold text-stone-800">Pending Requests Awaiting Approval</h2>
             </div>
-            <Link href="/admin/requests" className="text-xs text-orange-600 font-bold hover:text-orange-700">
+            <Link href="/admin/requests" className="text-xs text-gold-600 font-bold hover:text-gold-700">
               View All &rarr;
             </Link>
           </div>
@@ -216,7 +216,7 @@ export default function AdminDashboardPage() {
                       <div className="flex items-center space-x-2">
                         <span className="text-xs font-bold text-stone-900">{req.userName}</span>
                         <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
-                          req.tiffinType === 'FULL' ? 'bg-orange-100 text-orange-800' : 'bg-amber-100 text-amber-800'
+                          req.tiffinType === 'FULL' ? 'bg-gold-100 text-gold-800' : 'bg-amber-100 text-amber-800'
                         }`}>
                           {req.comboName ? req.comboName : req.tiffinType}
                         </span>
@@ -235,7 +235,7 @@ export default function AdminDashboardPage() {
                       <button
                         onClick={() => handleApprove(req.id)}
                         disabled={actionLoading === req.id}
-                        className="px-3 py-1.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 disabled:opacity-50"
+                        className="px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition flex items-center space-x-1 disabled:opacity-50"
                       >
                         <CheckCircle className="w-3.5 h-3.5" />
                         <span>Approve</span>
@@ -266,12 +266,12 @@ export default function AdminDashboardPage() {
           <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-5">
             <div className="flex justify-between items-center pb-3 border-b border-stone-100">
               <div className="flex items-center space-x-2">
-                <PackageCheck className="w-4 h-4 text-orange-600" />
+                <PackageCheck className="w-4 h-4 text-gold-600" />
                 <h3 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
                   Active Combos & Thalis
                 </h3>
               </div>
-              <Link href="/admin/combos" className="text-[11px] text-orange-600 font-bold hover:underline">
+              <Link href="/admin/combos" className="text-[11px] text-gold-600 font-bold hover:underline">
                 Manage
               </Link>
             </div>
@@ -290,10 +290,10 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs font-black text-orange-600">
+                      <div className="text-xs font-black text-gold-600">
                         Rs. {Number(combo.price).toFixed(2)}
                       </div>
-                      <span className="text-[9px] font-bold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded">
+                      <span className="text-[9px] font-bold text-gold-600 bg-gold-50 px-1.5 py-0.5 rounded">
                         Active
                       </span>
                     </div>

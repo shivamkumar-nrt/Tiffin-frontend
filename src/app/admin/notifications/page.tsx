@@ -179,7 +179,7 @@ export default function AdminNotificationsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-stone-900 flex items-center space-x-2.5">
-            <Megaphone className="w-7 h-7 text-orange-600" />
+            <Megaphone className="w-7 h-7 text-gold-600" />
             <span>Broadcast & Notification Center</span>
           </h1>
           <p className="text-xs text-stone-500 mt-1">
@@ -191,7 +191,7 @@ export default function AdminNotificationsPage() {
           onClick={fetchInitialData}
           className="px-3.5 py-2 bg-white hover:bg-stone-50 text-stone-700 border border-stone-200 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shadow-xs shrink-0 self-start sm:self-auto"
         >
-          <RefreshCw className="w-4 h-4 text-orange-600" />
+          <RefreshCw className="w-4 h-4 text-gold-600" />
           <span>Refresh History</span>
         </button>
       </div>
@@ -201,7 +201,7 @@ export default function AdminNotificationsPage() {
         <div className="lg:col-span-2 space-y-6">
           <form onSubmit={handleSendBroadcast} className="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm space-y-6">
             <h2 className="text-base font-bold text-stone-900 flex items-center space-x-2 border-b border-stone-100 pb-3">
-              <Sparkles className="w-4 h-4 text-orange-600" />
+              <Sparkles className="w-4 h-4 text-gold-600" />
               <span>Compose Multi-Channel Broadcast</span>
             </h2>
 
@@ -216,11 +216,11 @@ export default function AdminNotificationsPage() {
                   onClick={() => setTargetAudience('ALL')}
                   className={`p-3.5 rounded-xl border text-left transition flex items-start space-x-3 ${
                     targetAudience === 'ALL'
-                      ? 'bg-orange-50/80 border-orange-500 ring-2 ring-orange-500/20 text-orange-950 font-bold'
+                      ? 'bg-gold-50/80 border-gold-500 ring-2 ring-gold-500/20 text-gold-950 font-bold'
                       : 'bg-stone-50/50 border-stone-200 hover:border-stone-300 text-stone-700'
                   }`}
                 >
-                  <Users className={`w-5 h-5 mt-0.5 ${targetAudience === 'ALL' ? 'text-orange-600' : 'text-stone-400'}`} />
+                  <Users className={`w-5 h-5 mt-0.5 ${targetAudience === 'ALL' ? 'text-gold-600' : 'text-stone-400'}`} />
                   <div>
                     <div className="text-xs font-bold">All Customers</div>
                     <div className="text-[11px] text-stone-500 font-normal">All active food subscribers</div>
@@ -232,11 +232,11 @@ export default function AdminNotificationsPage() {
                   onClick={() => setTargetAudience('WITH_DUES')}
                   className={`p-3.5 rounded-xl border text-left transition flex items-start space-x-3 ${
                     targetAudience === 'WITH_DUES'
-                      ? 'bg-orange-50/80 border-orange-500 ring-2 ring-orange-500/20 text-orange-950 font-bold'
+                      ? 'bg-gold-50/80 border-gold-500 ring-2 ring-gold-500/20 text-gold-950 font-bold'
                       : 'bg-stone-50/50 border-stone-200 hover:border-stone-300 text-stone-700'
                   }`}
                 >
-                  <CreditCard className={`w-5 h-5 mt-0.5 ${targetAudience === 'WITH_DUES' ? 'text-orange-600' : 'text-stone-400'}`} />
+                  <CreditCard className={`w-5 h-5 mt-0.5 ${targetAudience === 'WITH_DUES' ? 'text-gold-600' : 'text-stone-400'}`} />
                   <div>
                     <div className="text-xs font-bold">Customers With Dues</div>
                     <div className="text-[11px] text-stone-500 font-normal">Having unpaid meals</div>
@@ -248,11 +248,11 @@ export default function AdminNotificationsPage() {
                   onClick={() => setTargetAudience('SINGLE')}
                   className={`p-3.5 rounded-xl border text-left transition flex items-start space-x-3 ${
                     targetAudience === 'SINGLE'
-                      ? 'bg-orange-50/80 border-orange-500 ring-2 ring-orange-500/20 text-orange-950 font-bold'
+                      ? 'bg-gold-50/80 border-gold-500 ring-2 ring-gold-500/20 text-gold-950 font-bold'
                       : 'bg-stone-50/50 border-stone-200 hover:border-stone-300 text-stone-700'
                   }`}
                 >
-                  <MessageCircle className={`w-5 h-5 mt-0.5 ${targetAudience === 'SINGLE' ? 'text-orange-600' : 'text-stone-400'}`} />
+                  <MessageCircle className={`w-5 h-5 mt-0.5 ${targetAudience === 'SINGLE' ? 'text-gold-600' : 'text-stone-400'}`} />
                   <div>
                     <div className="text-xs font-bold">Single Customer</div>
                     <div className="text-[11px] text-stone-500 font-normal">Specific recipient</div>
@@ -267,7 +267,7 @@ export default function AdminNotificationsPage() {
                   <select
                     value={selectedUserId}
                     onChange={(e) => setSelectedUserId(e.target.value)}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-800 focus:outline-none focus:ring-2 focus:ring-gold-500"
                   >
                     <option value="">-- Select Customer from Directory --</option>
                     {employees.map((emp) => (
@@ -287,46 +287,46 @@ export default function AdminNotificationsPage() {
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <label className={`p-3 rounded-xl border flex items-center space-x-3 cursor-pointer transition ${
-                  sendEmail ? 'bg-orange-50 border-orange-300 text-orange-900 font-bold' : 'bg-stone-50 border-stone-200 text-stone-600'
+                  sendEmail ? 'bg-gold-50 border-gold-300 text-gold-900 font-bold' : 'bg-stone-50 border-stone-200 text-stone-600'
                 }`}>
                   <input
                     type="checkbox"
                     checked={sendEmail}
                     onChange={(e) => setSendEmail(e.target.checked)}
-                    className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500"
+                    className="w-4 h-4 text-gold-600 rounded focus:ring-gold-500"
                   />
                   <div className="flex items-center space-x-2">
-                    <Mail className="w-4 h-4 text-orange-600 shrink-0" />
+                    <Mail className="w-4 h-4 text-gold-600 shrink-0" />
                     <span className="text-xs">HTML Email</span>
                   </div>
                 </label>
 
                 <label className={`p-3 rounded-xl border flex items-center space-x-3 cursor-pointer transition ${
-                  sendWhatsApp ? 'bg-orange-50 border-orange-300 text-orange-900 font-bold' : 'bg-stone-50 border-stone-200 text-stone-600'
+                  sendWhatsApp ? 'bg-gold-50 border-gold-300 text-gold-900 font-bold' : 'bg-stone-50 border-stone-200 text-stone-600'
                 }`}>
                   <input
                     type="checkbox"
                     checked={sendWhatsApp}
                     onChange={(e) => setSendWhatsApp(e.target.checked)}
-                    className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500"
+                    className="w-4 h-4 text-gold-600 rounded focus:ring-gold-500"
                   />
                   <div className="flex items-center space-x-2">
-                    <MessageCircle className="w-4 h-4 text-orange-600 shrink-0" />
+                    <MessageCircle className="w-4 h-4 text-gold-600 shrink-0" />
                     <span className="text-xs">1-Click WhatsApp</span>
                   </div>
                 </label>
 
                 <label className={`p-3 rounded-xl border flex items-center space-x-3 cursor-pointer transition ${
-                  sendPush ? 'bg-orange-50 border-orange-300 text-orange-900 font-bold' : 'bg-stone-50 border-stone-200 text-stone-600'
+                  sendPush ? 'bg-gold-50 border-gold-300 text-gold-900 font-bold' : 'bg-stone-50 border-stone-200 text-stone-600'
                 }`}>
                   <input
                     type="checkbox"
                     checked={sendPush}
                     onChange={(e) => setSendPush(e.target.checked)}
-                    className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500"
+                    className="w-4 h-4 text-gold-600 rounded focus:ring-gold-500"
                   />
                   <div className="flex items-center space-x-2">
-                    <Bell className="w-4 h-4 text-orange-600 shrink-0" />
+                    <Bell className="w-4 h-4 text-gold-600 shrink-0" />
                     <span className="text-xs">Screen Push Alert</span>
                   </div>
                 </label>
@@ -345,7 +345,7 @@ export default function AdminNotificationsPage() {
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. Special Weekend Thali Announcement / Monthly Bill Clearance"
                   required
-                  className="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-gold-500"
                 />
               </div>
 
@@ -359,7 +359,7 @@ export default function AdminNotificationsPage() {
                   rows={5}
                   placeholder="Type your announcement, special meal details, payment notice, or kitchen timings..."
                   required
-                  className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-orange-500 font-sans"
+                  className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-gold-500 font-sans"
                 />
               </div>
             </div>
@@ -368,7 +368,7 @@ export default function AdminNotificationsPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50 text-sm cursor-pointer"
+              className="w-full py-3 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 font-bold rounded-xl shadow-lg shadow-gold-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50 text-sm cursor-pointer"
             >
               <Send className="w-4 h-4" />
               <span>{submitting ? 'Dispatching Broadcast...' : 'Dispatch Broadcast to All Selected Channels'}</span>
@@ -377,10 +377,10 @@ export default function AdminNotificationsPage() {
 
           {/* Last Broadcast Dispatch Result & WhatsApp Box */}
           {lastBroadcast && (
-            <div className="bg-stone-900 text-white rounded-2xl p-5 shadow-xl border border-orange-500/40 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
+            <div className="bg-stone-900 text-white rounded-2xl p-5 shadow-xl border border-gold-500/40 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
               <div className="flex items-center justify-between border-b border-stone-800 pb-3">
                 <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold">
+                  <div className="w-8 h-8 rounded-lg bg-gold-500/20 text-gold-400 flex items-center justify-center font-bold">
                     <CheckCircle className="w-5 h-5 text-green-400" />
                   </div>
                   <div>
@@ -402,21 +402,21 @@ export default function AdminNotificationsPage() {
                   <Mail className="w-4 h-4 text-sky-400 shrink-0" />
                   <div className="min-w-0">
                     <div className="text-[11px] font-bold text-stone-200">Email</div>
-                    <div className="text-[10px] text-orange-400">Dispatched / Sent</div>
+                    <div className="text-[10px] text-gold-400">Dispatched / Sent</div>
                   </div>
                 </div>
                 <div className="p-2.5 bg-stone-800/80 rounded-xl border border-stone-700/60 flex items-center space-x-2">
                   <Bell className="w-4 h-4 text-amber-400 shrink-0" />
                   <div className="min-w-0">
                     <div className="text-[11px] font-bold text-stone-200">In-App & Push</div>
-                    <div className="text-[10px] text-orange-400">Live on Bell & Screen</div>
+                    <div className="text-[10px] text-gold-400">Live on Bell & Screen</div>
                   </div>
                 </div>
                 <div className="p-2.5 bg-stone-800/80 rounded-xl border border-stone-700/60 flex items-center space-x-2">
-                  <MessageCircle className="w-4 h-4 text-orange-400 shrink-0" />
+                  <MessageCircle className="w-4 h-4 text-gold-400 shrink-0" />
                   <div className="min-w-0">
                     <div className="text-[11px] font-bold text-stone-200">WhatsApp</div>
-                    <div className="text-[10px] text-orange-400">{lastBroadcast.whatsAppLinks?.length || 0} Links Ready</div>
+                    <div className="text-[10px] text-gold-400">{lastBroadcast.whatsAppLinks?.length || 0} Links Ready</div>
                   </div>
                 </div>
               </div>
@@ -425,24 +425,24 @@ export default function AdminNotificationsPage() {
               {lastBroadcast.whatsAppLinks && lastBroadcast.whatsAppLinks.length > 0 && (
                 <div className="space-y-2 pt-1 border-t border-stone-800">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-orange-300 flex items-center space-x-1.5">
-                      <MessageCircle className="w-4 h-4 text-orange-400" />
+                    <span className="text-xs font-bold text-gold-300 flex items-center space-x-1.5">
+                      <MessageCircle className="w-4 h-4 text-gold-400" />
                       <span>1-Click WhatsApp Direct Chat ({lastBroadcast.whatsAppLinks.length} Customer{lastBroadcast.whatsAppLinks.length > 1 ? 's' : ''})</span>
                     </span>
                     <span className="text-[10px] text-stone-400">Pre-formatted announcement</span>
                   </div>
 
                   {lastBroadcast.whatsAppLinks.length === 1 ? (
-                    <div className="p-3 bg-orange-950/80 rounded-xl border border-orange-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div className="p-3 bg-gold-950/80 rounded-xl border border-gold-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
                       <div>
                         <div className="text-xs font-bold text-white">{lastBroadcast.whatsAppLinks[0].customerName}</div>
-                        <div className="text-[11px] text-orange-400 font-mono">{lastBroadcast.whatsAppLinks[0].phone || 'No phone'}</div>
+                        <div className="text-[11px] text-gold-400 font-mono">{lastBroadcast.whatsAppLinks[0].phone || 'No phone'}</div>
                       </div>
                       <a
                         href={lastBroadcast.whatsAppLinks[0].whatsappLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full sm:w-auto px-4 py-2 bg-orange-500 hover:bg-orange-400 text-stone-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-lg cursor-pointer"
+                        className="w-full sm:w-auto px-4 py-2 bg-gold-500 hover:bg-gold-400 text-stone-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-lg cursor-pointer"
                       >
                         <MessageCircle className="w-4 h-4" />
                         <span>Open WhatsApp Chat Now</span>
@@ -457,13 +457,13 @@ export default function AdminNotificationsPage() {
                         >
                           <div>
                             <div className="text-xs font-bold text-white">{item.customerName}</div>
-                            <div className="text-[10px] text-orange-400 font-mono">{item.phone}</div>
+                            <div className="text-[10px] text-gold-400 font-mono">{item.phone}</div>
                           </div>
                           <a
                             href={item.whatsappLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-3 py-1 bg-orange-500 hover:bg-orange-400 text-stone-950 font-bold rounded-lg text-xs flex items-center space-x-1 transition shadow-sm cursor-pointer"
+                            className="px-3 py-1 bg-gold-500 hover:bg-gold-400 text-stone-950 font-bold rounded-lg text-xs flex items-center space-x-1 transition shadow-sm cursor-pointer"
                           >
                             <MessageCircle className="w-3.5 h-3.5" />
                             <span>Send WhatsApp</span>
@@ -483,7 +483,7 @@ export default function AdminNotificationsPage() {
           {/* Preset Templates */}
           <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm space-y-3">
             <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2 border-b border-stone-100 pb-2">
-              <Sparkles className="w-4 h-4 text-orange-600" />
+              <Sparkles className="w-4 h-4 text-gold-600" />
               <span>Quick Preset Templates</span>
             </h3>
             <p className="text-[11px] text-stone-400">1-click to auto-fill proven announcement copy:</p>
@@ -496,9 +496,9 @@ export default function AdminNotificationsPage() {
                     key={i}
                     type="button"
                     onClick={() => handleApplyTemplate(tpl)}
-                    className="w-full p-3 rounded-xl bg-stone-50 hover:bg-orange-50 hover:border-orange-200 border border-stone-200/70 text-left transition flex items-start space-x-3 group"
+                    className="w-full p-3 rounded-xl bg-stone-50 hover:bg-gold-50 hover:border-gold-200 border border-stone-200/70 text-left transition flex items-start space-x-3 group"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-orange-100 flex items-center justify-center shrink-0 text-orange-700 mt-0.5 group-hover:scale-110 transition-transform">
+                    <div className="w-7 h-7 rounded-lg bg-gold-100 flex items-center justify-center shrink-0 text-gold-700 mt-0.5 group-hover:scale-110 transition-transform">
                       <Icon className="w-3.5 h-3.5" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -512,8 +512,8 @@ export default function AdminNotificationsPage() {
           </div>
 
           {/* System Delivery Summary */}
-          <div className="bg-gradient-to-br from-stone-900 to-orange-950 text-white rounded-2xl p-5 shadow-sm space-y-3">
-            <div className="flex items-center space-x-2 text-orange-400 font-bold text-xs">
+          <div className="bg-gradient-to-br from-stone-900 to-gold-950 text-white rounded-2xl p-5 shadow-sm space-y-3">
+            <div className="flex items-center space-x-2 text-gold-400 font-bold text-xs">
               <ShieldCheck className="w-4 h-4" />
               <span>Active Delivery Hub</span>
             </div>
@@ -539,7 +539,7 @@ export default function AdminNotificationsPage() {
       <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-stone-100 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Clock className="w-5 h-5 text-orange-600" />
+            <Clock className="w-5 h-5 text-gold-600" />
             <h3 className="font-bold text-stone-900 text-sm">Past Broadcast History</h3>
           </div>
           <span className="text-xs font-bold text-stone-400">{history.length} Announcements</span>
@@ -580,7 +580,7 @@ export default function AdminNotificationsPage() {
                       <div className="text-[11px] text-stone-500 truncate max-w-md">{h.message}</div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gold-100 text-gold-800">
                         {h.targetAudience === 'ALL' ? 'All Customers' :
                          h.targetAudience === 'WITH_DUES' ? 'With Dues' : (h.targetUserName || 'Single Customer')}
                       </span>
@@ -588,7 +588,7 @@ export default function AdminNotificationsPage() {
                     <td className="py-3 px-4">
                       <div className="flex items-center space-x-1.5">
                         {h.channels.includes('EMAIL') && <span title="Email"><Mail className="w-3.5 h-3.5 text-blue-600" /></span>}
-                        {h.channels.includes('WHATSAPP') && <span title="WhatsApp"><MessageCircle className="w-3.5 h-3.5 text-orange-600" /></span>}
+                        {h.channels.includes('WHATSAPP') && <span title="WhatsApp"><MessageCircle className="w-3.5 h-3.5 text-gold-600" /></span>}
                         {h.channels.includes('PUSH') && <span title="Push"><Bell className="w-3.5 h-3.5 text-purple-600" /></span>}
                       </div>
                     </td>

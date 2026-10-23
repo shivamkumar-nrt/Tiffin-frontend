@@ -46,7 +46,7 @@ export const GlobalApiLoader: React.FC = () => {
             animate={{ scaleX: 1, opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 via-amber-400 to-orange-600 z-[9999] origin-left shadow-sm shadow-orange-500/50"
+            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-gold-500 via-amber-400 to-gold-600 z-[9999] origin-left shadow-sm shadow-gold-500/50"
           />
         )}
       </AnimatePresence>

@@ -126,7 +126,7 @@ export default function AdminInvoicesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
-            <FileText className="w-5 h-5 text-orange-600" />
+            <FileText className="w-5 h-5 text-gold-600" />
             <span>Invoices Center</span>
           </h1>
           <p className="text-xs text-stone-500 mt-0.5">
@@ -155,7 +155,7 @@ export default function AdminInvoicesPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Invoice #, customer..."
-                className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
               />
             </div>
           </div>
@@ -165,7 +165,7 @@ export default function AdminInvoicesPage() {
             <select
               value={selectedUser}
               onChange={(e) => setSelectedUser(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
             >
               <option value="">All Customers</option>
               {employees.map((emp) => (
@@ -182,7 +182,7 @@ export default function AdminInvoicesPage() {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
             />
           </div>
 
@@ -192,7 +192,7 @@ export default function AdminInvoicesPage() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"
             />
           </div>
         </div>
@@ -205,7 +205,7 @@ export default function AdminInvoicesPage() {
               key={preset}
               type="button"
               onClick={() => setQuickDate(preset)}
-              className="px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-orange-50 hover:text-orange-700 text-stone-600 font-medium text-[11px] transition"
+              className="px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-gold-50 hover:text-gold-700 text-stone-600 font-medium text-[11px] transition"
             >
               {preset === 'ALL' ? 'All Dates' : preset === 'TODAY' ? 'Today' : preset === 'YESTERDAY' ? 'Yesterday' : preset === 'WEEK' ? 'Last 7 Days' : 'This Month'}
             </button>
@@ -253,7 +253,7 @@ export default function AdminInvoicesPage() {
                       Rs. {Number(inv.totalAmount).toFixed(2)}
                     </td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gold-100 text-gold-800">
                         PAID
                       </span>
                     </td>
@@ -268,7 +268,7 @@ export default function AdminInvoicesPage() {
                         </button>
                         <button
                           onClick={() => handleDownloadPdf(inv.id)}
-                          className="px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
+                          className="px-2.5 py-1 bg-gold-500 hover:bg-gold-400 text-gold-900 rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm"
                         >
                           <Download className="w-3.5 h-3.5" />
                           <span>PDF</span>

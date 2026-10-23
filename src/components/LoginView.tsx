@@ -22,6 +22,7 @@ import {
 import Link from 'next/link';
 import { useToast } from '@/context/ToastContext';
 import Loader from '@/components/Loader';
+import { GoldenThali } from '@/components/three';
 
 export const LoginView: React.FC = () => {
   const { login } = useAuth();
@@ -101,7 +102,7 @@ export const LoginView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 bg-stone-50 lg:bg-white relative">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 relative">
       {/* Fullscreen Animated Bar Loader on API call */}
       {loading && (
         <Loader
@@ -110,26 +111,26 @@ export const LoginView: React.FC = () => {
         />
       )}
       {/* Left Hero Showcase (Full showcase on LG, compact top banner on mobile) */}
-      <div className="lg:col-span-7 bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950 p-5 sm:p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden text-white">
+      <div className="lg:col-span-7 bg-gradient-to-br from-gold-200/80 via-white/50 to-gold-100/80 backdrop-blur-sm p-5 sm:p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden text-stone-800">
         {/* Ambient Glows */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-gold-300/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-300/40 rounded-full blur-3xl pointer-events-none"></div>
 
         {/* Top Brand Logo */}
         <div className="relative z-10 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-orange-500/30 group-hover:scale-105 transition">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-gold-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-gold-500/30 group-hover:scale-105 transition">
               <Utensils className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
-              <h1 className="text-lg sm:text-xl font-black tracking-tight text-white">TiffinSystem</h1>
-              <p className="text-[10px] sm:text-[11px] text-orange-200/80 font-medium">Daily Fresh Food & Account Portal</p>
+              <h1 className="font-display text-lg sm:text-xl font-extrabold tracking-tight text-gold-900">TiffinSystem</h1>
+              <p className="text-[10px] sm:text-[11px] text-gold-700 font-medium">Daily Fresh Food & Account Portal</p>
             </div>
           </Link>
 
           <Link
             href="/"
-            className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition backdrop-blur-md flex items-center space-x-1"
+            className="px-3 py-1.5 rounded-xl bg-white/70 hover:bg-white text-xs font-semibold text-gold-800 border border-gold-200 transition backdrop-blur-md flex items-center space-x-1"
           >
             <span>← Home</span>
           </Link>
@@ -137,43 +138,45 @@ export const LoginView: React.FC = () => {
 
         {/* Center Showcase Content (Hidden on small mobile, visible on lg) */}
         <div className="relative z-10 my-6 lg:my-10 space-y-4 lg:space-y-6 max-w-xl hidden lg:block">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/70 border border-gold-200 text-gold-700 text-xs font-bold backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Pure, Fresh & Home-Style Meals</span>
           </div>
 
-          <h2 className="text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
+          <h2 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-gold-900 leading-tight">
             Delicious Daily Meals, <br />
-            <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-gold-600 via-gold-500 to-amber-500 bg-clip-text text-transparent">
               Managed Seamlessly.
             </span>
           </h2>
 
-          <p className="text-sm text-stone-300 leading-relaxed">
+          <p className="text-sm text-stone-600 leading-relaxed">
             Order healthy Full & Half Thalis, explore special custom combos, track daily food consumption records, and view automatic tax invoices.
           </p>
 
+          <div className="h-64 -mx-6 -my-2"><GoldenThali /></div>
+
           {/* Value Proposition Cards */}
           <div className="space-y-3 pt-2">
-            <div className="flex items-start space-x-3.5 p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <div className="w-9 h-9 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0 mt-0.5">
+            <div className="flex items-start space-x-3.5 p-3.5 rounded-2xl bg-white/70 border border-gold-200 backdrop-blur-md shadow-sm">
+              <div className="w-9 h-9 rounded-xl bg-gold-100 flex items-center justify-center text-gold-700 flex-shrink-0 mt-0.5">
                 <ChefHat className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-white">Curated Thalis & Combos</h4>
-                <p className="text-[11px] text-stone-400 mt-0.5">
+                <h4 className="text-xs font-bold text-gold-900">Curated Thalis & Combos</h4>
+                <p className="text-[11px] text-stone-500 mt-0.5">
                   Soft rotis, rich paneer dishes, dal tadka, jeera rice, sweets & fresh salad.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start space-x-3.5 p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <div className="w-9 h-9 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 flex-shrink-0 mt-0.5">
+            <div className="flex items-start space-x-3.5 p-3.5 rounded-2xl bg-white/70 border border-gold-200 backdrop-blur-md shadow-sm">
+              <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0 mt-0.5">
                 <Receipt className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-white">Transparent Account & Invoicing</h4>
-                <p className="text-[11px] text-stone-400 mt-0.5">
+                <h4 className="text-xs font-bold text-gold-900">Transparent Account & Invoicing</h4>
+                <p className="text-[11px] text-stone-500 mt-0.5">
                   Automated running ledger, locked pricing snapshots, and 1-click PDF invoices.
                 </p>
               </div>
@@ -182,17 +185,17 @@ export const LoginView: React.FC = () => {
         </div>
 
         {/* Bottom Social Proof */}
-        <div className="relative z-10 pt-4 lg:pt-6 border-t border-white/10 flex items-center justify-between text-xs text-stone-400">
+        <div className="relative z-10 pt-4 lg:pt-6 border-t border-gold-200 flex items-center justify-between text-xs text-stone-500">
           <div className="flex items-center space-x-2">
-            <HeartHandshake className="w-4 h-4 text-orange-400" />
+            <HeartHandshake className="w-4 h-4 text-gold-600" />
             <span className="text-[11px] sm:text-xs">Hygienic Kitchen • Fast Delivery</span>
           </div>
-          <span className="font-bold text-white text-[11px] sm:text-xs">4.9 ★ Rating</span>
+          <span className="font-bold text-gold-900 text-[11px] sm:text-xs">4.9 ★ Rating</span>
         </div>
       </div>
 
       {/* Right Auth Card Panel */}
-      <div className="lg:col-span-5 bg-stone-50/70 p-4 sm:p-8 lg:p-12 flex flex-col justify-center border-l border-stone-200/60">
+      <div className="lg:col-span-5 bg-white/60 backdrop-blur-md p-4 sm:p-8 lg:p-12 flex flex-col justify-center border-l border-gold-200/70">
         <div className="max-w-md w-full mx-auto space-y-5 sm:space-y-6">
           {/* Header Title */}
           <div>
@@ -217,7 +220,7 @@ export const LoginView: React.FC = () => {
               }}
               className={`py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center space-x-1.5 ${
                 mode === 'LOGIN'
-                  ? 'bg-white text-orange-600 shadow-sm'
+                  ? 'bg-white text-gold-600 shadow-sm'
                   : 'text-stone-600 hover:text-stone-900'
               }`}
             >
@@ -234,7 +237,7 @@ export const LoginView: React.FC = () => {
               }}
               className={`py-2.5 text-xs font-bold rounded-xl transition flex items-center justify-center space-x-1.5 ${
                 mode === 'SIGNUP'
-                  ? 'bg-white text-orange-600 shadow-sm'
+                  ? 'bg-white text-gold-600 shadow-sm'
                   : 'text-stone-600 hover:text-stone-900'
               }`}
             >
@@ -251,8 +254,8 @@ export const LoginView: React.FC = () => {
           )}
 
           {successMsg && (
-            <div className="p-3.5 bg-orange-50 border border-orange-200 rounded-2xl flex items-center space-x-2 text-xs text-orange-800 font-bold">
-              <CheckCircle className="w-4 h-4 text-orange-600 flex-shrink-0" />
+            <div className="p-3.5 bg-gold-50 border border-gold-200 rounded-2xl flex items-center space-x-2 text-xs text-gold-800 font-bold">
+              <CheckCircle className="w-4 h-4 text-gold-600 flex-shrink-0" />
               <span>{successMsg}</span>
             </div>
           )}
@@ -274,7 +277,7 @@ export const LoginView: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -292,7 +295,7 @@ export const LoginView: React.FC = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -300,7 +303,7 @@ export const LoginView: React.FC = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-xl text-xs shadow-md shadow-orange-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50"
+                  className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 font-bold rounded-xl text-xs shadow-md shadow-gold-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50"
                 >
                   <span>{loading ? 'Signing In...' : 'Sign In'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -323,7 +326,7 @@ export const LoginView: React.FC = () => {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -342,7 +345,7 @@ export const LoginView: React.FC = () => {
                       value={signupEmail}
                       onChange={(e) => setSignupEmail(e.target.value)}
                       placeholder="e.g. rahul@gmail.com"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -362,7 +365,7 @@ export const LoginView: React.FC = () => {
                       value={signupPassword}
                       onChange={(e) => setSignupPassword(e.target.value)}
                       placeholder="At least 6 characters"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -380,7 +383,7 @@ export const LoginView: React.FC = () => {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 9876543210"
-                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gold-500 focus:bg-white transition"
                     />
                   </div>
                 </div>
@@ -388,7 +391,7 @@ export const LoginView: React.FC = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-xl text-xs shadow-md shadow-orange-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50"
+                  className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-gold-900 font-bold rounded-xl text-xs shadow-md shadow-gold-500/20 flex items-center justify-center space-x-2 transition disabled:opacity-50"
                 >
                   <span>{loading ? 'Creating Account...' : 'Sign Up & Start Ordering'}</span>
                   <ArrowRight className="w-4 h-4" />
