@@ -62,13 +62,23 @@ export const menuDto = (m: Menu & { items: MenuItem[] }) => ({
   items: [...m.items].sort((a, b) => a.id - b.id).map(menuItemDto),
 });
 
+/** SQLite has no array type: combo items are stored as a JSON string. */
+export function parseItems(raw: string | null | undefined): string[] {
+  try {
+    const v = JSON.parse(raw || '[]');
+    return Array.isArray(v) ? v.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
 export const comboDto = (c: ComboPackage) => ({
   id: c.id,
   name: c.name,
   tiffinType: c.tiffinType,
   price: num(c.price),
   description: c.description,
-  includedItems: c.includedItems,
+  includedItems: parseItems(c.includedItems),
   active: c.isActive,
   createdAt: fmtDateTime(c.createdAt),
 });

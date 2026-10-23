@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { SignJWT } from 'jose';
-import { Prisma, RoleType, UserStatus } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import type { RoleType, UserStatus } from '../enums';
 import { prisma } from '../db';
 import { ApiError, AuthUser, badRequest, notFound, pageOf } from '../http';
 import { userDto } from '../mappers';
@@ -121,8 +122,8 @@ export async function searchUsers(
   const where: Prisma.UserWhereInput = q
     ? {
         OR: [
-          { fullName: { contains: q, mode: 'insensitive' } },
-          { email: { contains: q, mode: 'insensitive' } },
+          { fullName: { contains: q } },
+          { email: { contains: q } },
         ],
       }
     : {};

@@ -3,7 +3,14 @@ const nextConfig = {
   reactStrictMode: false,
   experimental: {
     // Keep native/server-only packages out of the webpack bundle.
-    serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs', 'nodemailer'],
+    serverComponentsExternalPackages: [
+      '@prisma/client',
+      '@prisma/adapter-libsql',
+      '@libsql/client',
+      'libsql',
+      'bcryptjs',
+      'nodemailer',
+    ],
   },
 };
 

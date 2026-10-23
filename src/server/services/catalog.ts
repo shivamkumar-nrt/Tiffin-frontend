@@ -1,4 +1,5 @@
-import { Prisma, TiffinType } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import type { TiffinType } from '../enums';
 import { z } from 'zod';
 import { prisma } from '../db';
 import { notFound } from '../http';
@@ -114,7 +115,7 @@ export async function createCombo(dto: z.infer<typeof comboSchema>, adminEmail: 
       tiffinType: dto.tiffinType,
       price: dec(dto.price),
       description: dto.description ?? null,
-      includedItems: dto.includedItems ?? [],
+      includedItems: JSON.stringify(dto.includedItems ?? []),
       isActive: dto.active,
     },
   });
@@ -132,7 +133,7 @@ export async function updateCombo(id: number, dto: z.infer<typeof comboSchema>, 
       tiffinType: dto.tiffinType,
       price: dec(dto.price),
       description: dto.description ?? null,
-      includedItems: dto.includedItems ?? [],
+      includedItems: JSON.stringify(dto.includedItems ?? []),
       isActive: dto.active,
     },
   });

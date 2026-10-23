@@ -1,4 +1,6 @@
-import { Prisma, RecordStatus, RequestStatus } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import type { RecordStatus, RequestStatus, TiffinType } from '../enums';
+import { parseItems } from '../mappers';
 import { z } from 'zod';
 import { prisma } from '../db';
 import { ApiError, AuthUser, badRequest, notFound, pageOf } from '../http';
@@ -88,15 +90,16 @@ export async function approveRequest(requestId: number, adminEmail: string) {
     const closing = instr.indexOf(']');
     if (closing > 1) {
       const comboName = instr.substring(1, closing);
-      const combo = await prisma.comboPackage.findFirst({
-        where: { name: { equals: comboName, mode: 'insensitive' } },
-        orderBy: { id: 'asc' },
-      });
+      const wanted = comboName.toLowerCase();
+      const combo = (await prisma.comboPackage.findMany({ orderBy: { id: 'asc' } })).find(
+        (c) => c.name.toLowerCase() === wanted,
+      );
       if (combo) {
         chargedAmount = combo.price;
+        const items = parseItems(combo.includedItems);
         menuSnapshot =
-          combo.includedItems.length > 0
-            ? `${combo.name} (${combo.includedItems.join(', ')})`
+          items.length > 0
+            ? `${combo.name} (${items.join(', ')})`
             : `${combo.name} - ${combo.description ?? 'Standard Thali'}`;
       }
     }
@@ -110,7 +113,7 @@ export async function approveRequest(requestId: number, adminEmail: string) {
     }
   }
   if (chargedAmount == null) {
-    chargedAmount = await getPriceForTypeAndDate(request.tiffinType, request.serviceDate);
+    chargedAmount = await getPriceForTypeAndDate(request.tiffinType as TiffinType, request.serviceDate);
   }
   const snapshot = menuSnapshot.length > 1000 ? menuSnapshot.slice(0, 1000) : menuSnapshot;
 

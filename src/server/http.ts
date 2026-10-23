@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Prisma, RoleType, UserStatus } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import type { RoleType, UserStatus } from './enums';
 import { ZodError, ZodTypeAny, z } from 'zod';
 import { jwtVerify } from 'jose';
 import { prisma } from './db';
@@ -54,7 +55,13 @@ async function resolveUser(req: NextRequest): Promise<AuthUser | null> {
     if (!payload.sub) return null;
     const user = await prisma.user.findUnique({ where: { email: payload.sub } });
     if (!user || user.status !== 'ACTIVE') return null;
-    return { id: user.id, email: user.email, fullName: user.fullName, role: user.role, status: user.status };
+    return {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      role: user.role as RoleType,
+      status: user.status as UserStatus,
+    };
   } catch {
     return null;
   }

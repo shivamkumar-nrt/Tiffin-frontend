@@ -1,74 +1,22 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-}
-
-enum RoleType {
-  ROLE_ADMIN
-  ROLE_EMPLOYEE
-}
-
-enum UserStatus {
-  ACTIVE
-  INACTIVE
-}
-
-enum TiffinType {
-  FULL
-  HALF
-}
-
-enum RequestStatus {
-  PENDING
-  APPROVED
-  REJECTED
-  CANCELLED
-}
-
-enum RecordStatus {
-  UNPAID
-  BILLED_PAID
-}
-
-enum PaymentStatus {
-  PENDING_VERIFICATION
-  SUCCESS
-  FAILED
-}
-
-enum PaymentMethod {
-  CASH
-  UPI
-  BANK_TRANSFER
-  CREDIT_CARD
-  OTHER
-}
-
-enum ItemCategory {
-  MAIN_COURSE
-  CURRY
-  BREAD
-  RICE
-  DESSERT
-  SALAD
-  BEVERAGE
-  SPECIAL
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id         Int        @id @default(autoincrement())
-  email      String     @unique @db.VarChar(100)
+  email      String     @unique
   password   String
-  fullName   String     @db.VarChar(100)
-  phone      String?    @db.VarChar(20)
-  department String?    @db.VarChar(100)
-  role       RoleType
-  status     UserStatus @default(ACTIVE)
+  fullName   String
+  phone      String?
+  department String?
+  role       String
+  status     String @default("ACTIVE")
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
@@ -84,10 +32,10 @@ model User {
 
 model PriceConfig {
   id            Int        @id @default(autoincrement())
-  tiffinType    TiffinType
-  price         Decimal    @db.Decimal(10, 2)
-  effectiveFrom DateTime   @db.Date
-  effectiveTo   DateTime?  @db.Date
+  tiffinType    String
+  price         Decimal
+  effectiveFrom DateTime
+  effectiveTo   DateTime?
   isActive      Boolean    @default(true)
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
@@ -98,11 +46,11 @@ model PriceConfig {
 
 model ComboPackage {
   id            Int        @id @default(autoincrement())
-  name          String     @db.VarChar(100)
-  tiffinType    TiffinType @default(FULL)
-  price         Decimal    @db.Decimal(10, 2)
-  description   String?    @db.VarChar(500)
-  includedItems String[]
+  name          String
+  tiffinType    String @default("FULL")
+  price         Decimal
+  description   String?
+  includedItems String   @default("[]")
   isActive      Boolean    @default(true)
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
@@ -113,9 +61,9 @@ model ComboPackage {
 
 model Menu {
   id          Int        @id @default(autoincrement())
-  serviceDate DateTime   @unique @db.Date
-  title       String     @db.VarChar(150)
-  description String?    @db.VarChar(500)
+  serviceDate DateTime   @unique
+  title       String
+  description String?
   isSpecial   Boolean    @default(false)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -129,9 +77,9 @@ model MenuItem {
   id          Int          @id @default(autoincrement())
   menuId      Int?
   menu        Menu?        @relation(fields: [menuId], references: [id], onDelete: Cascade)
-  name        String       @db.VarChar(100)
-  category    ItemCategory
-  description String?      @db.VarChar(255)
+  name        String
+  category    String
+  description String?
   isSpicy     Boolean      @default(false)
   isSweet     Boolean      @default(false)
   isAvailable Boolean      @default(true)
@@ -144,12 +92,12 @@ model TiffinRequest {
   id                  Int           @id @default(autoincrement())
   userId              Int
   user                User          @relation(fields: [userId], references: [id])
-  serviceDate         DateTime      @db.Date
-  tiffinType          TiffinType
-  specialInstructions String?       @db.VarChar(500)
-  status              RequestStatus @default(PENDING)
-  reviewedBy          String?       @db.VarChar(100)
-  rejectionReason     String?       @db.VarChar(500)
+  serviceDate         DateTime
+  tiffinType          String
+  specialInstructions String?
+  status              String @default("PENDING")
+  reviewedBy          String?
+  rejectionReason     String?
   reviewedAt          DateTime?
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
@@ -167,11 +115,11 @@ model TiffinRecord {
   request        TiffinRequest @relation(fields: [requestId], references: [id])
   userId         Int
   user           User          @relation(fields: [userId], references: [id])
-  serviceDate    DateTime      @db.Date
-  tiffinType     TiffinType
-  menuSnapshot   String?       @db.VarChar(1000)
-  chargedAmount  Decimal       @db.Decimal(10, 2)
-  status         RecordStatus  @default(UNPAID)
+  serviceDate    DateTime
+  tiffinType     String
+  menuSnapshot   String?
+  chargedAmount  Decimal
+  status         String  @default("UNPAID")
   paymentId      Int?
   payment        Payment?      @relation(fields: [paymentId], references: [id])
   createdAt      DateTime      @default(now())
@@ -185,18 +133,18 @@ model TiffinRecord {
 
 model Payment {
   id              Int           @id @default(autoincrement())
-  paymentNumber   String        @unique @db.VarChar(50)
+  paymentNumber   String        @unique
   userId          Int
   user            User          @relation(fields: [userId], references: [id])
-  amount          Decimal       @db.Decimal(10, 2)
-  paymentMethod   PaymentMethod
-  transactionRef  String?       @db.VarChar(100)
-  paymentDate     DateTime?     @db.Date
-  paymentApp      String?       @db.VarChar(100)
-  notes           String?       @db.VarChar(500)
-  rejectionReason String?       @db.VarChar(500)
-  status          PaymentStatus @default(PENDING_VERIFICATION)
-  verifiedBy      String?       @db.VarChar(100)
+  amount          Decimal
+  paymentMethod   String
+  transactionRef  String?
+  paymentDate     DateTime?
+  paymentApp      String?
+  notes           String?
+  rejectionReason String?
+  status          String @default("PENDING_VERIFICATION")
+  verifiedBy      String?
   verifiedAt      DateTime?
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
@@ -210,18 +158,18 @@ model Payment {
 
 model Invoice {
   id               Int           @id @default(autoincrement())
-  invoiceNumber    String        @unique @db.VarChar(50)
+  invoiceNumber    String        @unique
   userId           Int
   user             User          @relation(fields: [userId], references: [id])
   paymentId        Int?          @unique
   payment          Payment?      @relation(fields: [paymentId], references: [id])
-  billingStartDate DateTime      @db.Date
-  billingEndDate   DateTime      @db.Date
-  totalAmount      Decimal       @db.Decimal(10, 2)
-  paymentAmount    Decimal       @db.Decimal(10, 2)
-  paymentStatus    PaymentStatus @default(SUCCESS)
-  notes            String?       @db.VarChar(500)
-  generatedBy      String?       @db.VarChar(100)
+  billingStartDate DateTime
+  billingEndDate   DateTime
+  totalAmount      Decimal
+  paymentAmount    Decimal
+  paymentStatus    String @default("SUCCESS")
+  notes            String?
+  generatedBy      String?
   generatedAt      DateTime      @default(now())
   items            InvoiceItem[]
 
@@ -235,10 +183,10 @@ model InvoiceItem {
   invoice        Invoice      @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   tiffinRecordId Int          @unique
   tiffinRecord   TiffinRecord @relation(fields: [tiffinRecordId], references: [id])
-  serviceDate    DateTime     @db.Date
-  tiffinType     TiffinType
-  menuSummary    String?      @db.VarChar(500)
-  chargedAmount  Decimal      @db.Decimal(10, 2)
+  serviceDate    DateTime
+  tiffinType     String
+  menuSummary    String?
+  chargedAmount  Decimal
 
   @@index([invoiceId])
   @@map("invoice_items")
@@ -246,11 +194,11 @@ model InvoiceItem {
 
 model AuditLog {
   id          Int      @id @default(autoincrement())
-  action      String   @db.VarChar(50)
-  entityName  String   @db.VarChar(50)
-  entityId    String?  @db.VarChar(50)
-  performedBy String   @db.VarChar(100)
-  details     String?  @db.VarChar(1000)
+  action      String
+  entityName  String
+  entityId    String?
+  performedBy String
+  details     String?
   timestamp   DateTime @default(now())
 
   @@index([action])
@@ -260,13 +208,13 @@ model AuditLog {
 
 model BroadcastNotification {
   id              Int      @id @default(autoincrement())
-  title           String   @db.VarChar(200)
-  message         String   @db.VarChar(2000)
-  targetAudience  String   @db.VarChar(50)
+  title           String
+  message         String
+  targetAudience  String
   targetUserId    Int?
-  targetUserName  String?  @db.VarChar(100)
-  channels        String?  @db.VarChar(100)
-  sentBy          String?  @db.VarChar(100)
+  targetUserName  String?
+  channels        String?
+  sentBy          String?
   recipientsCount Int      @default(0)
   createdAt       DateTime @default(now())
 

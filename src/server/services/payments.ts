@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { Prisma, PaymentStatus } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import type { PaymentStatus } from '../enums';
 import { z } from 'zod';
 import { prisma } from '../db';
 import { ApiError, AuthUser, badRequest, notFound, pageOf } from '../http';

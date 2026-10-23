@@ -55,22 +55,6 @@ export const TABLES = [
   'users',
 ];
 
-/** Postgres schema the Prisma client writes to (the ?schema= param of DATABASE_URL). */
-export function targetSchema(): string {
-  try {
-    return new URL(process.env.DATABASE_URL || '').searchParams.get('schema') || 'public';
-  } catch {
-    return 'public';
-  }
-}
-
-async function resetSequence(prisma: PrismaClient, schema: string, table: string) {
-  const q = `"${schema}"."${table}"`;
-  await prisma.$executeRawUnsafe(
-    `SELECT setval(pg_get_serial_sequence('${q}', 'id'), COALESCE((SELECT MAX(id) FROM ${q}), 1), (SELECT COUNT(*) FROM ${q}) > 0)`,
-  );
-}
-
 export async function importAll(
   prisma: PrismaClient,
   d: Dump,
@@ -78,9 +62,8 @@ export async function importAll(
 ) {
   TZ = opts.tz || process.env.MIGRATION_TZ || 'Asia/Kolkata';
   const rows = (t: string) => d[t] ?? [];
-  const schema = targetSchema();
 
-  console.log(`Target schema: "${schema}"  |  legacy timestamps read as: ${TZ}`);
+  console.log(`Legacy timestamps are read as: ${TZ}`);
   for (const t of Object.keys(d)) console.log(`  source ${t}: ${d[t].length} rows`);
   if (opts.dryRun) {
     console.log('Dry run: nothing written.');
@@ -88,16 +71,15 @@ export async function importAll(
   }
 
   if (opts.wipe) {
-    if (schema === 'public') throw new Error('Refusing --wipe on the "public" schema.');
-    await prisma.$executeRawUnsafe(
-      `TRUNCATE ${TABLES.map((t) => `"${schema}"."${t}"`).join(', ')} RESTART IDENTITY CASCADE`,
-    );
-    console.log('Existing data in the target schema wiped.');
+    // children first (TABLES order); SQLite has no TRUNCATE
+    for (const t of TABLES) await prisma.$executeRawUnsafe(`DELETE FROM "${t}"`);
+    await prisma.$executeRawUnsafe('DELETE FROM sqlite_sequence');
+    console.log('Existing data in the target database wiped.');
   } else {
     const existing = await prisma.user.count();
     if (existing > 0) {
       throw new Error(
-        `Target already has ${existing} user(s). Import into an empty schema (before running db:seed) or pass --wipe.`,
+        `Target already has ${existing} user(s). Import into an empty database (before running db:seed) or pass --wipe.`,
       );
     }
   }
@@ -145,7 +127,7 @@ export async function importAll(
           tiffinType: r.tiffin_type,
           price: r.price,
           description: str(r.description),
-          includedItems: comboItems.get(r.id) ?? [],
+          includedItems: JSON.stringify(comboItems.get(r.id) ?? []),
           isActive: !!r.is_active,
           createdAt: ts(r.created_at)!,
           updatedAt: ts(r.updated_at) ?? ts(r.created_at)!,
@@ -284,6 +266,6 @@ export async function importAll(
     { timeout: 120000 },
   );
 
-  for (const t of TABLES) await resetSequence(prisma, schema, t);
-  console.log('Import complete. Sequences reset.');
+  // Explicit ids update SQLite's AUTOINCREMENT counter automatically, nothing to reset.
+  console.log('Import complete.');
 }
